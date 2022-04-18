@@ -22,13 +22,30 @@
             <RowDefinition Height="41*"/>
         </Grid.RowDefinitions>
         <Grid Background="Black">
-            <Ellipse
-    Width="50"
-    Height="50"
-    Canvas.Left="135"
-    Canvas.Top="25" Fill="Blue"/>
+            <Canvas  Background="Aquamarine">
+                <Ellipse Name="Ellipse1" Width="50" Height="50" Canvas.Left="135" Canvas.Top="50" Fill="Blue">
+                    <Ellipse.Triggers>
+                        <EventTrigger RoutedEvent="Ellipse.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                    Storyboard.TargetName="Ellipse1"
+                                    Storyboard.TargetProperty="Height"
+                                    From="50"
+                                    To="100"
+                                    Duration="0:0:0.6"
+                                    AutoReverse="True"
+                                    RepeatBehavior="Forever" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Ellipse.Triggers>
+                </Ellipse>
+            </Canvas>
+
         </Grid>
         <Button Content="Wygeneruj układ startowy" 
+                Command="{Binding SpawnEllipsesButtonClick}"
                 FontSize="10" 
                 FontWeight="Light" 
                 Foreground="White"

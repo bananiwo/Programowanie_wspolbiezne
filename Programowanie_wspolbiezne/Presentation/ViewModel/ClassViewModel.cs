@@ -5,16 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using Presentation.Model;
+using Presentation.Commands;
+using System.Windows;
 
 namespace Presentation.ViewModel
 {
-    internal class ClassViewModel : INotifyPropertyChanged
+    internal class ClassViewModel : ViewModelBase
     {
         ClassModel model;
         private string helloString;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public ClassViewModel()
+        {
+            model = new ClassModel();
+            helloString = model.ImportantInfo;
+            SpawnEllipsesButtonClick = new RelayCommand(() => ClickHandler());
+        }
+
+        public ICommand SpawnEllipsesButtonClick { get; set; }
+
+        private void ClickHandler()
+        {
+            MessageBox.Show("click");
+        }
+
 
         public string HelloString
         {
@@ -25,25 +41,8 @@ namespace Presentation.ViewModel
             set
             {
                 helloString = value;
-                OnPropertyChanged();
+                RaisePropertyChanged("HelloString");
             }
         }
-
-
-        /// <summary>
-        /// Raises OnPropertychangedEvent when property changes
-        /// </summary>
-        /// <param name="name">String representing the property name</param>
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        public ClassViewModel()
-        {
-            model = new ClassModel();
-            helloString = model.ImportantInfo;
-        }
-
     }
 }
