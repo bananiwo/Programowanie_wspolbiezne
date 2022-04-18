@@ -45,7 +45,7 @@
 
         </Grid>
         <Button Content="Wygeneruj układ startowy" 
-                Command="{Binding SpawnEllipsesButtonClick}"
+                Command="{Binding CreateBallsButtonClick}"
                 FontSize="10" 
                 FontWeight="Light" 
                 Foreground="White"
@@ -62,7 +62,7 @@
                  FontSize="24"
                  Grid.Row="1" 
                  TextWrapping="Wrap" 
-                 Text="10" 
+                 Text="{Binding BallQuantityText}" 
                  VerticalAlignment="Center" 
                  Width="40"
                  Height="30"
@@ -71,6 +71,7 @@
                  />
 
         <Button Content="Usuń kulę" 
+            Command="{Binding RemoveBallButtonClick}"
             FontSize="10" 
             FontWeight="Light" 
             Foreground="White"
@@ -83,6 +84,7 @@
             Height="30" 
             Width="66" BorderBrush="#FF1E3636"/>
         <Button Content="Dodaj kule" 
+            Command="{Binding AddBallButtonClick}"
             FontSize="10" 
             FontWeight="Light" 
             Foreground="White"

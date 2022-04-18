@@ -7,7 +7,11 @@ using Data;
 
 namespace Logic
 {
-    internal class InitBall
+    public class BallFactory
     {
+        public Ball createBall(double xPos, double yPos)
+        {
+            return new Ball(xPos, yPos);
+        }
     }
 }
