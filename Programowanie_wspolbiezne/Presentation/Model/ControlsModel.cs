@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.Model
 {
-    internal class ClassModel
+    internal class ControlsModel
     {
         private List<string> repositoryData;
 
@@ -18,7 +18,7 @@ namespace Presentation.Model
             }
         }
 
-        public ClassModel()
+        public ControlsModel()
         {
             repositoryData = GetData();
         }

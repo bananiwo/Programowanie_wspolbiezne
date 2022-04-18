@@ -10,18 +10,27 @@ using Presentation.Model;
 using Presentation.Commands;
 using System.Windows;
 using System.Text.RegularExpressions;
+using System.Collections.ObjectModel;
 
 namespace Presentation.ViewModel
 {
-    internal class ClassViewModel : ViewModelBase
+    internal class ControlsViewModel : ViewModelBase
     {
-        ClassModel model;
+        ControlsModel model;
+        public ObservableCollection<BallVM> Items { get; set; }
         private string _helloString;
         private string _ballQuantityText;
 
-        public ClassViewModel()
+        public ControlsViewModel()
         {
-            model = new ClassModel();
+            Items = new ObservableCollection<BallVM>
+            {
+                new BallVM(100, 100),
+                new BallVM(250, 250),
+                new BallVM(582, 250)
+            };
+
+            model = new ControlsModel();
             _helloString = model.ImportantInfo;
             CreateBallsButtonClick = new RelayCommand(() => CreateBallsButtonClickHandler());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
