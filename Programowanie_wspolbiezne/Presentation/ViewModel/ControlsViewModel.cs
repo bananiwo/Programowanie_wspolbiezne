@@ -18,16 +18,14 @@ namespace Presentation.ViewModel
     internal class ControlsViewModel : ViewModelBase
     {
         ControlsModel model;
-        private ObservableCollection<Ball> _items;
-        private string _helloString;
+        BallModel _ballModel;
+        private ObservableCollection<BallVM> _items;
         private string _ballQuantityText = "1";
         private int _ballQuantity = 1;
 
         public ControlsViewModel()
         {
-            model = new ControlsModel();
-            _helloString = model.ImportantInfo;
-            CreateBallsButtonClick = new RelayCommand(() => CreateBallsButtonClickHandler());
+            CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
         }
@@ -36,17 +34,19 @@ namespace Presentation.ViewModel
         public ICommand AddBallButtonClick { get; set; }
         public ICommand RemoveBallButtonClick { get; set; }
 
-        private void CreateBallsButtonClickHandler()
+        private void getBallVMCollection()
         {
-            BallVM ballVM = new BallVM();
-            var result = ballVM.CreateBallCollection(_ballQuantity);
-            Items = result;
-            int c = Items.Count();
-            MessageBox.Show("ControlsVM, count=", c.ToString());
-
+            _ballModel = new BallModel(_ballQuantity);
+            List<Ball> ballCollection = _ballModel.GetBallCollection();
+            Items = new ObservableCollection<BallVM>();
+            foreach (Ball ball in ballCollection)
+            {
+                BallVM ballVM = new BallVM(ball.X, ball.Y);
+                Items.Add(ballVM);
+            }
         }
 
-        public ObservableCollection<Ball> Items
+        public ObservableCollection<BallVM> Items
         {
             get
             {
@@ -91,19 +91,6 @@ namespace Presentation.ViewModel
                 _ballQuantityText = value;
                 _ballQuantity = int.Parse(_ballQuantityText);
                 RaisePropertyChanged("BallQuantityText");
-            }
-        }
-
-        public string HelloString
-        {
-            get
-            {
-                return model.ImportantInfo;
-            }
-            set
-            {
-                _helloString = value;
-                RaisePropertyChanged("HelloString");
             }
         }
     }

@@ -9,28 +9,12 @@ namespace Presentation.ViewModel
 {
     public class BallVM
     {
-        BallLogic ballLogic = new BallLogic(740, 740);
         private double _radius = 15;
         public BallVM(double x, double y)
         {
 
             Left = convertXToCenter(x);
             Bottom = convertYToCenter(y);
-        }
-
-        public BallVM()
-        {
-            Left = convertXToCenter(ballLogic.getBallPosition().X);
-            Bottom = convertYToCenter(ballLogic.getBallPosition().Y);
-        }
-
-        public ObservableCollection<Ball> CreateBallCollection(int quantity)
-        {
-            var result = ballLogic.CreateBallCollection(quantity);
-            int c = result.Count;
-            MessageBox.Show("BallVM, count=", c.ToString());
-
-            return result;
         }
 
         private double convertXToCenter(double x)

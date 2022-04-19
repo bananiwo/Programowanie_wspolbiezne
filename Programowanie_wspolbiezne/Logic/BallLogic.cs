@@ -8,6 +8,7 @@ namespace Logic
     public class BallLogic
     {
         private Vector2 boardSize;
+        List<Ball> _ballCollection;
 
         public BallLogic(float X, float Y) 
         {
@@ -20,14 +21,18 @@ namespace Logic
             return new Ball(ballCoords.X, ballCoords.Y);
         }
 
-        public ObservableCollection<Ball> CreateBallCollection(int quantity)
+        public void CreateBallCollection(int quantity)
         {
-            ObservableCollection<Ball> result = new ObservableCollection<Ball>();
+            _ballCollection = new List<Ball>();
             for (int i = 0; i < quantity; i++)
             {
-                result.Add(CreateBall());
+                _ballCollection.Add(CreateBall());
             }
-            return result;
+        }
+
+        public List<Ball> GetBallCollection()
+        {
+            return _ballCollection;
         }
 
         public Vector2 getBallPosition()
