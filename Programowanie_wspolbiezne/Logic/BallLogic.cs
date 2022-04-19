@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace Logic
 {
-    internal class BallLogic
+    public class BallLogic
     {
         private Vector2 boardSize;
-        public BallLogic(float X, float Y)
+
+        public BallLogic(float X, float Y) 
         {
-            boardSize = new Vector2(X, Y); //740
+            boardSize = new Vector2(X, Y);
         }
 
-        private Vector2 getBallPosition()
+        public void ballInit()
+        {
+
+        }
+
+        public Vector2 getBallPosition()
         {
             return generatePositionInsideBoard(boardSize);
         }

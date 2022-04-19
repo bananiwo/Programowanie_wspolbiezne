@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Logic;
 
 namespace Presentation.ViewModel
 {
     public class BallVM
     {
-
+        BallLogic ballLogic = new BallLogic(740, 740);
         private double _radius = 15;
         public BallVM(double x, double y)
         {
@@ -19,15 +16,8 @@ namespace Presentation.ViewModel
 
         public BallVM()
         {
-            Random r = new Random();
-            double randomX = r.NextDouble() * 740;
-
-            r = new Random();
-            double randomY = r.NextDouble() * 740;
-            randomY += 15 +_radius;
-
-            Left = convertXToCenter(randomX);
-            Bottom = convertYToCenter(randomY);
+            Left = convertXToCenter(ballLogic.getBallPosition().X);
+            Bottom = convertYToCenter(ballLogic.getBallPosition().Y);
         }
 
         private double convertXToCenter(double x)
