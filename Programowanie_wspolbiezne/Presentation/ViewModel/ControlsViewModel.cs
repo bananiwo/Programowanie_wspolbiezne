@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Presentation.Model;
 using Presentation.Commands;
-using System.Windows;
-using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
 using Data;
+using System.Windows.Threading;
+using System.Windows.Controls;
 
 namespace Presentation.ViewModel
 {
@@ -19,6 +14,7 @@ namespace Presentation.ViewModel
     {
         BallModel _ballModel;
         private ObservableCollection<BallVM> _items;
+        private DispatcherTimer _timer = new DispatcherTimer();
         private string _ballQuantityText = "1";
         private int _ballQuantity = 1;
 
@@ -40,9 +36,10 @@ namespace Presentation.ViewModel
             Items = new ObservableCollection<BallVM>();
             foreach (Ball ball in ballCollection)
             {
-                BallVM ballVM = new BallVM(ball.X, ball.Y);
+                BallVM ballVM = new BallVM(ball);
                 Items.Add(ballVM);
             }
+            InitMovement();
         }
 
         public ObservableCollection<BallVM> Items
@@ -92,5 +89,29 @@ namespace Presentation.ViewModel
                 RaisePropertyChanged("BallQuantityText");
             }
         }
+
+       private void InitMovement()
+        {
+            _timer.Tick += GameTimerEvent;
+            _timer.Interval = TimeSpan.FromSeconds(5);
+            _timer.Start();
+        }
+
+        private void GameTimerEvent(object? sender, EventArgs e)
+        {
+           foreach(var item in Items)
+            {
+                if (item is BallVM)
+                {
+                    updateBall(item);
+                }
+            }
+        }
+
+        private void updateBall(BallVM ballVm)
+        {
+            ballVm.updatePosOnCanvas();
+        }
+
     }
 }

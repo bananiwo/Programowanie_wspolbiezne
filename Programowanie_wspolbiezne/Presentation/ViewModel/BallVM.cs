@@ -3,18 +3,22 @@ using System.Collections.ObjectModel;
 using Data;
 using Logic;
 using System.Windows;
-
+using System.Numerics;
 
 namespace Presentation.ViewModel
 {
     public class BallVM
     {
         private double _radius = 15;
-        public BallVM(double x, double y)
+        BallLogic _ballLogic;
+        Ball originBall;
+        public BallVM(Ball ball)
         {
+            originBall = ball;
+            _ballLogic = new BallLogic(750, 750);
+            Left = convertXToCenter(ball.X); //pos x in canvas 
+            Bottom = convertYToCenter(ball.Y); //pos y in canvas
 
-            Left = convertXToCenter(x);
-            Bottom = convertYToCenter(y);
         }
 
         private double convertXToCenter(double x)
@@ -45,6 +49,17 @@ namespace Presentation.ViewModel
             {
                 _radius = value;
             }
+        }
+
+        public void updatePosOnCanvas()
+        {
+            Vector2 newPos = _ballLogic.GetBallPosition();
+            MessageBox.Show(newPos.X.ToString() + ',' + newPos.Y.ToString());
+            Left = convertXToCenter(newPos.X);
+            Bottom = convertYToCenter(newPos.Y);
+            originBall.X = newPos.X;
+            originBall.Y = newPos.Y;
+            
         }
     }
 }

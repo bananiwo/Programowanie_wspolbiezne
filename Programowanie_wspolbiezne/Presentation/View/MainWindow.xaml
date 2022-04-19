@@ -17,7 +17,7 @@
            Height="700">
 	
     <StackPanel Orientation="Vertical">
-        <Canvas Name="CanvasArea" Width="800" Height="800" Background="CadetBlue">
+        <Canvas x:Name="canvasArea" Width="800" Height="800" Background="CadetBlue">
             <Rectangle Fill="Transparent" Stroke="Black" StrokeThickness="3" Width="780" Height="780" Margin="10"/>
         </Canvas>
 
