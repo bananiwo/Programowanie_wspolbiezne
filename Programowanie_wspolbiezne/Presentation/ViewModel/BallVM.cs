@@ -9,7 +9,7 @@ namespace Presentation.ViewModel
     public class BallVM
     {
 
-        private double _radius = 25;
+        private double _radius = 15;
         public BallVM(double x, double y)
         {
 
@@ -20,30 +20,36 @@ namespace Presentation.ViewModel
         public BallVM()
         {
             Random r = new Random();
-            double randomX = r.NextDouble() * (780 - 2 * Radius);
-            randomX +=  Radius;
+            double randomX = r.NextDouble() * (780 - 2 * _radius);
+            randomX +=  _radius;
 
             r = new Random();
-            double randomY = r.NextDouble() * (780 - 2 * Radius);
-            randomY += 10 + Radius;
+            double randomY = r.NextDouble() * (780 - 2 * _radius);
+            randomY += 10 + _radius;
 
             Left = convertXToCenter(randomX);
             Bottom = convertYToCenter(randomY);
         }
 
-        private Double convertXToCenter(double x)
+        private double convertXToCenter(double x)
         {
-            return x + Radius;
+            return x + _radius;
         }
 
-        private Double convertYToCenter(double y)
+        private double convertYToCenter(double y)
         {
-            return y - Radius;
+            return y - _radius;
         }
-
-        public Double Left { get; set; }
-        public Double Bottom { get; set; }
-        public Double Radius
+        public double BallDiameter
+        {
+            get
+            {
+                return _radius * 2;
+            }
+        }
+        public double Left { get; set; }
+        public double Bottom { get; set; }
+        public double Radius
         {
             get
             {

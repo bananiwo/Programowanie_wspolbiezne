@@ -35,7 +35,7 @@
         <ItemsControl x:Name="ic" ItemsSource="{Binding Items}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type vm:BallVM}">
-                    <Ellipse Fill="Red" Stroke="LightBlue" StrokeThickness="1" Width="50" Height="50"/>
+                    <Ellipse Fill="Red" Stroke="LightBlue" StrokeThickness="1" Width="{Binding BallDiameter}" Height="{Binding BallDiameter}"/>
                 </DataTemplate>
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
