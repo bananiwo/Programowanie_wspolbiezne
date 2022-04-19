@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
         xmlns:vm="clr-namespace:Presentation.ViewModel"
+        xmlns:da="clr-namespace:Data;assembly=Data"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="800"
         MinHeight="750" MinWidth="750"
@@ -36,7 +37,7 @@
 
         <ItemsControl x:Name="ic" ItemsSource="{Binding Items}">
             <ItemsControl.Resources>
-                <DataTemplate DataType="{x:Type vm:BallVM}">
+                <DataTemplate DataType="{x:Type da:Ball}">
                     <Ellipse Fill="Red" Stroke="LightBlue" StrokeThickness="1" Width="{Binding BallDiameter}" Height="{Binding BallDiameter}"/>
                 </DataTemplate>
             </ItemsControl.Resources>

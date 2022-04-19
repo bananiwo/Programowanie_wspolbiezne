@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using Data;
 using Logic;
+using System.Windows;
+
 
 namespace Presentation.ViewModel
 {
@@ -18,6 +22,15 @@ namespace Presentation.ViewModel
         {
             Left = convertXToCenter(ballLogic.getBallPosition().X);
             Bottom = convertYToCenter(ballLogic.getBallPosition().Y);
+        }
+
+        public ObservableCollection<Ball> CreateBallCollection(int quantity)
+        {
+            var result = ballLogic.CreateBallCollection(quantity);
+            int c = result.Count;
+            MessageBox.Show("BallVM, count=", c.ToString());
+
+            return result;
         }
 
         private double convertXToCenter(double x)

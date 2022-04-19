@@ -11,13 +11,14 @@ using Presentation.Commands;
 using System.Windows;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
+using Data;
 
 namespace Presentation.ViewModel
 {
     internal class ControlsViewModel : ViewModelBase
     {
         ControlsModel model;
-        private ObservableCollection<BallVM> _items;
+        private ObservableCollection<Ball> _items;
         private string _helloString;
         private string _ballQuantityText = "1";
         private int _ballQuantity = 1;
@@ -37,14 +38,15 @@ namespace Presentation.ViewModel
 
         private void CreateBallsButtonClickHandler()
         {
-            Items = new ObservableCollection<BallVM> { };
-            for (int i = 0; i < _ballQuantity; i++)
-            {
-                Items.Add(new BallVM());
-            }
+            BallVM ballVM = new BallVM();
+            var result = ballVM.CreateBallCollection(_ballQuantity);
+            Items = result;
+            int c = Items.Count();
+            MessageBox.Show("ControlsVM, count=", c.ToString());
+
         }
 
-        public ObservableCollection<BallVM> Items
+        public ObservableCollection<Ball> Items
         {
             get
             {

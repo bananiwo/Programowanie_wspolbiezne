@@ -1,4 +1,7 @@
-﻿using System.Numerics;
+﻿using Data;
+using System.Collections.ObjectModel;
+using System.Numerics;
+
 
 namespace Logic
 {
@@ -11,9 +14,20 @@ namespace Logic
             boardSize = new Vector2(X, Y);
         }
 
-        public void ballInit()
+        public Ball CreateBall()
         {
+            Vector2 ballCoords = getBallPosition();
+            return new Ball(ballCoords.X, ballCoords.Y);
+        }
 
+        public ObservableCollection<Ball> CreateBallCollection(int quantity)
+        {
+            ObservableCollection<Ball> result = new ObservableCollection<Ball>();
+            for (int i = 0; i < quantity; i++)
+            {
+                result.Add(CreateBall());
+            }
+            return result;
         }
 
         public Vector2 getBallPosition()
