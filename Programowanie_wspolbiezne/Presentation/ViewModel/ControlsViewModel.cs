@@ -93,18 +93,5 @@ namespace Presentation.ViewModel
                 RaisePropertyChanged("BallQuantityText");
             }
         }
-
-        public string HelloString
-        {
-            get
-            {
-                return model.ImportantInfo;
-            }
-            set
-            {
-                _helloString = value;
-                RaisePropertyChanged("HelloString");
-            }
-        }
     }
 }
