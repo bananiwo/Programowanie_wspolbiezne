@@ -17,19 +17,13 @@ namespace Presentation.ViewModel
     internal class ControlsViewModel : ViewModelBase
     {
         ControlsModel model;
-        public ObservableCollection<BallVM> Items { get; set; }
+        private ObservableCollection<BallVM> _items;
         private string _helloString;
         private string _ballQuantityText;
+        private int _ballQuantity;
 
         public ControlsViewModel()
         {
-            Items = new ObservableCollection<BallVM>
-            {
-                new BallVM(100, 100),
-                new BallVM(250, 250),
-                new BallVM(582, 250)
-            };
-
             model = new ControlsModel();
             _helloString = model.ImportantInfo;
             CreateBallsButtonClick = new RelayCommand(() => CreateBallsButtonClickHandler());
@@ -43,34 +37,45 @@ namespace Presentation.ViewModel
 
         private void CreateBallsButtonClickHandler()
         {
-            MessageBox.Show("Create balls");
+            Items = new ObservableCollection<BallVM> { };
+            for (int i = 0; i < _ballQuantity; i++)
+            {
+                Items.Add(new BallVM());
+            }
         }
 
+        public ObservableCollection<BallVM> Items
+        {
+            get
+            {
+                return _items;
+            }
+            set
+            {
+                _items = value;
+                RaisePropertyChanged("Items");
+            }
+        }
         private void AddBallClickHandler()
         {
-            int ballQuantity;
             if (String.IsNullOrEmpty(BallQuantityText))
             {
-                ballQuantity = 1;
+                _ballQuantity = 1;
             }
             else
             {
-                ballQuantity = int.Parse(BallQuantityText);
-                ballQuantity++;
+                _ballQuantity++;
             }
 
-            BallQuantityText = ballQuantity.ToString();
+            BallQuantityText = _ballQuantity.ToString();
         }
 
         private void RemoveBallButtonClickHandler()
         {
-            int ballQuantity;
+            if (_ballQuantity > 1)
+                _ballQuantity--;
 
-            ballQuantity = int.Parse(BallQuantityText);
-            if (ballQuantity > 1)
-                ballQuantity--;
-
-            BallQuantityText = ballQuantity.ToString();
+            BallQuantityText = _ballQuantity.ToString();
         }
 
         public string BallQuantityText
@@ -82,6 +87,7 @@ namespace Presentation.ViewModel
             set
             {
                 _ballQuantityText = value;
+                _ballQuantity = int.Parse(_ballQuantityText);
                 RaisePropertyChanged("BallQuantityText");
             }
         }
