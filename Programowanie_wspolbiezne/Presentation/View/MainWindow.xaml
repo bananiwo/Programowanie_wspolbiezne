@@ -6,13 +6,16 @@
         xmlns:local="clr-namespace:Presentation"
         xmlns:vm="clr-namespace:Presentation.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="900"
-        ResizeMode="NoResize"
+        Title="MainWindow" Height="800" Width="800"
+        MinHeight="750" MinWidth="750"
         Background="DarkSlateGray">
     <Window.DataContext>
         <vm:ControlsViewModel/>
     </Window.DataContext>
-
+    <Viewbox Stretch="Fill"
+           Width="700"
+           Height="700">
+	
     <!--<Grid>-->
 
 
@@ -26,7 +29,6 @@
             <RowDefinition Height="41*"/>
         </Grid.RowDefinitions>-->
     <StackPanel Orientation="Vertical">
-
         <!--<Grid Background="Black">-->
         <Canvas Name="CanvasArea" Width="800" Height="800" Background="CadetBlue">
             <Rectangle Fill="Transparent" Stroke="Black" StrokeThickness="3" Width="780" Height="780" Margin="10"/>
@@ -71,7 +73,7 @@
                     Height="30" 
                     Width="66"
                     BorderBrush="#FF1E3636"/>
-            
+
             <Button Content="Dodaj kule" 
                     Command="{Binding AddBallButtonClick}"
                     FontSize="10" 
@@ -97,7 +99,7 @@
                      Foreground="White"
                      FontFamily="Leelawadee"
                      SelectionBrush="#FF113333"/>
-            
+
             <Button Content="Wygeneruj układ startowy" 
                     Command="{Binding CreateBallsButtonClick}"
                     FontSize="10" 
@@ -113,4 +115,5 @@
 
         </Grid>
     </StackPanel>
+    </Viewbox>
 </Window>

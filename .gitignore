@@ -3,3 +3,18 @@
 ################################################################################
 
 /.vs
+/Programowanie_wspolbiezne/.vs/Programowanie_wspolbiezne/v17
+/Programowanie_wspolbiezne/Data/bin/Debug/net6.0
+/Programowanie_wspolbiezne/Data/obj
+/Programowanie_wspolbiezne/DataTest/obj
+/Programowanie_wspolbiezne/Logic/obj
+/Programowanie_wspolbiezne/LogicTest/bin/Debug
+/Programowanie_wspolbiezne/obj
+/PW_tests/obj
+/Programowanie_wspolbiezne/Presentation/obj/Release/net6.0-windows
+/Programowanie_wspolbiezne/LogicTest/obj/Debug
+/Programowanie_wspolbiezne/Presentation/bin/Debug/net6.0-windows
+/Programowanie_wspolbiezne/Presentation/obj
+/Programowanie_wspolbiezne/DataTest/bin/Debug
+/Programowanie_wspolbiezne/Logic/bin/Debug/net6.0
+/Programowanie_wspolbiezne/packages
