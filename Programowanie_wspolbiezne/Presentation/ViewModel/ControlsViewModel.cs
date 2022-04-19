@@ -17,7 +17,6 @@ namespace Presentation.ViewModel
 {
     internal class ControlsViewModel : ViewModelBase
     {
-        ControlsModel model;
         BallModel _ballModel;
         private ObservableCollection<BallVM> _items;
         private string _ballQuantityText = "1";

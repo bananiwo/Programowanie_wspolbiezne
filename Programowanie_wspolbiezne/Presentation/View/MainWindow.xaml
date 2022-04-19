@@ -16,20 +16,7 @@
            Width="700"
            Height="700">
 	
-    <!--<Grid>-->
-
-
-
-    <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="409*"/>
-            <RowDefinition Height="41*"/>
-            <RowDefinition Height="41*"/>
-        </Grid.RowDefinitions>-->
     <StackPanel Orientation="Vertical">
-        <!--<Grid Background="Black">-->
         <Canvas Name="CanvasArea" Width="800" Height="800" Background="CadetBlue">
             <Rectangle Fill="Transparent" Stroke="Black" StrokeThickness="3" Width="780" Height="780" Margin="10"/>
         </Canvas>
