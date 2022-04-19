@@ -11,17 +11,19 @@ namespace Logic
             boardSize = new Vector2(X, Y);
         }
 
-        public void ballInit()
+        public void BallInit()
         {
 
         }
 
-        public Vector2 getBallPosition()
+        public Vector2 GetBoardSize() { return boardSize; }
+
+        public Vector2 GetBallPosition()
         {
-            return generatePositionInsideBoard(boardSize);
+            return GeneratePositionInsideBoard(boardSize);
         }
 
-        private Vector2 generatePositionInsideBoard(Vector2 boardSize)
+        private Vector2 GeneratePositionInsideBoard(Vector2 boardSize)
         {
             Random r = new Random();
             double randomX = r.NextDouble() * boardSize.X;
