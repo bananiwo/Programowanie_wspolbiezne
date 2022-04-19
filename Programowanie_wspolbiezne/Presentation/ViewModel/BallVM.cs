@@ -20,12 +20,11 @@ namespace Presentation.ViewModel
         public BallVM()
         {
             Random r = new Random();
-            double randomX = r.NextDouble() * (780 - 2 * _radius);
-            randomX +=  _radius;
+            double randomX = r.NextDouble() * 740;
 
             r = new Random();
-            double randomY = r.NextDouble() * (780 - 2 * _radius);
-            randomY += 10 + _radius;
+            double randomY = r.NextDouble() * 740;
+            randomY += 15 +_radius;
 
             Left = convertXToCenter(randomX);
             Bottom = convertYToCenter(randomY);
