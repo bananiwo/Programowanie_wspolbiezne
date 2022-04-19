@@ -7,12 +7,6 @@ namespace Presentation.ViewModel
     {
         BallLogic ballLogic = new BallLogic(740, 740);
         private double _radius = 15;
-        public BallVM(double x, double y)
-        {
-
-            Left = convertXToCenter(x);
-            Bottom = convertYToCenter(y);
-        }
 
         public BallVM()
         {
