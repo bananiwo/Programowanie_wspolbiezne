@@ -84,6 +84,7 @@
                     BorderBrush="#FF1E3636"/>
 
             <TextBox HorizontalAlignment="Right" 
+                     BorderBrush="#FF1E3636"
                      Grid.Column="2"
                      TextAlignment="Right"
                      FontSize="24"
@@ -94,7 +95,6 @@
                      Height="30"
                      Background="DarkSlateGray"
                      Foreground="White"
-                     BorderBrush="{x:Null}"
                      FontFamily="Leelawadee"
                      SelectionBrush="#FF113333"/>
             

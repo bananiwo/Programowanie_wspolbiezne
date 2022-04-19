@@ -19,8 +19,8 @@ namespace Presentation.ViewModel
         ControlsModel model;
         private ObservableCollection<BallVM> _items;
         private string _helloString;
-        private string _ballQuantityText;
-        private int _ballQuantity;
+        private string _ballQuantityText = "1";
+        private int _ballQuantity = 1;
 
         public ControlsViewModel()
         {
