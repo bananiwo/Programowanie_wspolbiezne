@@ -35,7 +35,6 @@ namespace Logic
         {
             return _ballCollection;
         }
-
         public override Vector2 GetBallPosition()
         {
             return GeneratePositionInsideBoard(boardSize);
@@ -51,12 +50,11 @@ namespace Logic
             return new Vector2((float)randomX, (float)randomY);
         }
 
-        public override Vector2 NextStepVector(Vector2 currentPos, Vector2 targetPos, int stepCount)
+        public override Vector2 NextStepPosition(Vector2 currentPos, Vector2 targetPos, int stepCount)
         {
             Vector2 desiredMovement = targetPos - currentPos;
             // dodatkowe /60 JEST ZLE, plasterek na rane
-            return desiredMovement / stepCount / 100;
+            return currentPos + (desiredMovement / stepCount);
         }
-
     }
 }

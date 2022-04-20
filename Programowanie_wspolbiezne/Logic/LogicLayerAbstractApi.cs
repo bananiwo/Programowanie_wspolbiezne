@@ -14,6 +14,6 @@ namespace Logic
         public abstract void CreateBallCollection(int quantity);
         public abstract List<Ball> GetBallCollection();
         public abstract Vector2 GetBallPosition();
-        public abstract Vector2 NextStepVector(Vector2 currentPos, Vector2 targetPos, int stepCount);
+        public abstract Vector2 NextStepPosition(Vector2 currentPos, Vector2 targetPos, int stepCount);
     }
 }
