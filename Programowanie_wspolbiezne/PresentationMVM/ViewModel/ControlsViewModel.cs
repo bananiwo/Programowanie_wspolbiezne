@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Input;
-using Presentation.Model;
-using Presentation.Commands;
+﻿using System.Windows.Input;
+using PresentationMVM.Model;
+using PresentationMVM.Commands;
 using System.Collections.ObjectModel;
 using Data;
-using System.Windows.Threading;
-using System.Windows.Controls;
-using System.Windows;
 using System.Numerics;
 using Logic;
-using System.Timers;
 
-namespace Presentation.ViewModel
+namespace PresentationMVM.ViewModel
 {
-    internal class ControlsViewModel : ViewModelBase
+    public class ControlsViewModel : ViewModelBase
     {
         BallModel _ballModel;
         private BallLogic _ballLogic;
         private ObservableCollection<BallVM> _items;
-        private static Timer _newTargetTimer;
-        private static Timer _newPositionTimer;
+        private static System.Timers.Timer _newTargetTimer;
+        private static System.Timers.Timer _newPositionTimer;
         private string _ballQuantityText = "1";
         private int _ballQuantity = 1;
         private int _frameRate = 50;
@@ -109,14 +103,14 @@ namespace Presentation.ViewModel
 
         private void InitMovement()
         {
-            _newTargetTimer = new Timer(1000);
+            _newTargetTimer = new System.Timers.Timer(1000);
             _newTargetTimer.Elapsed += UpdateBallTargetPositionEvent;
             _newTargetTimer.Start();
         }
 
         private void InitSmoothMovement()
         {
-            _newPositionTimer = new Timer(800/_frameRate);
+            _newPositionTimer = new System.Timers.Timer(800/_frameRate);
             _newPositionTimer.Elapsed += BallSmoothMovementEvent;
             _newPositionTimer.Start();
         }
