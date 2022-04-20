@@ -56,5 +56,11 @@ namespace Logic
             return new Vector2((float)randomX, (float)randomY);
         }
 
+        public Vector2 NextStepVector(Vector2 currentPos, Vector2 targetPos, int stepCount)
+        {
+            Vector2 desiredMovement = targetPos - currentPos;
+            return desiredMovement / stepCount;
+        }
+
     }
 }
