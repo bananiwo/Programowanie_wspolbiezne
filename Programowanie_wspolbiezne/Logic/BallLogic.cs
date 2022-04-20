@@ -16,13 +16,13 @@ namespace Logic
             speed = 0;
         }
 
-        public Ball CreateBall()
+        public override Ball CreateBall()
         {
             Vector2 ballCoords = GetBallPosition();
             return new Ball(ballCoords.X, ballCoords.Y);
         }
 
-        public void CreateBallCollection(int quantity)
+        public override void CreateBallCollection(int quantity)
         {
             _ballCollection = new List<Ball>();
             for (int i = 0; i < quantity; i++)
@@ -31,12 +31,12 @@ namespace Logic
             }
         }
 
-        public List<Ball> GetBallCollection()
+        public override List<Ball> GetBallCollection()
         {
             return _ballCollection;
         }
 
-        public Vector2 GetBallPosition()
+        public override Vector2 GetBallPosition()
         {
             return GeneratePositionInsideBoard(boardSize);
         }
@@ -51,7 +51,7 @@ namespace Logic
             return new Vector2((float)randomX, (float)randomY);
         }
 
-        public Vector2 NextStepVector(Vector2 currentPos, Vector2 targetPos, int stepCount)
+        public override Vector2 NextStepVector(Vector2 currentPos, Vector2 targetPos, int stepCount)
         {
             Vector2 desiredMovement = targetPos - currentPos;
             return desiredMovement / stepCount;
