@@ -7,7 +7,7 @@ using System.Numerics;
 
 namespace Presentation.ViewModel
 {
-    public class BallVM
+    public class BallVM : ViewModelBase
     {
         private double _radius = 15;
         BallLogic _ballLogic;
@@ -37,8 +37,27 @@ namespace Presentation.ViewModel
                 return _radius * 2;
             }
         }
-        public double Left { get; set; }
-        public double Bottom { get; set; }
+        public double Left { get
+            {
+                return originBall.X;
+            }
+            set
+            {
+                originBall.X = value;
+                RaisePropertyChanged("Left");
+            }
+        }
+        public double Bottom { 
+            get
+            {
+                return originBall.Y;
+            }
+            set
+            {
+                originBall.Y = value;
+                RaisePropertyChanged("Bottom");
+            }
+        }
         public double Radius
         {
             get
@@ -54,12 +73,10 @@ namespace Presentation.ViewModel
         public void updatePosOnCanvas()
         {
             Vector2 newPos = _ballLogic.GetBallPosition();
-            MessageBox.Show(newPos.X.ToString() + ',' + newPos.Y.ToString());
             Left = convertXToCenter(newPos.X);
             Bottom = convertYToCenter(newPos.Y);
             originBall.X = newPos.X;
             originBall.Y = newPos.Y;
-            
         }
     }
 }

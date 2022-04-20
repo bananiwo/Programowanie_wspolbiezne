@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using Data;
 using System.Windows.Threading;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace Presentation.ViewModel
 {
@@ -93,7 +94,7 @@ namespace Presentation.ViewModel
        private void InitMovement()
         {
             _timer.Tick += GameTimerEvent;
-            _timer.Interval = TimeSpan.FromSeconds(5);
+            _timer.Interval = TimeSpan.FromSeconds(0.5);
             _timer.Start();
         }
 
