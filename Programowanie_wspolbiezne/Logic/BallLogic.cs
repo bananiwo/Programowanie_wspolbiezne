@@ -7,13 +7,11 @@ namespace Logic
     public class BallLogic : LogicLayerAbstractApi
     {
         private Vector2 boardSize;
-        private int speed;
         List<Ball> _ballCollection;
 
         public BallLogic(float X, float Y) 
         {
             boardSize = new Vector2(X, Y);
-            speed = 0;
         }
 
         public override Ball CreateBall()
@@ -53,7 +51,6 @@ namespace Logic
         public override Vector2 NextStepPosition(Vector2 currentPos, Vector2 targetPos, int stepCount)
         {
             Vector2 desiredMovement = targetPos - currentPos;
-            // dodatkowe /60 JEST ZLE, plasterek na rane
             return currentPos + (desiredMovement / stepCount);
         }
     }
