@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicTest", "LogicTest\Logi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationMVM", "PresentationMVM\PresentationMVM.csproj", "{EC5093E4-E8A0-4068-AE8B-3D9D2E42AE53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationV", "PresentationV\PresentationV.csproj", "{5E9A1443-BBA7-4B7B-B4CF-0F8000666B6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationV", "PresentationV\PresentationV.csproj", "{5E9A1443-BBA7-4B7B-B4CF-0F8000666B6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
