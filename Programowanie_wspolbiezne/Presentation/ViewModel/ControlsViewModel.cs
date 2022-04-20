@@ -39,6 +39,14 @@ namespace Presentation.ViewModel
 
         private void getBallVMCollection()
         {
+            if(_newPositionTimer != null) 
+            {
+                _newPositionTimer.Stop();
+            }
+            if (_newTargetTimer != null)
+            {
+                _newTargetTimer.Stop();
+            }
             _ballModel = new BallModel(_ballQuantity);
             List<Ball> ballCollection = _ballModel.GetBallCollection();
             Items = new ObservableCollection<BallVM>();
