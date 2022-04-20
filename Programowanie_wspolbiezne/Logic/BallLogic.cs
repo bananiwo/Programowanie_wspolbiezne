@@ -16,11 +16,6 @@ namespace Logic
             speed = 0;
         }
 
-        public BallLogic()
-        {
-            
-        }
-
         public Ball CreateBall()
         {
             Vector2 ballCoords = GetBallPosition();

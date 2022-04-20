@@ -7,7 +7,7 @@ namespace DataTest
     public class BallTest
     {
         [TestMethod]
-        public void BallValues()
+        public void TestBallValues()
         {
             Ball ball = new Ball(2, 4);
             Assert.AreEqual(ball.X, 2);
@@ -15,7 +15,7 @@ namespace DataTest
         }
 
         [TestMethod]
-        public void BallSetValues()
+        public void TestBallSetValues()
         {
             Ball ball = new Ball(0, 0);
             Assert.AreEqual(ball.X, 0);
