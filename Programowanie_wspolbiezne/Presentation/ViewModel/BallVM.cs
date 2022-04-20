@@ -12,6 +12,7 @@ namespace Presentation.ViewModel
         private double _radius = 15;
         BallLogic _ballLogic;
         Ball originBall;
+        Vector2 _nextStepVector;
         public BallVM(Ball ball)
         {
             originBall = ball;
@@ -19,6 +20,12 @@ namespace Presentation.ViewModel
             Left = convertXToCenter(ball.X); //pos x in canvas 
             Bottom = convertYToCenter(ball.Y); //pos y in canvas
 
+        }
+
+        public Vector2 NextStepVector { get; }
+        public void SetNextStepVector(Vector2 currentPos, Vector2 targetPos, int stepCount)
+        {
+            _nextStepVector = _ballLogic.NextStepVector(currentPos, targetPos, stepCount);
         }
 
         private double convertXToCenter(double x)
@@ -78,5 +85,6 @@ namespace Presentation.ViewModel
             originBall.X = newPos.X;
             originBall.Y = newPos.Y;
         }
+
     }
 }

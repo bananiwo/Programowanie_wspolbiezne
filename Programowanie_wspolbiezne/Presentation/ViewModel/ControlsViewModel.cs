@@ -8,22 +8,28 @@ using Data;
 using System.Windows.Threading;
 using System.Windows.Controls;
 using System.Windows;
+using System.Numerics;
+using Logic;
 
 namespace Presentation.ViewModel
 {
     internal class ControlsViewModel : ViewModelBase
     {
         BallModel _ballModel;
+        private BallLogic _ballLogic;
         private ObservableCollection<BallVM> _items;
-        private DispatcherTimer _timer = new DispatcherTimer();
+        private DispatcherTimer _newTargetPostimer = new DispatcherTimer();
+        private DispatcherTimer _movementTimer = new DispatcherTimer();
         private string _ballQuantityText = "1";
         private int _ballQuantity = 1;
+        private int _frameRate = 30;
 
         public ControlsViewModel()
         {
             CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
+            _ballLogic = new BallLogic(740, 740);
         }
 
         public ICommand CreateBallsButtonClick { get; set; }
@@ -41,6 +47,7 @@ namespace Presentation.ViewModel
                 Items.Add(ballVM);
             }
             InitMovement();
+            InitSmoothMovement();
         }
 
         public ObservableCollection<BallVM> Items
@@ -93,28 +100,43 @@ namespace Presentation.ViewModel
 
        private void InitMovement()
         {
-            _timer.Tick += GameTimerEvent;
-            _timer.Interval = TimeSpan.FromSeconds(0.5);
-            _timer.Start();
+            _newTargetPostimer.Tick += UpdateBallTargetPositionEvent;
+            _newTargetPostimer.Interval = TimeSpan.FromSeconds(2);
+            _newTargetPostimer.Start();
         }
 
-        private void GameTimerEvent(object? sender, EventArgs e)
+        private void InitSmoothMovement()
+        {
+            _movementTimer.Tick += BallSmoothMovementEvent;
+            _movementTimer.Interval = TimeSpan.FromSeconds(1/100);
+            _movementTimer.Start();
+        }
+
+        private void BallSmoothMovementEvent(object? sender, EventArgs e)
         {
  
            foreach(var item in Items)
             {
                 if (item is BallVM)
                 {
-                    UpdateBall(item);
+                    double x = item.NextStepVector.X;
+                    double y = item.NextStepVector.Y;
+                    item.Left += 0.1;
+                    item.Bottom += y;
                 }
             }
         }
 
-        private void UpdateBall(BallVM ballVm)
+        private void UpdateBallTargetPositionEvent(object? sender, EventArgs e)
         {
-            ballVm.updatePosOnCanvas();
-            RaisePropertyChanged("UpdateBall");
+            foreach(var ballVM in Items)
+            {
+                Vector2 currentPos = new Vector2((float)ballVM.Left, (float)ballVM.Bottom);
+                ballVM.SetNextStepVector(currentPos, _ballLogic.GetBallPosition(), _frameRate);
+            }
         }
+
+
 
     }
 }
