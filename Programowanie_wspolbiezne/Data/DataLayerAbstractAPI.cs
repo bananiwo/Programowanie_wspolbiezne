@@ -8,6 +8,5 @@ namespace Data
 {
     public abstract class DataLayerAbstractAPI
     {
-        
     }
 }

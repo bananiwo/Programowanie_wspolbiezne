@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using Data;
+﻿using Data;
 using Logic;
-using System.Windows;
 using System.Numerics;
 
-namespace Presentation.ViewModel
+namespace PresentationMVM.ViewModel
 {
     public class BallVM : ViewModelBase
     {
