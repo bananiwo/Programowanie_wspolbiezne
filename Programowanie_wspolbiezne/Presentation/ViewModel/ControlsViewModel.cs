@@ -99,18 +99,20 @@ namespace Presentation.ViewModel
 
         private void GameTimerEvent(object? sender, EventArgs e)
         {
+ 
            foreach(var item in Items)
             {
                 if (item is BallVM)
                 {
-                    updateBall(item);
+                    UpdateBall(item);
                 }
             }
         }
 
-        private void updateBall(BallVM ballVm)
+        private void UpdateBall(BallVM ballVm)
         {
             ballVm.updatePosOnCanvas();
+            RaisePropertyChanged("UpdateBall");
         }
 
     }
