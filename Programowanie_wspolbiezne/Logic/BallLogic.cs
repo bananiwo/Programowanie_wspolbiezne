@@ -59,7 +59,8 @@ namespace Logic
         public Vector2 NextStepVector(Vector2 currentPos, Vector2 targetPos, int stepCount)
         {
             Vector2 desiredMovement = targetPos - currentPos;
-            return desiredMovement / stepCount;
+            // dodatkowe /60 JEST ZLE, plasterek na rane
+            return desiredMovement / stepCount / 100;
         }
 
     }

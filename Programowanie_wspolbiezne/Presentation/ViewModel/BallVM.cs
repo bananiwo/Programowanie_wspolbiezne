@@ -19,14 +19,10 @@ namespace Presentation.ViewModel
             _ballLogic = new BallLogic(750, 750);
             Left = convertXToCenter(ball.X); //pos x in canvas 
             Bottom = convertYToCenter(ball.Y); //pos y in canvas
-
+            //NextStepVector = _ballLogic.GetBallPosition(); //initial movement
         }
 
-        public Vector2 NextStepVector { get; }
-        public void SetNextStepVector(Vector2 currentPos, Vector2 targetPos, int stepCount)
-        {
-            _nextStepVector = _ballLogic.NextStepVector(currentPos, targetPos, stepCount);
-        }
+        public Vector2 NextStepVector { get; set; }
 
         private double convertXToCenter(double x)
         {
@@ -77,14 +73,14 @@ namespace Presentation.ViewModel
             }
         }
 
-        public void updatePosOnCanvas()
-        {
-            Vector2 newPos = _ballLogic.GetBallPosition();
-            Left = convertXToCenter(newPos.X);
-            Bottom = convertYToCenter(newPos.Y);
-            originBall.X = newPos.X;
-            originBall.Y = newPos.Y;
-        }
+        //public void updatePosOnCanvas()
+        //{
+        //    Vector2 newPos = _ballLogic.GetBallPosition();
+        //    Left = convertXToCenter(newPos.X);
+        //    Bottom = convertYToCenter(newPos.Y);
+        //    originBall.X = newPos.X;
+        //    originBall.Y = newPos.Y;
+        //}
 
     }
 }

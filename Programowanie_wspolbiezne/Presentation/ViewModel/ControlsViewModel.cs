@@ -108,7 +108,7 @@ namespace Presentation.ViewModel
         private void InitSmoothMovement()
         {
             _movementTimer.Tick += BallSmoothMovementEvent;
-            _movementTimer.Interval = TimeSpan.FromSeconds(1/100);
+            _movementTimer.Interval = TimeSpan.FromSeconds(1/_frameRate);
             _movementTimer.Start();
         }
 
@@ -119,20 +119,19 @@ namespace Presentation.ViewModel
             {
                 if (item is BallVM)
                 {
-                    double x = item.NextStepVector.X;
-                    double y = item.NextStepVector.Y;
-                    item.Left += 0.1;
-                    item.Bottom += y;
+                    item.Left += item.NextStepVector.X;
+                    item.Bottom += item.NextStepVector.Y;
                 }
             }
         }
 
         private void UpdateBallTargetPositionEvent(object? sender, EventArgs e)
         {
-            foreach(var ballVM in Items)
+            foreach(var item in Items)
             {
-                Vector2 currentPos = new Vector2((float)ballVM.Left, (float)ballVM.Bottom);
-                ballVM.SetNextStepVector(currentPos, _ballLogic.GetBallPosition(), _frameRate);
+                Vector2 currentPos = new Vector2((float)item.Left, (float)item.Bottom);
+                Vector2 nextStep = _ballLogic.NextStepVector(currentPos, _ballLogic.GetBallPosition(), _frameRate);
+                item.NextStepVector = nextStep;
             }
         }
 
