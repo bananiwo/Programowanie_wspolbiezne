@@ -1,47 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Presentation.Model;
 using Presentation.Commands;
-using System.Windows;
-using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
+using Data;
+using System.Windows.Threading;
+using System.Windows.Controls;
+using System.Windows;
+using System.Numerics;
+using Logic;
+using System.Timers;
 
 namespace Presentation.ViewModel
 {
     internal class ControlsViewModel : ViewModelBase
     {
-        ControlsModel model;
+        BallModel _ballModel;
+        private BallLogic _ballLogic;
         private ObservableCollection<BallVM> _items;
-        private string _helloString;
+        private static Timer _newTargetTimer;
+        private static Timer _newPositionTimer;
         private string _ballQuantityText = "1";
         private int _ballQuantity = 1;
+        private int _frameRate = 50;
 
         public ControlsViewModel()
         {
-            model = new ControlsModel();
-            _helloString = model.ImportantInfo;
-            CreateBallsButtonClick = new RelayCommand(() => CreateBallsButtonClickHandler());
+            CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
+            _ballLogic = new BallLogic(740, 740);
         }
 
         public ICommand CreateBallsButtonClick { get; set; }
         public ICommand AddBallButtonClick { get; set; }
         public ICommand RemoveBallButtonClick { get; set; }
 
-        private void CreateBallsButtonClickHandler()
+        private void getBallVMCollection()
         {
-            Items = new ObservableCollection<BallVM> { };
-            for (int i = 0; i < _ballQuantity; i++)
+            _ballModel = new BallModel(_ballQuantity);
+            List<Ball> ballCollection = _ballModel.GetBallCollection();
+            Items = new ObservableCollection<BallVM>();
+            foreach (Ball ball in ballCollection)
             {
-                Items.Add(new BallVM());
+                BallVM ballVM = new BallVM(ball);
+                Items.Add(ballVM);
             }
+            InitMovement();
+            InitSmoothMovement();
         }
 
         public ObservableCollection<BallVM> Items
@@ -92,16 +99,40 @@ namespace Presentation.ViewModel
             }
         }
 
-        public string HelloString
+        private void InitMovement()
         {
-            get
+            _newTargetTimer = new Timer(1000);
+            _newTargetTimer.Elapsed += UpdateBallTargetPositionEvent;
+            _newTargetTimer.Start();
+        }
+
+        private void InitSmoothMovement()
+        {
+            _newPositionTimer = new Timer(800/_frameRate);
+            _newPositionTimer.Elapsed += BallSmoothMovementEvent;
+            _newPositionTimer.Start();
+        }
+
+        private void BallSmoothMovementEvent(object? sender, EventArgs e)
+        {
+           foreach(var item in Items)
             {
-                return model.ImportantInfo;
+                if (item is BallVM)
+                {
+                    Vector2 currentPos = new Vector2((float)item.XPos, (float)item.YPos);
+                    Vector2 a = ((item.NextPosition - currentPos) / _frameRate) + currentPos;
+                    item.XPos = a.X;
+                    item.YPos = a.Y;
+                }
             }
-            set
+        }
+
+        private void UpdateBallTargetPositionEvent(object? sender, EventArgs e)
+        {
+            foreach(var item in Items)
             {
-                _helloString = value;
-                RaisePropertyChanged("HelloString");
+                Vector2 targetPos = _ballLogic.GetBallPosition();
+                item.NextPosition = targetPos;
             }
         }
     }

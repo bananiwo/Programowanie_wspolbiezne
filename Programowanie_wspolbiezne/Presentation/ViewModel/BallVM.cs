@@ -1,18 +1,28 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using Data;
 using Logic;
+using System.Windows;
+using System.Numerics;
 
 namespace Presentation.ViewModel
 {
-    public class BallVM
+    public class BallVM : ViewModelBase
     {
-        BallLogic ballLogic = new BallLogic(740, 740);
         private double _radius = 15;
-
-        public BallVM()
+        BallLogic _ballLogic;
+        Ball originBall;
+        private Vector2 _nextPosition;
+        public BallVM(Ball ball)
         {
-            Left = convertXToCenter(ballLogic.getBallPosition().X);
-            Bottom = convertYToCenter(ballLogic.getBallPosition().Y);
+            originBall = ball;
+            _ballLogic = new BallLogic(750, 750);
+            XPos = convertXToCenter(ball.X); //pos x in canvas 
+            YPos = convertYToCenter(ball.Y); //pos y in canvas
         }
+
+        public Vector2 NextPosition { get; set; }
+        public Vector2 NextStepVector { get; set; }
 
         private double convertXToCenter(double x)
         {
@@ -30,8 +40,27 @@ namespace Presentation.ViewModel
                 return _radius * 2;
             }
         }
-        public double Left { get; set; }
-        public double Bottom { get; set; }
+        public double XPos { get
+            {
+                return originBall.X;
+            }
+            set
+            {
+                originBall.X = value;
+                RaisePropertyChanged("XPos");
+            }
+        }
+        public double YPos { 
+            get
+            {
+                return originBall.Y;
+            }
+            set
+            {
+                originBall.Y = value;
+                RaisePropertyChanged("YPos");
+            }
+        }
         public double Radius
         {
             get

@@ -8,6 +8,6 @@ namespace Data
 {
     public abstract class DataLayerAbstractAPI
     {
-        //conection
+        
     }
 }

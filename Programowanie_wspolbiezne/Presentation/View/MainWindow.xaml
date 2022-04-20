@@ -16,28 +16,15 @@
            Width="700"
            Height="700">
 	
-    <!--<Grid>-->
-
-
-
-    <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="409*"/>
-            <RowDefinition Height="41*"/>
-            <RowDefinition Height="41*"/>
-        </Grid.RowDefinitions>-->
     <StackPanel Orientation="Vertical">
-        <!--<Grid Background="Black">-->
-        <Canvas Name="CanvasArea" Width="800" Height="800" Background="CadetBlue">
+        <Canvas x:Name="canvasArea" Width="800" Height="800" Background="CadetBlue">
             <Rectangle Fill="Transparent" Stroke="Black" StrokeThickness="3" Width="780" Height="780" Margin="10"/>
         </Canvas>
 
         <ItemsControl x:Name="ic" ItemsSource="{Binding Items}">
             <ItemsControl.Resources>
                 <DataTemplate DataType="{x:Type vm:BallVM}">
-                    <Ellipse Fill="Red" Stroke="LightBlue" StrokeThickness="1" Width="{Binding BallDiameter}" Height="{Binding BallDiameter}"/>
+                    <Ellipse Fill="Red" Stroke="LightBlue" StrokeThickness="1" Width="30" Height="30"/>
                 </DataTemplate>
             </ItemsControl.Resources>
             <ItemsControl.ItemsPanel>
@@ -47,8 +34,8 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="Canvas.Left" Value="{Binding Left}"/>
-                    <Setter Property="Canvas.Bottom" Value="{Binding Bottom}"/>
+                    <Setter Property="Canvas.Left" Value="{Binding XPos}"/>
+                    <Setter Property="Canvas.Bottom" Value="{Binding YPos}"/>
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
