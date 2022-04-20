@@ -17,8 +17,8 @@ namespace Presentation.ViewModel
         {
             originBall = ball;
             _ballLogic = new BallLogic(750, 750);
-            Left = convertXToCenter(ball.X); //pos x in canvas 
-            Bottom = convertYToCenter(ball.Y); //pos y in canvas
+            XPos = convertXToCenter(ball.X); //pos x in canvas 
+            YPos = convertYToCenter(ball.Y); //pos y in canvas
         }
 
         public Vector2 NextPosition { get; set; }
@@ -40,17 +40,17 @@ namespace Presentation.ViewModel
                 return _radius * 2;
             }
         }
-        public double Left { get
+        public double XPos { get
             {
                 return originBall.X;
             }
             set
             {
                 originBall.X = value;
-                RaisePropertyChanged("Left");
+                RaisePropertyChanged("XPos");
             }
         }
-        public double Bottom { 
+        public double YPos { 
             get
             {
                 return originBall.Y;
@@ -58,7 +58,7 @@ namespace Presentation.ViewModel
             set
             {
                 originBall.Y = value;
-                RaisePropertyChanged("Bottom");
+                RaisePropertyChanged("YPos");
             }
         }
         public double Radius

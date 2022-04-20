@@ -119,10 +119,10 @@ namespace Presentation.ViewModel
             {
                 if (item is BallVM)
                 {
-                    Vector2 currentPos = new Vector2((float)item.Left, (float)item.Bottom);
+                    Vector2 currentPos = new Vector2((float)item.XPos, (float)item.YPos);
                     Vector2 a = ((item.NextPosition - currentPos) / _frameRate) + currentPos;
-                    item.Left = a.X;
-                    item.Bottom = a.Y;
+                    item.XPos = a.X;
+                    item.YPos = a.Y;
                 }
             }
         }
