@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Logic
 {
-    public class BallLogic
+    public class BallLogic : LogicLayerAbstractApi
     {
         private Vector2 boardSize;
         private int speed;
