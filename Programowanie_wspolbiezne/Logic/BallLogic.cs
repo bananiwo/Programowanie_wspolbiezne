@@ -7,29 +7,32 @@ namespace Logic
     public class BallLogic : LogicLayerAbstractApi
     {
         private Vector2 _boardSize;
-        List<Ball> _ballCollection;
+        private DataLayerAbstractAPI _dataLayer;
+        List<DataLayerAbstractAPI> _ballCollection;
 
         public BallLogic(float X, float Y) 
         {
             _boardSize = new Vector2(X, Y);
         }
 
-        public override Ball CreateBall()
+        public override DataLayerAbstractAPI CreateBall()
         {
             Vector2 ballCoords = GetBallPosition();
-            return new Ball(ballCoords.X, ballCoords.Y);
+            _dataLayer = DataLayerAbstractAPI.CreateObject(ballCoords.X, ballCoords.Y);
+            return _dataLayer;
+            //return new Ball(ballCoords.X, ballCoords.Y);
         }
 
         public override void CreateBallCollection(int quantity)
         {
-            _ballCollection = new List<Ball>();
+            _ballCollection = new List<DataLayerAbstractAPI>();
             for (int i = 0; i < quantity; i++)
             {
                 _ballCollection.Add(CreateBall());
             }
         }
 
-        public override List<Ball> GetBallCollection()
+        public override List<DataLayerAbstractAPI> GetBallCollection()
         {
             return _ballCollection;
         }

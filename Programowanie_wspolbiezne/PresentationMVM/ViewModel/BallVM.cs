@@ -7,15 +7,15 @@ namespace PresentationMVM.ViewModel
     public class BallVM : ViewModelBase
     {
         private double _radius = 15;
-        private BallLogic _ballLogic;
-        private Ball _originBall;
+        private LogicLayerAbstractApi _logicLayer;
+        private DataLayerAbstractAPI _dataLayer;
         private Vector2 _nextPosition;
-        public BallVM(Ball ball)
+        public BallVM(DataLayerAbstractAPI data)
         {
-            _originBall = ball;
-            _ballLogic = new BallLogic(750, 750);
-            XPos = convertXToCenter(ball.X); //pos x in canvas 
-            YPos = convertYToCenter(ball.Y); //pos y in canvas
+            _dataLayer = data;
+            _logicLayer = LogicLayerAbstractApi.CreateObjLogic(750, 750);
+            XPos = convertXToCenter(_dataLayer.getX()); //pos x in canvas 
+            YPos = convertYToCenter(_dataLayer.getY()); //pos y in canvas
         }
 
         public Vector2 NextPosition { get; set; }
@@ -39,22 +39,22 @@ namespace PresentationMVM.ViewModel
         }
         public double XPos { get
             {
-                return _originBall.X;
+                return _dataLayer.getX();
             }
             set
             {
-                _originBall.X = value;
+                _dataLayer.setX(value);
                 RaisePropertyChanged("XPos");
             }
         }
         public double YPos { 
             get
             {
-                return _originBall.Y;
+                return _dataLayer.getY();
             }
             set
             {
-                _originBall.Y = value;
+                _dataLayer.setY(value);
                 RaisePropertyChanged("YPos");
             }
         }

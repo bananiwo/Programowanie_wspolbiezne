@@ -11,7 +11,10 @@ namespace PresentationMVM.ViewModel
     public class ControlsViewModel : ViewModelBase
     {
         BallModel _ballModel;
-        private BallLogic _ballLogic;
+        //private BallLogic _ballLogic;
+        private LogicLayerAbstractApi _logicLayer;
+
+
         private ObservableCollection<BallVM> _items;
         private static System.Timers.Timer? _newTargetTimer;
         private static System.Timers.Timer? _newPositionTimer;
@@ -24,7 +27,7 @@ namespace PresentationMVM.ViewModel
             CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
-            _ballLogic = new BallLogic(740, 740);
+            _logicLayer = LogicLayerAbstractApi.CreateObjLogic(740, 740);
         }
 
         public ICommand CreateBallsButtonClick { get; set; }
@@ -42,13 +45,13 @@ namespace PresentationMVM.ViewModel
                 _newTargetTimer.Stop();
             }
             _ballModel = new BallModel(_ballQuantity);
-            List<Ball> ballCollection = _ballModel.GetBallCollection();
+            List<DataLayerAbstractAPI> ballCollection = _ballModel.GetBallCollection();
             Items = new ObservableCollection<BallVM>();
             foreach (Ball ball in ballCollection)
             {
                 BallVM ballVM = new BallVM(ball);
                 Items.Add(ballVM);
-                Vector2 randomPosition = _ballLogic.GetBallPosition();
+                Vector2 randomPosition = _logicLayer.GetBallPosition();
                 ballVM.XPos = randomPosition.X;
                 ballVM.YPos = randomPosition.Y;
             }
@@ -109,7 +112,7 @@ namespace PresentationMVM.ViewModel
             // sets initial target position
             foreach (var item in Items)
             {
-                Vector2 targetPos = _ballLogic.GetBallPosition();
+                Vector2 targetPos = _logicLayer.GetBallPosition();
                 item.NextPosition = targetPos;
             }
             // updates target position periodically
@@ -144,7 +147,7 @@ namespace PresentationMVM.ViewModel
         {
             foreach(var item in Items)
             {
-                Vector2 targetPos = _ballLogic.GetBallPosition();
+                Vector2 targetPos = _logicLayer.GetBallPosition();
                 item.NextPosition = targetPos;
             }
         }

@@ -10,9 +10,9 @@ namespace Logic
 {
     public abstract class LogicLayerAbstractApi
     {
-        public abstract Ball CreateBall();
+        public abstract DataLayerAbstractAPI CreateBall();
         public abstract void CreateBallCollection(int quantity);
-        public abstract List<Ball> GetBallCollection();
+        public abstract List<DataLayerAbstractAPI> GetBallCollection();
         public abstract Vector2 GetBallPosition();
         public abstract Vector2 NextStepPosition(Vector2 currentPos, Vector2 targetPos, int stepCount);
 

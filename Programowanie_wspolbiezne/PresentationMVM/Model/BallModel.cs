@@ -5,16 +5,16 @@ namespace PresentationMVM.Model
 {
     public class BallModel
     {
-        private BallLogic _ballLogic;
-        private List<Ball> _ballCollection;
+        private LogicLayerAbstractApi _logicLayer;
+        private List<DataLayerAbstractAPI> _ballCollection;
         public BallModel(int ballCount)
         {
-            _ballLogic = new BallLogic(740, 740);
-            _ballLogic.CreateBallCollection(ballCount);
-            _ballCollection = _ballLogic.GetBallCollection();
+            _logicLayer = LogicLayerAbstractApi.CreateObjLogic(740, 740);
+            _logicLayer.CreateBallCollection(ballCount);
+            _ballCollection = _logicLayer.GetBallCollection();
         }
 
-        public List<Ball> GetBallCollection()
+        public List<DataLayerAbstractAPI> GetBallCollection()
         {
             return _ballCollection;
         }
