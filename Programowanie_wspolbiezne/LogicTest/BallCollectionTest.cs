@@ -1,6 +1,4 @@
 ﻿using Logic;
-using Data;
-using System.Numerics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LogicTest
@@ -14,7 +12,7 @@ namespace LogicTest
         {
             _layer = LogicLayerAbstractApi.CreateBallsLogic(740, 740);
             _layer.CreateBallCollection(10);
-            Assert.IsTrue(-_layer.GetBallCollection().Count == 10);
+            Assert.IsTrue(_layer.GetBallCollection().Count == 10);
 
         } 
     }

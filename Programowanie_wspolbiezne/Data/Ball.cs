@@ -17,6 +17,26 @@ namespace Data
             _y = y;
         }
 
+        public override double getX()
+        {
+            return _x;
+        }
+
+        public override double getY()
+        {
+            return _y;
+        }
+
+        public override void setX(double newX)
+        {
+            _x=newX;
+        }
+
+        public override void setY(double newY)
+        {
+            _y=newY;
+        }
+
         public double X
         {
             get
