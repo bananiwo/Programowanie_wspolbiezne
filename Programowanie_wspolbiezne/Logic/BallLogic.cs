@@ -6,12 +6,12 @@ namespace Logic
 {
     public class BallLogic : LogicLayerAbstractApi
     {
-        private Vector2 boardSize;
+        private Vector2 _boardSize;
         List<Ball> _ballCollection;
 
         public BallLogic(float X, float Y) 
         {
-            boardSize = new Vector2(X, Y);
+            _boardSize = new Vector2(X, Y);
         }
 
         public override Ball CreateBall()
@@ -35,7 +35,7 @@ namespace Logic
         }
         public override Vector2 GetBallPosition()
         {
-            return GeneratePositionInsideBoard(boardSize);
+            return GeneratePositionInsideBoard(_boardSize);
         }
 
         private Vector2 GeneratePositionInsideBoard(Vector2 boardSize)

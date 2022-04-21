@@ -13,8 +13,8 @@ namespace PresentationMVM.ViewModel
         BallModel _ballModel;
         private BallLogic _ballLogic;
         private ObservableCollection<BallVM> _items;
-        private static System.Timers.Timer _newTargetTimer;
-        private static System.Timers.Timer _newPositionTimer;
+        private static System.Timers.Timer? _newTargetTimer;
+        private static System.Timers.Timer? _newPositionTimer;
         private string _ballQuantityText = "1";
         private int _ballQuantity = 1;
         private int _frameRate = 50;
@@ -48,8 +48,11 @@ namespace PresentationMVM.ViewModel
             {
                 BallVM ballVM = new BallVM(ball);
                 Items.Add(ballVM);
+                Vector2 randomPosition = _ballLogic.GetBallPosition();
+                ballVM.XPos = randomPosition.X;
+                ballVM.YPos = randomPosition.Y;
             }
-            InitMovement();
+            InitBallTargetPosition();
             InitSmoothMovement();
         }
 
@@ -101,8 +104,15 @@ namespace PresentationMVM.ViewModel
             }
         }
 
-        private void InitMovement()
+        private void InitBallTargetPosition() // initiates and updates target position to which every Ball moves towards
         {
+            // sets initial target position
+            foreach (var item in Items)
+            {
+                Vector2 targetPos = _ballLogic.GetBallPosition();
+                item.NextPosition = targetPos;
+            }
+            // updates target position periodically
             _newTargetTimer = new System.Timers.Timer(1000);
             _newTargetTimer.Elapsed += UpdateBallTargetPositionEvent;
             _newTargetTimer.Start();
@@ -110,12 +120,13 @@ namespace PresentationMVM.ViewModel
 
         private void InitSmoothMovement()
         {
+            // updates current ball position every frame
             _newPositionTimer = new System.Timers.Timer(800/_frameRate);
             _newPositionTimer.Elapsed += BallSmoothMovementEvent;
             _newPositionTimer.Start();
         }
 
-        private void BallSmoothMovementEvent(object? sender, EventArgs e)
+        private void BallSmoothMovementEvent(object? sender, EventArgs e) // updates ball position each frame
         {
            foreach(var item in Items)
             {
@@ -129,7 +140,7 @@ namespace PresentationMVM.ViewModel
             }
         }
 
-        private void UpdateBallTargetPositionEvent(object? sender, EventArgs e)
+        private void UpdateBallTargetPositionEvent(object? sender, EventArgs e) // sets target position
         {
             foreach(var item in Items)
             {
