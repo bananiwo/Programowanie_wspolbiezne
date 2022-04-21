@@ -7,12 +7,12 @@ namespace PresentationMVM.ViewModel
     public class BallVM : ViewModelBase
     {
         private double _radius = 15;
-        BallLogic _ballLogic;
-        Ball originBall;
+        private BallLogic _ballLogic;
+        private Ball _originBall;
         private Vector2 _nextPosition;
         public BallVM(Ball ball)
         {
-            originBall = ball;
+            _originBall = ball;
             _ballLogic = new BallLogic(750, 750);
             XPos = convertXToCenter(ball.X); //pos x in canvas 
             YPos = convertYToCenter(ball.Y); //pos y in canvas
@@ -39,22 +39,22 @@ namespace PresentationMVM.ViewModel
         }
         public double XPos { get
             {
-                return originBall.X;
+                return _originBall.X;
             }
             set
             {
-                originBall.X = value;
+                _originBall.X = value;
                 RaisePropertyChanged("XPos");
             }
         }
         public double YPos { 
             get
             {
-                return originBall.Y;
+                return _originBall.Y;
             }
             set
             {
-                originBall.Y = value;
+                _originBall.Y = value;
                 RaisePropertyChanged("YPos");
             }
         }
