@@ -1,0 +1,106 @@
+﻿<Window x:Class="PresentationV.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PresentationV"
+        xmlns:vm="clr-namespace:PresentationMVM.ViewModel;assembly=PresentationMVM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="800"
+        MinHeight="750" MinWidth="750"
+        Background="DarkSlateGray">
+    <Window.DataContext>
+        <vm:ControlsViewModel/>
+    </Window.DataContext>
+    <Viewbox Stretch="Fill"
+           Width="700"
+           Height="700">
+
+        <StackPanel Orientation="Vertical">
+            <Canvas x:Name="canvasArea" Width="800" Height="800" Background="CadetBlue">
+                <Rectangle Fill="Transparent" Stroke="Black" StrokeThickness="3" Width="780" Height="780" Margin="10"/>
+            </Canvas>
+
+            <ItemsControl x:Name="ic" ItemsSource="{Binding Items}">
+                <ItemsControl.Resources>
+                    <DataTemplate DataType="{x:Type vm:BallVM}">
+                        <Ellipse Fill="Red" Stroke="LightBlue" StrokeThickness="1" Width="30" Height="30"/>
+                    </DataTemplate>
+                </ItemsControl.Resources>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left" Value="{Binding XPos}"/>
+                        <Setter Property="Canvas.Bottom" Value="{Binding YPos}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="20*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Usuń kulę" 
+                    Command="{Binding RemoveBallButtonClick}"
+                    FontSize="10" 
+                    FontWeight="Light" 
+                    Foreground="White"
+                    HorizontalAlignment="Center" 
+                    Grid.Column="1" 
+                    VerticalAlignment="Center" 
+                    Background="DarkSlateGray" 
+                    Height="30" 
+                    Width="66"
+                    BorderBrush="#FF1E3636"/>
+
+                <Button Content="Dodaj kule" 
+                    Command="{Binding AddBallButtonClick}"
+                    FontSize="10" 
+                    FontWeight="Light" 
+                    Foreground="White"
+                    HorizontalAlignment="Center" 
+                    Grid.Column="0" 
+                    Background="DarkSlateGray" 
+                    Width="70"
+                    BorderBrush="#FF1E3636"/>
+
+                <TextBox HorizontalAlignment="Right" 
+                     BorderBrush="#FF1E3636"
+                     Grid.Column="2"
+                     TextAlignment="Right"
+                     FontSize="24"
+                     TextWrapping="Wrap" 
+                     Text="{Binding BallQuantityText}" 
+                     VerticalAlignment="Center" 
+                     Width="100"
+                     Height="30"
+                     Background="DarkSlateGray"
+                     Foreground="White"
+                     FontFamily="Leelawadee"
+                     SelectionBrush="#FF113333"/>
+
+                <Button Content="Wygeneruj układ startowy" 
+                    Command="{Binding CreateBallsButtonClick}"
+                    FontSize="10" 
+                    FontWeight="Light" 
+                    Foreground="White"
+                    HorizontalAlignment="Left" 
+                
+                    Grid.Column="3" 
+                    Background="DarkSlateGray" 
+                    Width="144"
+                    BorderBrush="#FF1E3636"/>
+
+
+            </Grid>
+        </StackPanel>
+    </Viewbox>
+</Window>
