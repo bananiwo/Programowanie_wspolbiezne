@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Programowanie_wspolbiezne\Data\Data.csproj", "{6440E614-F254-4E2E-B25B-CEDCFFD078D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationV", "Programowanie_wspolbiezne\PresentationV\PresentationV.csproj", "{5E9A1443-BBA7-4B7B-B4CF-0F8000666B6F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Programowanie_wspolbiezne\Logic\Logic.csproj", "{5C4F5593-F4F2-49F0-B82F-B88063556F75}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicTest", "Programowanie_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationMVM", "Programowanie_wspolbiezne\PresentationMVM\PresentationMVM.csproj", "{EC5093E4-E8A0-4068-AE8B-3D9D2E42AE53}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationV", "Programowanie_wspolbiezne\PresentationV\PresentationV.csproj", "{5E9A1443-BBA7-4B7B-B4CF-0F8000666B6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Programowanie_wspolbiezne\Data\Data.csproj", "{6440E614-F254-4E2E-B25B-CEDCFFD078D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
