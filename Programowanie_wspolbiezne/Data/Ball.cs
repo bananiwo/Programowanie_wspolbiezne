@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class Ball : DataLayerAbstractAPI
+    public class Ball : DataAPI
     {
         private double _x;
         private double _y;

@@ -4,35 +4,35 @@ using System.Numerics;
 
 namespace Logic
 {
-    public class BallLogic : LogicLayerAbstractApi
+    public class BallLogic : LogicApi
     {
         private Vector2 _boardSize;
-        private DataLayerAbstractAPI _dataLayer;
-        List<DataLayerAbstractAPI> _ballCollection;
+        private DataAPI _dataLayer;
+        List<DataAPI> _ballCollection;
 
         public BallLogic(float X, float Y) 
         {
             _boardSize = new Vector2(X, Y);
         }
 
-        public override DataLayerAbstractAPI CreateBall()
+        public override DataAPI CreateBall()
         {
             Vector2 ballCoords = GetBallPosition();
-            _dataLayer = DataLayerAbstractAPI.CreateObject(ballCoords.X, ballCoords.Y);
+            _dataLayer = DataAPI.CreateObject(ballCoords.X, ballCoords.Y);
             return _dataLayer;
             //return new Ball(ballCoords.X, ballCoords.Y);
         }
 
         public override void CreateBallCollection(int quantity)
         {
-            _ballCollection = new List<DataLayerAbstractAPI>();
+            _ballCollection = new List<DataAPI>();
             for (int i = 0; i < quantity; i++)
             {
                 _ballCollection.Add(CreateBall());
             }
         }
 
-        public override List<DataLayerAbstractAPI> GetBallCollection()
+        public override List<DataAPI> GetBallCollection()
         {
             return _ballCollection;
         }

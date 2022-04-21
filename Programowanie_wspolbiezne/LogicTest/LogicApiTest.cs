@@ -8,14 +8,14 @@ namespace LogicTest
     [TestClass]
     public class MovementStepsTest
     {
-        LogicLayerAbstractApi _layer;
+        LogicApi _layer;
         Vector2 _firstPos;
         Vector2 _secondPos;
         Vector2 _movementSteps;
         [TestMethod]
         public void TestCalculateMovementSteps()
         {
-            _layer = LogicLayerAbstractApi.CreateObjLogic(740, 740);
+            _layer = LogicApi.CreateObjLogic(740, 740);
             _firstPos = new Vector2(20, 35);
             _secondPos = new Vector2(2, 5);
             int stepsCounter = 2;

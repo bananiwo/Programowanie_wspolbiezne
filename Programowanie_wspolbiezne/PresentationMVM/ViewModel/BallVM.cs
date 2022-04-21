@@ -7,13 +7,13 @@ namespace PresentationMVM.ViewModel
     public class BallVM : ViewModelBase
     {
         private double _radius = 15;
-        private LogicLayerAbstractApi _logicLayer;
-        private DataLayerAbstractAPI _dataLayer;
+        private LogicApi _logicLayer;
+        private DataAPI _dataLayer;
         private Vector2 _nextPosition;
-        public BallVM(DataLayerAbstractAPI data)
+        public BallVM(DataAPI data)
         {
             _dataLayer = data;
-            _logicLayer = LogicLayerAbstractApi.CreateObjLogic(750, 750);
+            _logicLayer = LogicApi.CreateObjLogic(750, 750);
             XPos = convertXToCenter(_dataLayer.getX()); //pos x in canvas 
             YPos = convertYToCenter(_dataLayer.getY()); //pos y in canvas
         }

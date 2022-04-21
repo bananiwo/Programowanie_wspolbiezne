@@ -12,7 +12,7 @@ namespace PresentationMVM.ViewModel
     {
         BallModel _ballModel;
         //private BallLogic _ballLogic;
-        private LogicLayerAbstractApi _logicLayer;
+        private LogicApi _logicLayer;
 
 
         private ObservableCollection<BallVM> _items;
@@ -27,7 +27,7 @@ namespace PresentationMVM.ViewModel
             CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
-            _logicLayer = LogicLayerAbstractApi.CreateObjLogic(740, 740);
+            _logicLayer = LogicApi.CreateObjLogic(740, 740);
         }
 
         public ICommand CreateBallsButtonClick { get; set; }
@@ -45,7 +45,7 @@ namespace PresentationMVM.ViewModel
                 _newTargetTimer.Stop();
             }
             _ballModel = new BallModel(_ballQuantity);
-            List<DataLayerAbstractAPI> ballCollection = _ballModel.GetBallCollection();
+            List<DataAPI> ballCollection = _ballModel.GetBallCollection();
             Items = new ObservableCollection<BallVM>();
             foreach (Ball ball in ballCollection)
             {

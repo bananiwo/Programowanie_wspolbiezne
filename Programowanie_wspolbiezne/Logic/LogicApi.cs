@@ -8,15 +8,15 @@ using System.Numerics;
 
 namespace Logic
 {
-    public abstract class LogicLayerAbstractApi
+    public abstract class LogicApi
     {
-        public abstract DataLayerAbstractAPI CreateBall();
+        public abstract DataAPI CreateBall();
         public abstract void CreateBallCollection(int quantity);
-        public abstract List<DataLayerAbstractAPI> GetBallCollection();
+        public abstract List<DataAPI> GetBallCollection();
         public abstract Vector2 GetBallPosition();
         public abstract Vector2 NextStepPosition(Vector2 currentPos, Vector2 targetPos, int stepCount);
 
-        public static LogicLayerAbstractApi CreateObjLogic(float X, float Y, DataLayerAbstractAPI data = default(DataLayerAbstractAPI))
+        public static LogicApi CreateObjLogic(float X, float Y, DataAPI data = default(DataAPI))
         {
             return new BallLogic(X, Y);
         }
