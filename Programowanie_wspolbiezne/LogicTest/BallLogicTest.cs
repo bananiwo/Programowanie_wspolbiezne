@@ -8,19 +8,20 @@ namespace LogicTest
     [TestClass]
     public class BallLogicTest
     {
+        private LogicLayerAbstractApi _layer;
         [TestMethod]
         public void TestCreateBallCollection()
         {
-            BallLogic ballLogic = new BallLogic(740, 740);
-            ballLogic.CreateBallCollection(10);
-            Assert.AreEqual(ballLogic.GetBallCollection().Count, 10);
+            _layer = LogicLayerAbstractApi.CreateBallsLogic(740, 740);
+            _layer.CreateBallCollection(10);
+            Assert.AreEqual(_layer.GetBallCollection().Count, 10);
         }
 
         [TestMethod]
         public void TestBallPosition()
         {
-            BallLogic ballLogic = new BallLogic(740, 740);
-            Vector2 pos = ballLogic.GetBallPosition();
+            _layer = LogicLayerAbstractApi.CreateBallsLogic(740, 740);
+            Vector2 pos = _layer.GetBallPosition();
             Assert.IsTrue(pos.X <= 740 && pos.X >= 0);
             Assert.IsTrue(pos.Y <= 770 && pos.Y >= 30);
         }

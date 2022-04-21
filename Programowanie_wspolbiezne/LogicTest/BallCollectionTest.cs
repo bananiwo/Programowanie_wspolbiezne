@@ -8,12 +8,13 @@ namespace LogicTest
     [TestClass]
     public class BallCollectionTest
     {
+        private LogicLayerAbstractApi _layer;
         [TestMethod]
         public void TestCreateBallCollection()
         {
-            BallLogic ballLogic = new BallLogic(740, 740);
-            ballLogic.CreateBallCollection(10);
-            Assert.IsTrue(ballLogic.GetBallCollection().Count == 10);
+            _layer = LogicLayerAbstractApi.CreateBallsLogic(740, 740);
+            _layer.CreateBallCollection(10);
+            Assert.IsTrue(-_layer.GetBallCollection().Count == 10);
 
         } 
     }

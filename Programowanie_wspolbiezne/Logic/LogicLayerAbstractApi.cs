@@ -15,5 +15,10 @@ namespace Logic
         public abstract List<Ball> GetBallCollection();
         public abstract Vector2 GetBallPosition();
         public abstract Vector2 NextStepPosition(Vector2 currentPos, Vector2 targetPos, int stepCount);
+
+        public static LogicLayerAbstractApi CreateBallsLogic(float X, float Y)
+        {
+            return new BallLogic(X, Y);
+        }
     }
 }
