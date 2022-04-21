@@ -15,7 +15,7 @@ namespace LogicTest
         [TestMethod]
         public void TestCalculateMovementSteps()
         {
-            _layer = LogicLayerAbstractApi.CreateBallsLogic(740, 740);
+            _layer = LogicLayerAbstractApi.CreateObjLogic(740, 740);
             _firstPos = new Vector2(20, 35);
             _secondPos = new Vector2(2, 5);
             int stepsCounter = 2;

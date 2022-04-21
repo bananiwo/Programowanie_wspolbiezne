@@ -10,7 +10,7 @@ namespace LogicTest
         [TestMethod]
         public void TestCreateBallCollection()
         {
-            _layer = LogicLayerAbstractApi.CreateBallsLogic(740, 740);
+            _layer = LogicLayerAbstractApi.CreateObjLogic(740, 740);
             _layer.CreateBallCollection(10);
             Assert.IsTrue(_layer.GetBallCollection().Count == 10);
 

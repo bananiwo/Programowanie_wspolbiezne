@@ -16,7 +16,7 @@ namespace Logic
         public abstract Vector2 GetBallPosition();
         public abstract Vector2 NextStepPosition(Vector2 currentPos, Vector2 targetPos, int stepCount);
 
-        public static LogicLayerAbstractApi CreateBallsLogic(float X, float Y)
+        public static LogicLayerAbstractApi CreateObjLogic(float X, float Y, DataLayerAbstractAPI data = default(DataLayerAbstractAPI))
         {
             return new BallLogic(X, Y);
         }
