@@ -6,7 +6,7 @@ namespace PresentationMVM.Model
     public class BallModel
     {
         private LogicApi _logicLayer;
-        private List<DataAPI> _ballCollection;
+        private List<DataAPI> _ballCollection; //niezbyt
         public BallModel(int ballCount)
         {
             _logicLayer = LogicApi.CreateObjLogic(740, 740);

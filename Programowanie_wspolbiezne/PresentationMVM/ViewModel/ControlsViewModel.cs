@@ -12,7 +12,7 @@ namespace PresentationMVM.ViewModel
     {
         BallModel _ballModel;
         //private BallLogic _ballLogic;
-        private LogicApi _logicLayer;
+        private LogicApi _logicLayer; //nie moze sie odowływac do logiki bezpoednio
 
 
         private ObservableCollection<BallVM> _items;
@@ -47,7 +47,7 @@ namespace PresentationMVM.ViewModel
             _ballModel = new BallModel(_ballQuantity);
             List<DataAPI> ballCollection = _ballModel.GetBallCollection();
             Items = new ObservableCollection<BallVM>();
-            foreach (Ball ball in ballCollection)
+            foreach (DataAPI ball in ballCollection)
             {
                 BallVM ballVM = new BallVM(ball);
                 Items.Add(ballVM);
