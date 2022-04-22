@@ -7,6 +7,7 @@ namespace PresentationMVM.ViewModel
     public class BallVM : ViewModelBase
     {
         private double _radius = 15;
+        //private BallModel ballModel;
         private LogicApi _logicLayer;
         private DataAPI _dataLayer;
         private Vector2 _nextPosition;

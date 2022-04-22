@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace PresentationMVM.Commands
+namespace PresentationMVM.ViewModel.Commands
 {
     public class RelayCommand : ICommand
     {

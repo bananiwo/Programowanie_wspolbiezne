@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 using PresentationMVM.Model;
-using PresentationMVM.Commands;
+using PresentationMVM.ViewModel.Commands;
 using System.Collections.ObjectModel;
 using Data;
 using System.Numerics;
@@ -12,7 +12,7 @@ namespace PresentationMVM.ViewModel
     {
         BallModel _ballModel;
         //private BallLogic _ballLogic;
-        private LogicApi _logicLayer; //nie moze sie odowływac do logiki bezpoednio
+        private LogicApi _logicLayer;
 
 
         private ObservableCollection<BallVM> _items;

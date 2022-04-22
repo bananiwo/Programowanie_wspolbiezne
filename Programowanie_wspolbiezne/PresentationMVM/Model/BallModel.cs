@@ -1,12 +1,11 @@
 ﻿using Logic;
-using Data;
 
 namespace PresentationMVM.Model
 {
     public class BallModel
     {
         private LogicApi _logicLayer;
-        private List<DataAPI> _ballCollection; //niezbyt
+        private List<LogicApi> _ballCollection;
         public BallModel(int ballCount)
         {
             _logicLayer = LogicApi.CreateObjLogic(740, 740);
@@ -14,9 +13,10 @@ namespace PresentationMVM.Model
             _ballCollection = _logicLayer.GetBallCollection();
         }
 
-        public List<DataAPI> GetBallCollection()
+        public List<LogicApi> GetBallCollection()
         {
             return _ballCollection;
         }
+
     }
 }
