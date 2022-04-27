@@ -37,7 +37,7 @@ namespace PresentationMVM.ViewModel
         public ICommand RemoveBallButtonClick { get; set; }
 
 
-        private void getBallVMCollection()
+        private void getBallVMCollection()  //tu nie działa
         {
             if(_newPositionTimer != null) 
             {
@@ -105,7 +105,7 @@ namespace PresentationMVM.ViewModel
             // sets initial target position
             foreach (var item in Items)
             {
-                Vector2 targetPos = _ballModel.GetBallPosition();
+                Vector2 targetPos = _ballVM.GetBallVMPosition();
                 item.NextPosition = targetPos;
             }
             // updates target position periodically
@@ -140,7 +140,7 @@ namespace PresentationMVM.ViewModel
         {
             foreach(var item in Items)
             {
-                Vector2 targetPos = _ballModel.GetBallPosition();
+                Vector2 targetPos = _ballVM.GetBallVMPosition();
                 item.NextPosition = targetPos;
             }
         }
