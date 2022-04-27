@@ -13,18 +13,33 @@ namespace PresentationMVM.ViewModel
         private BallModel _ballModel;
         private double _xPosBallVM;
         private double _yPosBallVM;
-        //private LogicApi _logicLayer;
+        List<BallVM> _ballVMCollection;
         private Vector2 _nextPosition;
-        public BallVM()
+        public BallVM(BallModel ballModel)
         {
-            _ballModel = new BallModel();
-            //_logicLayer = LogicApi.CreateObjLogic(750, 750);
-            _xPosBallVM = _ballModel.xPosModelBall; //pos x in canvas 
-            _yPosBallVM = _ballModel.yPosModelBall; //pos y in canvas
+            _xPosBallVM = ballModel.xPosModelBall; //pos x in canvas 
+            _yPosBallVM = ballModel.yPosModelBall; //pos y in canvas
         }
 
         public Vector2 NextPosition { get; set; }
         public Vector2 NextStepVector { get; set; }
+
+
+        public void CreateBallVMCollection(int quantity)
+        {
+            _ballModel.CreateBallModelCollection(quantity);
+            List<BallModel> ballCollection = _ballModel.GetBallModelCollection();
+            _ballVMCollection = new List<BallVM>();
+            foreach (BallModel ballModel in ballCollection)
+                for (int i = 0; i < quantity; i++)
+                {
+                    BallVM ballVM = new BallVM(ballModel);
+                    _ballVMCollection.Add(ballVM);
+                    ballVM.XPos = _ballModel.GetBallPosition().X;
+                    ballVM.YPos = _ballModel.GetBallPosition().Y;
+                }
+        }
+
 
         private double convertXToCenter(double x)
         {

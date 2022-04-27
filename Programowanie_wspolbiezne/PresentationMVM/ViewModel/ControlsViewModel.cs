@@ -14,8 +14,6 @@ namespace PresentationMVM.ViewModel
         //tu gdzies trzeba dodac budowanie obiektów BallVM albo w ballvm
         BallModel _ballModel;
         BallVM _ballVM;
-        //private BallLogic _ballLogic;
-        //private LogicApi _logicLayer;
 
 
         private ObservableCollection<BallVM> _items;
@@ -32,22 +30,11 @@ namespace PresentationMVM.ViewModel
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
             //_logicLayer = LogicApi.CreateObjLogic(740, 740);
-            _ballVM = new BallVM();
         }
 
         public ICommand CreateBallsButtonClick { get; set; }
         public ICommand AddBallButtonClick { get; set; }
         public ICommand RemoveBallButtonClick { get; set; }
-
-
-        private void createCollection(int quantity)
-        {
-            _ballCollection = new List<BallVM>();
-            for (int i = 0; i < quantity; i++)
-            {
-                _ballCollection.Add(new BallVM());
-            }
-        }
 
 
         private void getBallVMCollection()
@@ -60,15 +47,7 @@ namespace PresentationMVM.ViewModel
             {
                 _newTargetTimer.Stop();
             }
-            _ballModel = new BallModel();
-            //List<LogicApi> ballCollection = _ballModel.GetBallCollection();
-            Items = new ObservableCollection<BallVM>();
-            foreach (BallVM ball in _ballCollection)
-            {
-                Vector2 randomPosition = ball.GetBallVMPosition();
-                ball.XPos = randomPosition.X;
-                ball.YPos = randomPosition.Y;
-            }
+            _ballVM.CreateBallVMCollection(_ballQuantity);
             InitBallTargetPosition();
             InitSmoothMovement();
         }
