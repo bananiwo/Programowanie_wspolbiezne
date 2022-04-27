@@ -7,6 +7,8 @@ namespace Logic
     public class BallLogic : LogicApi
     {
         private Vector2 _boardSize;
+        private double _ballXPos;
+        private double _ballYPos;
         private DataAPI _dataLayer;
         List<LogicApi> _ballCollection;
 
@@ -38,6 +40,21 @@ namespace Logic
             return GeneratePositionInsideBoard(_boardSize);
         }
 
+        public override Vector2 GetCurrentBallPosition()
+        {
+            return new Vector2((float) _dataLayer.getX(), (float)_dataLayer.getY()); 
+        }
+
+        public override void SetCurrentBallPositionX(double xPos)
+        {
+            _dataLayer.setX(xPos);
+        }
+
+        public override void SetCurrentBallPositionY(double yPos)
+        {
+            _dataLayer.setY(yPos);
+        }
+
         private Vector2 GeneratePositionInsideBoard(Vector2 boardSize)
         {
             Random r = new Random();
@@ -58,6 +75,8 @@ namespace Logic
         {
             Vector2 ballCoords = GetBallPosition();
             _dataLayer = DataAPI.CreateObject(ballCoords.X, ballCoords.Y);
+            _ballXPos = ballCoords.X;
+            _ballYPos = ballCoords.Y;
             return LogicApi.CreateObjLogic(ballCoords.X, ballCoords.Y, _dataLayer);
         }
     }

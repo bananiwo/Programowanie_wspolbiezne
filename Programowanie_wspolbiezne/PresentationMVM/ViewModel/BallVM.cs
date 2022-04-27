@@ -1,22 +1,26 @@
 ﻿using Data;
 using Logic;
+using PresentationMVM.Model;
 using System.Numerics;
 
 namespace PresentationMVM.ViewModel
 {
     public class BallVM : ViewModelBase
     {
+
+        //tu gdzies trzeba dodac budowanie obiektów BallVM
         private double _radius = 15;
-        //private BallModel ballModel;
-        private LogicApi _logicLayer;
-        private DataAPI _dataLayer;
+        private BallModel _ballModel;
+        private double _xPosBallVM;
+        private double _yPosBallVM;
+        //private LogicApi _logicLayer;
         private Vector2 _nextPosition;
-        public BallVM(DataAPI data)
+        public BallVM()
         {
-            _dataLayer = data;
-            _logicLayer = LogicApi.CreateObjLogic(750, 750);
-            XPos = convertXToCenter(_dataLayer.getX()); //pos x in canvas 
-            YPos = convertYToCenter(_dataLayer.getY()); //pos y in canvas
+            _ballModel = new BallModel();
+            //_logicLayer = LogicApi.CreateObjLogic(750, 750);
+            XPos = _ballModel.xPosModelBall; //pos x in canvas 
+            YPos = _ballModel.yPosModelBall; //pos y in canvas
         }
 
         public Vector2 NextPosition { get; set; }
@@ -40,22 +44,22 @@ namespace PresentationMVM.ViewModel
         }
         public double XPos { get
             {
-                return _dataLayer.getX();
+                return _ballModel.xPosModelBall;
             }
             set
             {
-                _dataLayer.setX(value);
+                _ballModel.xPosModelBall = value;
                 RaisePropertyChanged("XPos");
             }
         }
         public double YPos { 
             get
             {
-                return _dataLayer.getY();
+                return _ballModel.yPosModelBall;
             }
             set
             {
-                _dataLayer.setY(value);
+                _ballModel.yPosModelBall = value;
                 RaisePropertyChanged("YPos");
             }
         }
