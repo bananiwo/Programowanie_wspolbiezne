@@ -10,6 +10,8 @@ namespace PresentationMVM.ViewModel
 {
     public class ControlsViewModel : ViewModelBase
     {
+        //MA BRAC TYLKO Z BALLMODEL
+        //NI C***A Z NICZEGO WIECEJ!!!!!!!!!!!!!!!!!!!!
         BallModel _ballModel;
         //private BallLogic _ballLogic;
         private LogicApi _logicLayer;
