@@ -2,7 +2,6 @@
 using PresentationMVM.Model;
 using PresentationMVM.ViewModel.Commands;
 using System.Collections.ObjectModel;
-using Data;
 using System.Numerics;
 using Logic;
 
@@ -12,12 +11,15 @@ namespace PresentationMVM.ViewModel
     {
         //MA BRAC TYLKO Z BALLMODEL
         //NI C***A Z NICZEGO WIECEJ!!!!!!!!!!!!!!!!!!!!
+        //tu gdzies trzeba dodac budowanie obiektów BallVM albo w ballvm
         BallModel _ballModel;
+        BallVM _ballVM;
         //private BallLogic _ballLogic;
-        private LogicApi _logicLayer;
+        //private LogicApi _logicLayer;
 
 
         private ObservableCollection<BallVM> _items;
+        private List<BallVM> _ballCollection;
         private static System.Timers.Timer? _newTargetTimer;
         private static System.Timers.Timer? _newPositionTimer;
         private string _ballQuantityText = "1";
@@ -29,12 +31,24 @@ namespace PresentationMVM.ViewModel
             CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
-            _logicLayer = LogicApi.CreateObjLogic(740, 740);
+            //_logicLayer = LogicApi.CreateObjLogic(740, 740);
+            _ballVM = new BallVM();
         }
 
         public ICommand CreateBallsButtonClick { get; set; }
         public ICommand AddBallButtonClick { get; set; }
         public ICommand RemoveBallButtonClick { get; set; }
+
+
+        private void createCollection(int quantity)
+        {
+            _ballCollection = new List<BallVM>();
+            for (int i = 0; i < quantity; i++)
+            {
+                _ballCollection.Add(new BallVM());
+            }
+        }
+
 
         private void getBallVMCollection()
         {
@@ -46,16 +60,14 @@ namespace PresentationMVM.ViewModel
             {
                 _newTargetTimer.Stop();
             }
-            _ballModel = new BallModel(_ballQuantity);
-            List<LogicApi> ballCollection = _ballModel.GetBallCollection();
+            _ballModel = new BallModel();
+            //List<LogicApi> ballCollection = _ballModel.GetBallCollection();
             Items = new ObservableCollection<BallVM>();
-            foreach (LogicApi ball in ballCollection)
+            foreach (BallVM ball in _ballCollection)
             {
-                BallVM ballVM = new BallVM(ball.GetDataAPI());
-                Items.Add(ballVM);
-                Vector2 randomPosition = _logicLayer.GetBallPosition();
-                ballVM.XPos = randomPosition.X;
-                ballVM.YPos = randomPosition.Y;
+                Vector2 randomPosition = ball.GetBallVMPosition();
+                ball.XPos = randomPosition.X;
+                ball.YPos = randomPosition.Y;
             }
             InitBallTargetPosition();
             InitSmoothMovement();
@@ -114,7 +126,7 @@ namespace PresentationMVM.ViewModel
             // sets initial target position
             foreach (var item in Items)
             {
-                Vector2 targetPos = _logicLayer.GetBallPosition();
+                Vector2 targetPos = _ballModel.GetBallPosition();
                 item.NextPosition = targetPos;
             }
             // updates target position periodically
@@ -149,7 +161,7 @@ namespace PresentationMVM.ViewModel
         {
             foreach(var item in Items)
             {
-                Vector2 targetPos = _logicLayer.GetBallPosition();
+                Vector2 targetPos = _ballModel.GetBallPosition();
                 item.NextPosition = targetPos;
             }
         }

@@ -35,10 +35,7 @@ namespace Logic
         {
             return _ballCollection;
         }
-        public override Vector2 GetBallPosition()
-        {
-            return GeneratePositionInsideBoard(_boardSize);
-        }
+        
 
         public override Vector2 GetCurrentBallPosition()
         {
@@ -55,12 +52,12 @@ namespace Logic
             _dataLayer.setY(yPos);
         }
 
-        private Vector2 GeneratePositionInsideBoard(Vector2 boardSize)
+        public override Vector2 GeneratePositionInsideBoard()
         {
             Random r = new Random();
-            double randomX = r.NextDouble() * boardSize.X;
+            double randomX = r.NextDouble() * _boardSize.X;
             r = new Random();
-            double randomY = r.NextDouble() * boardSize.Y;
+            double randomY = r.NextDouble() * _boardSize.Y;
             randomY += 30;
             return new Vector2((float)randomX, (float)randomY);
         }
@@ -73,7 +70,7 @@ namespace Logic
 
         public override LogicApi CreateBall()
         {
-            Vector2 ballCoords = GetBallPosition();
+            Vector2 ballCoords = GeneratePositionInsideBoard();
             _dataLayer = DataAPI.CreateObject(ballCoords.X, ballCoords.Y);
             _ballXPos = ballCoords.X;
             _ballYPos = ballCoords.Y;

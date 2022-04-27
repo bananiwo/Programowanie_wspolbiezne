@@ -13,7 +13,7 @@ namespace Logic
         public abstract LogicApi CreateBall();
         public abstract void CreateBallCollection(int quantity);
         public abstract List<LogicApi> GetBallCollection();
-        public abstract Vector2 GetBallPosition();
+        public abstract Vector2 GeneratePositionInsideBoard();
         public abstract Vector2 GetCurrentBallPosition();
         public abstract void SetCurrentBallPositionX(double XPos);
         public abstract void SetCurrentBallPositionY(double YPos);

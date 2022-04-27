@@ -8,7 +8,7 @@ namespace PresentationMVM.ViewModel
     public class BallVM : ViewModelBase
     {
 
-        //tu gdzies trzeba dodac budowanie obiektów BallVM
+        //tu gdzies trzeba dodac budowanie obiektów BallVM albo w viemodel
         private double _radius = 15;
         private BallModel _ballModel;
         private double _xPosBallVM;
@@ -19,8 +19,8 @@ namespace PresentationMVM.ViewModel
         {
             _ballModel = new BallModel();
             //_logicLayer = LogicApi.CreateObjLogic(750, 750);
-            XPos = _ballModel.xPosModelBall; //pos x in canvas 
-            YPos = _ballModel.yPosModelBall; //pos y in canvas
+            _xPosBallVM = _ballModel.xPosModelBall; //pos x in canvas 
+            _yPosBallVM = _ballModel.yPosModelBall; //pos y in canvas
         }
 
         public Vector2 NextPosition { get; set; }
@@ -63,6 +63,17 @@ namespace PresentationMVM.ViewModel
                 RaisePropertyChanged("YPos");
             }
         }
+
+        public Vector2 getPosBallVM()
+        {
+            return new Vector2((float)XPos, (float)YPos);
+        }
+
+        public Vector2 GetBallVMPosition()
+        {
+            return _ballModel.GetBallPosition();
+        }
+
         public double Radius
         {
             get

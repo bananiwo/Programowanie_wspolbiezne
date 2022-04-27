@@ -1,4 +1,5 @@
 ﻿using Logic;
+using System.Numerics;
 
 namespace PresentationMVM.Model
 {
@@ -40,6 +41,16 @@ namespace PresentationMVM.Model
             {
                 _logicLayer.SetCurrentBallPositionY(value);
             }
+        }
+
+        public Vector2 getPosModelBall()
+        {
+            return new Vector2((float)xPosModelBall, (float)xPosModelBall);
+        }
+
+        public Vector2 GetBallPosition()
+        {
+            return _logicLayer.GeneratePositionInsideBoard();
         }
 
 
