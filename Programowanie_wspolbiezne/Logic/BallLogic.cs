@@ -24,6 +24,11 @@ namespace Logic
             }
         }
 
+        public override DataAPI GetDataAPI()
+        {
+            return _dataLayer;
+        }
+
         public override List<LogicApi> GetBallCollection()
         {
             return _ballCollection;

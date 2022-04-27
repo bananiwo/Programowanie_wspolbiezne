@@ -45,11 +45,11 @@ namespace PresentationMVM.ViewModel
                 _newTargetTimer.Stop();
             }
             _ballModel = new BallModel(_ballQuantity);
-            List<DataAPI> ballCollection = _ballModel.GetBallCollection();
+            List<LogicApi> ballCollection = _ballModel.GetBallCollection();
             Items = new ObservableCollection<BallVM>();
-            foreach (DataAPI ball in ballCollection)
+            foreach (LogicApi ball in ballCollection)
             {
-                BallVM ballVM = new BallVM(ball);
+                BallVM ballVM = new BallVM(ball.GetDataAPI());
                 Items.Add(ballVM);
                 Vector2 randomPosition = _logicLayer.GetBallPosition();
                 ballVM.XPos = randomPosition.X;
