@@ -15,10 +15,13 @@ namespace PresentationMVM.ViewModel
         private double _yPosBallVM;
         List<BallVM> _ballVMCollection;
         private Vector2 _nextPosition;
+
+        public BallVM() { }
         public BallVM(BallModel ballModel)
         {
             _xPosBallVM = ballModel.xPosModelBall; //pos x in canvas 
             _yPosBallVM = ballModel.yPosModelBall; //pos y in canvas
+            _ballModel = new BallModel();
         }
 
         public Vector2 NextPosition { get; set; }

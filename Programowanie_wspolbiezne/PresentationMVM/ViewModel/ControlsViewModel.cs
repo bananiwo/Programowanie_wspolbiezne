@@ -26,6 +26,7 @@ namespace PresentationMVM.ViewModel
 
         public ControlsViewModel()
         {
+            _ballVM = new BallVM();
             CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
@@ -50,11 +51,6 @@ namespace PresentationMVM.ViewModel
             Items = new ObservableCollection<BallVM>();
             BallVMCollection ballVMColl = new BallVMCollection();
             Items = ballVMColl.CreateBallVMCollection(_ballQuantity);
-            _ballCollection = _ballVM.GetBallVMCollection();
-            foreach (BallVM ballVM in _ballCollection)
-            {
-                Items.Add(ballVM);
-            }
             InitBallTargetPosition();
             InitSmoothMovement();
         }
