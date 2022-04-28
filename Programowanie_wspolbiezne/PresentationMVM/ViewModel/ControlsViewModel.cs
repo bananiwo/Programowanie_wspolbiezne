@@ -47,7 +47,13 @@ namespace PresentationMVM.ViewModel
             {
                 _newTargetTimer.Stop();
             }
+            Items = new ObservableCollection<BallVM>();
             _ballVM.CreateBallVMCollection(_ballQuantity);
+            _ballCollection = _ballVM.GetBallVMCollection();
+            foreach (BallVM ballVM in _ballCollection)
+            {
+                Items.Add(ballVM);
+            }
             InitBallTargetPosition();
             InitSmoothMovement();
         }
