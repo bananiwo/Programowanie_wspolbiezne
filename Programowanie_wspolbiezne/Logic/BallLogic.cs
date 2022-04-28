@@ -15,6 +15,8 @@ namespace Logic
         public BallLogic(float X, float Y) 
         {
             _boardSize = new Vector2(X, Y);
+            Vector2 ballCoords = GeneratePositionInsideBoard();
+            _dataLayer = DataAPI.CreateObject(ballCoords.X, ballCoords.Y);
         }
 
         public override void CreateBallCollection(int quantity)
