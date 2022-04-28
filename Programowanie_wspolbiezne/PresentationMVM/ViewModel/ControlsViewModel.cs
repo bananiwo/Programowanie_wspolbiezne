@@ -26,10 +26,11 @@ namespace PresentationMVM.ViewModel
 
         public ControlsViewModel()
         {
-            _ballVM = new BallVM();
+            
             CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
+            _ballVM = new BallVM();
             //_logicLayer = LogicApi.CreateObjLogic(740, 740);
         }
 

@@ -8,13 +8,13 @@ namespace PresentationMVM.ViewModel
 
         public ObservableCollection<BallVM> CreateBallVMCollection(int quantity)
         {
-            BallModel ballModel = new BallModel();
-            ballModel.CreateBallModelCollection(quantity);
-            List<BallModel> ballCollection = ballModel.GetBallModelCollection();
+            BallModelCollection ballModelCollection = new BallModelCollection();
+            ballModelCollection.CreateBallModelCollection(quantity);
+            List<BallModel> ballCollection = ballModelCollection.GetBallModelCollection();
             ObservableCollection<BallVM> ballVMCollection = new ObservableCollection<BallVM>();
             foreach (BallModel ballM in ballCollection)
             {
-                BallVM ballVM = new BallVM(ballModel);
+                BallVM ballVM = new BallVM(ballM);
                 ballVM.XPos = ballM.xPosModelBall;
                 ballVM.YPos = ballM.yPosModelBall;
                 ballVMCollection.Add(ballVM);

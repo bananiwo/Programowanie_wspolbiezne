@@ -11,8 +11,8 @@ namespace Logic
     public abstract class LogicApi
     {
         public abstract LogicApi CreateBall();
-        public abstract void CreateBallCollection(int quantity);
-        public abstract List<LogicApi> GetBallCollection();
+        //public abstract void CreateBallCollection(int quantity);
+        //public abstract List<LogicApi> GetBallCollection();
         public abstract Vector2 GeneratePositionInsideBoard();
         public abstract Vector2 GetCurrentBallPosition();
         public abstract void SetCurrentBallPositionX(double XPos);
@@ -20,9 +20,9 @@ namespace Logic
         public abstract Vector2 NextStepPosition(Vector2 currentPos, Vector2 targetPos, int stepCount);
         public abstract DataAPI GetDataAPI();
 
-        public static LogicApi CreateObjLogic(float X, float Y, DataAPI data = default(DataAPI))
+        public static LogicApi CreateObjLogic(DataAPI data = default(DataAPI))
         {
-            return new BallLogic(X, Y);
+            return new BallLogic();
         }
     }
 }

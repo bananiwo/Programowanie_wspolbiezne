@@ -28,25 +28,6 @@ namespace PresentationMVM.ViewModel
         public Vector2 NextStepVector { get; set; }
 
 
-        public void CreateBallVMCollection(int quantity)
-        {
-            _ballModel.CreateBallModelCollection(quantity);
-            List<BallModel> ballCollection = _ballModel.GetBallModelCollection();
-            _ballVMCollection = new List<BallVM>();
-            foreach (BallModel ballModel in ballCollection)
-             {
-                BallVM ballVM = new BallVM(ballModel);
-                ballVM.XPos = ballModel.xPosModelBall;
-                ballVM.YPos = ballModel.yPosModelBall;
-                _ballVMCollection.Add(ballVM);        
-             }
-        }
-
-        public List<BallVM> GetBallVMCollection()
-        {
-            return _ballVMCollection;
-        }
-
 
         private double convertXToCenter(double x)
         {

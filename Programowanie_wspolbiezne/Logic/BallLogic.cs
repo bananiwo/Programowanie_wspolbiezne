@@ -6,36 +6,22 @@ namespace Logic
 {
     public class BallLogic : LogicApi
     {
-        private Vector2 _boardSize;
+        private Vector2 _boardSize = new Vector2(750, 750);
         private double _ballXPos;
         private double _ballYPos;
         private DataAPI _dataLayer;
-        List<LogicApi> _ballCollection;
+        
 
-        public BallLogic(float X, float Y) 
+        public BallLogic() 
         {
-            _boardSize = new Vector2(X, Y);
             Vector2 ballCoords = GeneratePositionInsideBoard();
             _dataLayer = DataAPI.CreateObject(ballCoords.X, ballCoords.Y);
         }
 
-        public override void CreateBallCollection(int quantity)
-        {
-            _ballCollection = new List<LogicApi>();
-            for (int i = 0; i < quantity; i++)
-            {
-                _ballCollection.Add(CreateBall());
-            }
-        }
 
         public override DataAPI GetDataAPI()
         {
             return _dataLayer;
-        }
-
-        public override List<LogicApi> GetBallCollection()
-        {
-            return _ballCollection;
         }
         
 
@@ -76,7 +62,7 @@ namespace Logic
             _dataLayer = DataAPI.CreateObject(ballCoords.X, ballCoords.Y);
             _ballXPos = ballCoords.X;
             _ballYPos = ballCoords.Y;
-            return LogicApi.CreateObjLogic(ballCoords.X, ballCoords.Y, _dataLayer);
+            return LogicApi.CreateObjLogic(_dataLayer);
         }
     }
 }
