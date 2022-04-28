@@ -8,14 +8,12 @@ namespace PresentationMVM.Model
         private LogicCollectionApi _logicCollection;
         public void CreateBallModelCollection(int quantity)
         {
-            //_logicCollection = new LogicCollectionApi();
             _logicLayer = LogicApi.CreateObjLogic();
             _logicCollection = LogicCollectionApi.CreateObjCollectionLogic();
             _logicCollection.CreateBallCollection(quantity);
             List<LogicApi> ballCollection = _logicCollection.GetBallCollection();
             _ballModelCollection = new List<BallModel>();
             foreach (LogicApi api in ballCollection)
-                for (int i = 0; i < quantity; i++)
                 {
                     BallModel ballModel = new BallModel();
                     _ballModelCollection.Add(ballModel);

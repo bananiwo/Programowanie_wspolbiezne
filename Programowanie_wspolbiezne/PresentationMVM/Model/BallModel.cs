@@ -16,9 +16,6 @@ namespace PresentationMVM.Model
             _logicLayer = LogicApi.CreateObjLogic();
             _xPosModelBall = _logicLayer.GetCurrentBallPosition().X; //pos x in canvas 
             _yPosModelBall = _logicLayer.GetCurrentBallPosition().Y; //pos y in canvas
-
-            //_logicLayer.CreateBallCollection(ballCount);
-            //_ballCollection = _logicLayer.GetBallCollection();
         }
 
         public double xPosModelBall

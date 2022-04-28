@@ -11,8 +11,6 @@ namespace Logic
     public abstract class LogicApi
     {
         public abstract LogicApi CreateBall();
-        //public abstract void CreateBallCollection(int quantity);
-        //public abstract List<LogicApi> GetBallCollection();
         public abstract Vector2 GeneratePositionInsideBoard();
         public abstract Vector2 GetCurrentBallPosition();
         public abstract void SetCurrentBallPositionX(double XPos);

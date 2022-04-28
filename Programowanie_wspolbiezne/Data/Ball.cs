@@ -29,12 +29,12 @@ namespace Data
 
         public override void setX(double newX)
         {
-            _x=newX;
+            _x = newX;
         }
 
         public override void setY(double newY)
         {
-            _y=newY;
+            _y = newY;
         }
 
         public double X

@@ -9,15 +9,9 @@ namespace PresentationMVM.ViewModel
 {
     public class ControlsViewModel : ViewModelBase
     {
-        //MA BRAC TYLKO Z BALLMODEL
-        //NI C***A Z NICZEGO WIECEJ!!!!!!!!!!!!!!!!!!!!
-        //tu gdzies trzeba dodac budowanie obiektów BallVM albo w ballvm
-        BallModel _ballModel;
         BallVM _ballVM;
 
-
         private ObservableCollection<BallVM> _items;
-        private List<BallVM> _ballCollection;
         private static System.Timers.Timer? _newTargetTimer;
         private static System.Timers.Timer? _newPositionTimer;
         private string _ballQuantityText = "1";
@@ -31,7 +25,6 @@ namespace PresentationMVM.ViewModel
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
             _ballVM = new BallVM();
-            //_logicLayer = LogicApi.CreateObjLogic(740, 740);
         }
 
         public ICommand CreateBallsButtonClick { get; set; }
@@ -39,7 +32,7 @@ namespace PresentationMVM.ViewModel
         public ICommand RemoveBallButtonClick { get; set; }
 
 
-        private void getBallVMCollection()  //tu nie działa
+        private void getBallVMCollection()
         {
             if(_newPositionTimer != null) 
             {

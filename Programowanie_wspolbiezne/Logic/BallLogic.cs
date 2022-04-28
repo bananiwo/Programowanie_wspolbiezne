@@ -7,17 +7,13 @@ namespace Logic
     public class BallLogic : LogicApi
     {
         private Vector2 _boardSize = new Vector2(750, 750);
-        private double _ballXPos;
-        private double _ballYPos;
         private DataAPI _dataLayer;
         
-
         public BallLogic() 
         {
             Vector2 ballCoords = GeneratePositionInsideBoard();
             _dataLayer = DataAPI.CreateObject(ballCoords.X, ballCoords.Y);
         }
-
 
         public override DataAPI GetDataAPI()
         {
@@ -60,8 +56,6 @@ namespace Logic
         {
             Vector2 ballCoords = GeneratePositionInsideBoard();
             _dataLayer = DataAPI.CreateObject(ballCoords.X, ballCoords.Y);
-            _ballXPos = ballCoords.X;
-            _ballYPos = ballCoords.Y;
             return LogicApi.CreateObjLogic(_dataLayer);
         }
     }

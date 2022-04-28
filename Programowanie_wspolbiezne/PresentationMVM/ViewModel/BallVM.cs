@@ -13,8 +13,6 @@ namespace PresentationMVM.ViewModel
         private BallModel _ballModel;
         private double _xPosBallVM;
         private double _yPosBallVM;
-        List<BallVM> _ballVMCollection;
-        private Vector2 _nextPosition;
 
         public BallVM() 
         {
@@ -31,16 +29,6 @@ namespace PresentationMVM.ViewModel
         public Vector2 NextStepVector { get; set; }
 
 
-
-        private double convertXToCenter(double x)
-        {
-            return x + _radius;
-        }
-
-        private double convertYToCenter(double y)
-        {
-            return y - _radius;
-        }
         public double BallDiameter
         {
             get
