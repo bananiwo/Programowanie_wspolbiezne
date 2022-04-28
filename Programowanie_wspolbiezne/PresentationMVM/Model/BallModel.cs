@@ -1,5 +1,6 @@
 ﻿using Logic;
 using System.Numerics;
+using System.Diagnostics;
 
 namespace PresentationMVM.Model
 {
@@ -11,6 +12,7 @@ namespace PresentationMVM.Model
         
         public BallModel()
         {
+            Debug.WriteLine("Wydruk na konsole");
             _logicLayer = LogicApi.CreateObjLogic();
             _xPosModelBall = _logicLayer.GetCurrentBallPosition().X; //pos x in canvas 
             _yPosModelBall = _logicLayer.GetCurrentBallPosition().Y; //pos y in canvas
