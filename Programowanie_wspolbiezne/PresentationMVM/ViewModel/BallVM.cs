@@ -31,12 +31,12 @@ namespace PresentationMVM.ViewModel
             List<BallModel> ballCollection = _ballModel.GetBallModelCollection();
             _ballVMCollection = new List<BallVM>();
             foreach (BallModel ballModel in ballCollection)
-                {
-                    BallVM ballVM = new BallVM(ballModel);
-                    _ballVMCollection.Add(ballVM);
-                    ballVM.XPos = _ballModel.GetBallPosition().X;
-                    ballVM.YPos = _ballModel.GetBallPosition().Y;
-                }
+             {
+                BallVM ballVM = new BallVM(ballModel);
+                ballVM.XPos = ballModel.xPosModelBall;
+                ballVM.YPos = ballModel.yPosModelBall;
+                _ballVMCollection.Add(ballVM);        
+             }
         }
 
         public List<BallVM> GetBallVMCollection()
