@@ -24,5 +24,12 @@ namespace DataTest
             _layer.setX(10);
             Assert.AreEqual(_layer.getX(), 10);
         }
+
+        [TestMethod]
+        public void TestBall()
+        {
+            _layer = DataAPI.CreateObject(0, 0);
+            
+        }
     }
 }
