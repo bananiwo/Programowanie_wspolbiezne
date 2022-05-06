@@ -1,27 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data
 {
     internal class Ball : DataAPI
     {
-        private double _x;
-        private double _y;
-        private double _weight = 150;
-        private double _radius = 15;
-        private double _xSpeed = 10;
-        private double _ySpeed = 10;
+        private Vector2 _position;
+        private Vector2 _speed;
+        private Vector2 _board;
+        private double _weight;
+        private double _radius;
 
-        public Ball(double x, double y)
+        public Ball(Vector2 pos, Vector2 s, Vector2 b, double w = 150, double r = 15)
         {
-            X = x;
-            Y = y;
+            Position = pos;
+            Speed = s;
+            Weight = w;
+            Radius = r;
+            Board = b;
+
         }
+
+        public Vector2 Position { get => _position; set => _position = value; }
+        public override Vector2 getPosition()
+        {
+            return Position;
+        }
+        public override void setPosition(Vector2 newPos)
+        {
+            Position = newPos;
+        }
+        public Vector2 Speed { get => _speed; set => _speed = value; }
+        public double Weight { get => _weight; set => _weight = value; }
+        public double Radius { get => _radius; set => _radius = value; }
+        public Vector2 Board { get => _board; set => _board = value; }
 
         public override void move()
         {
@@ -40,50 +52,14 @@ namespace Data
 
         public override void step(float interval)
         {
-            Vector2 currentPos = new Vector2();
-            currentPos.X = (float)X;
-            currentPos.Y = (float)Y;
-            Vector2 speed = new Vector2();
-            speed.X = (float)XSpeed;
-            speed.Y = (float)YSpeed;
-            Vector2 newPos = currentPos + Vector2.Multiply(speed, interval);
-            if (newPos.X < 0) newPos.X = -1;
-            if (newPos.Y < 0) newPos.Y = -1;
-            //750 - rozmiar okna jakos ttu trzeba dostarczyc
-            if (newPos.X + Radius > 750) newPos.X = (float)(750 - Radius);
-            if (newPos.Y + Radius > 750) newPos.Y = (float)(750 - Radius);
-            X = newPos.X;
-            RaisePropertyChanged("_x");
-            Y = newPos.Y;
-            RaisePropertyChanged("_y");
+            Vector2 newPos = Position + Vector2.Multiply(Speed, interval);
+            if (newPos.X < 0) newPos.X = 0;
+            if (newPos.Y < 0) newPos.Y = 0;
+            if (newPos.X + Radius > Board.X) newPos.X = (float)(Board.X - Radius);
+            if (newPos.Y + Radius > Board.Y) newPos.Y = (float)(Board.Y - Radius);
+            Position = newPos;
+            RaisePropertyChanged("Position");
         }
 
-
-        public override double getX()
-        {
-            return X;
-        }
-
-        public override double getY()
-        {
-            return Y;
-        }
-
-        public override void setX(double newX)
-        {
-            X = newX;
-        }
-
-        public override void setY(double newY)
-        {
-            Y = newY;
-        }
-
-        public double Weight { get => _weight; set => _weight = value; }
-        public double Radius { get => _radius; set => _radius = value; }
-        public double XSpeed { get => _xSpeed; set => _xSpeed = value; }
-        public double YSpeed { get => _ySpeed; set => _ySpeed = value; }
-        public double X { get => _x; set => _x = value; }
-        public double Y { get => _y; set => _y = value; }
     }
 }
