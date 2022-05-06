@@ -2,7 +2,7 @@
 
 namespace PresentationMVM.ViewModel
 {
-    internal class BallVM : ViewModelBase
+    public class BallVM : ViewModelBase
     {
         double _x;
         double _y;

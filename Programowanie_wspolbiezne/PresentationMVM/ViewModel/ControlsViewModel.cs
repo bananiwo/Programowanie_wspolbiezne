@@ -7,7 +7,7 @@ namespace PresentationMVM.ViewModel
 {
     public class ControlsViewModel : ViewModelBase
     {
-        BallModelCollection ballModel;
+        BallModelCollection _ballModel;
         private ObservableCollection<BallVM> _items;
         private static System.Timers.Timer? _newTargetTimer;
         private static System.Timers.Timer? _newPositionTimer;
@@ -16,7 +16,7 @@ namespace PresentationMVM.ViewModel
 
         public ControlsViewModel()
         {
-            ballModel = new BallModelCollection();
+            BallModel = new BallModelCollection();
             CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
@@ -38,18 +38,26 @@ namespace PresentationMVM.ViewModel
                 _newTargetTimer.Stop();
             }
             Items = new ObservableCollection<BallVM>();
-            ballModel.CreateBallsAndInitMovement();
+            BallModel.CreateBallsAndInitMovement();
             for(int i = 0; i < BallQuantity; i++)
             {
                 BallVM ballVM = new BallVM();
-                
                 Items.Add(new BallVM());
 
             }
+        }
 
-
-            
-
+        public ObservableCollection<BallVM> Items
+        {
+            get
+            {
+                return _items;
+            }
+            set
+            {
+                _items = value;
+                RaisePropertyChanged("Items");
+            }
         }
 
         private void AddBallClickHandler()
@@ -88,7 +96,7 @@ namespace PresentationMVM.ViewModel
             }
         }
 
-        internal ObservableCollection<BallVM> Items { get => _items; set => _items = value; }
         public int BallQuantity { get => _ballQuantity; set => _ballQuantity = value; }
+        public BallModelCollection BallModel { get => _ballModel; set => _ballModel = value; }
     }
 }
