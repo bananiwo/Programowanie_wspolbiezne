@@ -11,8 +11,12 @@ namespace PresentationMVM.ViewModel
         //tu gdzies trzeba dodac budowanie obiektów BallVM albo w viemodel
         private double _radius = 15;
         private BallModel _ballModel;
+        private Vector2 _posBallVM;
         private double _xPosBallVM;
         private double _yPosBallVM;
+
+        public Vector2 NextPosition { get; set; }
+        public Vector2 NextStepVector { get; set; }
 
         public BallVM() 
         {
@@ -20,13 +24,11 @@ namespace PresentationMVM.ViewModel
         }
         public BallVM(BallModel ballModel)
         {
-            _xPosBallVM = ballModel.xPosModelBall; //pos x in canvas 
-            _yPosBallVM = ballModel.yPosModelBall; //pos y in canvas
+            PosBallVM = ballModel.Position;
+            XPosBallVM = PosBallVM.X;
+            YPosBallVM = PosBallVM.Y;
             _ballModel = new BallModel();
         }
-
-        public Vector2 NextPosition { get; set; }
-        public Vector2 NextStepVector { get; set; }
 
 
         public double BallDiameter
@@ -36,31 +38,25 @@ namespace PresentationMVM.ViewModel
                 return _radius * 2;
             }
         }
-        public double XPos { get
-            {
-                return _ballModel.xPosModelBall;
+
+        public Vector2 PosBallVM { get 
+            { 
+                return _posBallVM; 
             }
-            set
-            {
-                _ballModel.xPosModelBall = value;
-                RaisePropertyChanged("XPos");
-            }
+            set 
+            { 
+                _posBallVM = value;
+                XPosBallVM = value.X;
+                YPosBallVM = value.Y;
+                RaisePropertyChanged("PosBallVM");
+            } 
         }
-        public double YPos { 
-            get
-            {
-                return _ballModel.yPosModelBall;
-            }
-            set
-            {
-                _ballModel.yPosModelBall = value;
-                RaisePropertyChanged("YPos");
-            }
-        }
+
+
 
         public Vector2 getPosBallVM()
         {
-            return new Vector2((float)XPos, (float)YPos);
+            return PosBallVM;
         }
 
         public Vector2 GetBallVMPosition()
@@ -79,5 +75,8 @@ namespace PresentationMVM.ViewModel
                 _radius = value;
             }
         }
+
+        public double XPosBallVM { get => _xPosBallVM; set => _xPosBallVM = value; }
+        public double YPosBallVM { get => _yPosBallVM; set => _yPosBallVM = value; }
     }
 }

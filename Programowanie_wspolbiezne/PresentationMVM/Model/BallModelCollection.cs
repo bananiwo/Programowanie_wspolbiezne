@@ -17,8 +17,7 @@ namespace PresentationMVM.Model
                 {
                     BallModel ballModel = new BallModel();
                     _ballModelCollection.Add(ballModel);
-                    ballModel.xPosModelBall = _logicLayer.GetCurrentBallPosition().X;
-                    ballModel.yPosModelBall = _logicLayer.GetCurrentBallPosition().Y;
+                    ballModel.Position = _logicLayer.GetCurrentBallPosition();
                 }
         }
 
