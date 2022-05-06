@@ -13,10 +13,7 @@ namespace PresentationMVM.Model
         public BallModel()
         {
             _logicLayer = LogicApi.CreateObjLogic();
-            Vector2 pos = new Vector2(_logicLayer.GetCurrentBallPosition().X, _logicLayer.GetCurrentBallPosition().Y);
-            Position = pos; //pos in canvas
         }
-
 
         public Vector2 Position { get => _positionBallModel; set => _positionBallModel = value; }
 
@@ -25,10 +22,6 @@ namespace PresentationMVM.Model
             return Position;
         }
 
-        public Vector2 GetBallPosition()
-        {
-            return _logicLayer.GenerateStartPositionInsideBoard();
-        }
 
     }
 }

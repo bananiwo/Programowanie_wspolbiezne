@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,20 +9,27 @@ namespace Logic
 {
     internal class BallLogicCollection : LogicCollectionApi
     {
-        List<LogicApi> _ballCollection;
-        public override void CreateBallCollection(int quantity)
+        List<LogicApi> _ballLogicCollection;
+        private BallAPI _dataLayer;
+        private BallCollectionAPI _dataCollection;
+        public override void CreateBallLogicCollection(int quantity)
         {
-            _ballCollection = new List<LogicApi>();
-            for (int i = 0; i < quantity; i++)
+            _dataLayer = BallAPI.CreateObject();
+            _dataCollection = BallCollectionAPI.CreateObjCollectionLogic();
+            _dataCollection.CreateBallCollection(quantity);
+            List<BallAPI> ballCollection = _dataCollection.GetBallCollection();
+            _ballLogicCollection = new List<LogicApi>();
+            foreach (BallAPI api in ballCollection)
             {
-                BallLogic ball = new BallLogic();
-                _ballCollection.Add(ball.CreateBall());
+                BallLogic ballLogic = new BallLogic();
+                _ballLogicCollection.Add(ballLogic);
+                ballLogic.SetPosition(_dataLayer.getPosition());
             }
         }
 
-        public override List<LogicApi> GetBallCollection()
+        public override List<LogicApi> GetBallLogicCollection()
         {
-            return _ballCollection;
+            return _ballLogicCollection;
         }
     }
 }

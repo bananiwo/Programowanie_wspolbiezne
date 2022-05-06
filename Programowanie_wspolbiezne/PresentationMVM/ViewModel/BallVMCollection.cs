@@ -15,7 +15,7 @@ namespace PresentationMVM.ViewModel
             foreach (BallModel ballM in ballCollection)
             {
                 BallVM ballVM = new BallVM(ballM);
-                ballM.Position = ballM.Position;
+                ballVM.PosBallVM = ballM.Position;
                 ballVMCollection.Add(ballVM);
             }
 

@@ -1,0 +1,38 @@
+﻿using System.Numerics;
+
+namespace Data
+{
+    public abstract class BallAPI : DataBase
+
+    {
+        public abstract void move();
+        public abstract void step(float interval);
+        public abstract Vector2 getPosition();
+        public abstract void setPosition(Vector2 newPos);
+        public static BallAPI CreateObject()
+        {
+            return new Ball(GenerateStartPositionInsideBoard(), GenerateStartSpeed());
+        }
+
+        public static Vector2 GenerateStartPositionInsideBoard()
+        {
+            Vector2 boardSize = new Vector2(750, 750);
+            Random r = new Random();
+            double randomX = r.NextDouble() * boardSize.X;
+            r = new Random();
+            double randomY = r.NextDouble() * boardSize.Y;
+            randomY += 30;
+            return new Vector2((float)randomX, (float)randomY);
+        }
+
+        public static Vector2 GenerateStartSpeed()
+        {
+            Vector2 startSpeed = new Vector2();
+            Random r = new Random();
+            double startSpeedX = r.NextDouble() * 3;
+            r = new Random();
+            double startSpeedY = r.NextDouble() * 3;
+            return new Vector2((float)startSpeedX, (float)startSpeedY);
+        }
+    }
+}

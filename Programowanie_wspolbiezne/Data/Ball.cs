@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Data
 {
-    internal class Ball : DataAPI
+    internal class Ball : BallAPI
     {
         private Vector2 _position;
         private Vector2 _speed;
@@ -11,13 +11,13 @@ namespace Data
         private double _weight;
         private double _radius;
 
-        public Ball(Vector2 pos, Vector2 s, Vector2 b, double w = 150, double r = 15)
+        public Ball(Vector2 pos, Vector2 s, double w = 150, double r = 15)
         {
             Position = pos;
             Speed = s;
             Weight = w;
             Radius = r;
-            Board = b;
+            Board = new Vector2(750, 750);
 
         }
 
@@ -60,6 +60,8 @@ namespace Data
             Position = newPos;
             RaisePropertyChanged("Position");
         }
+
+       
 
     }
 }

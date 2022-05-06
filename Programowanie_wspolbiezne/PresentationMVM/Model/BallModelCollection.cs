@@ -10,14 +10,14 @@ namespace PresentationMVM.Model
         {
             _logicLayer = LogicApi.CreateObjLogic();
             _logicCollection = LogicCollectionApi.CreateObjCollectionLogic();
-            _logicCollection.CreateBallCollection(quantity);
-            List<LogicApi> ballCollection = _logicCollection.GetBallCollection();
+            _logicCollection.CreateBallLogicCollection(quantity);
+            List<LogicApi> ballCollection = _logicCollection.GetBallLogicCollection();
             _ballModelCollection = new List<BallModel>();
             foreach (LogicApi api in ballCollection)
                 {
                     BallModel ballModel = new BallModel();
                     _ballModelCollection.Add(ballModel);
-                    ballModel.Position = _logicLayer.GetCurrentBallPosition();
+                    ballModel.Position = _logicLayer.GetPosition();
                 }
         }
 

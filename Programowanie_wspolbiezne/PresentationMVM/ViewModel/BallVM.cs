@@ -9,7 +9,6 @@ namespace PresentationMVM.ViewModel
     {
 
         //tu gdzies trzeba dodac budowanie obiektów BallVM albo w viemodel
-        private double _radius = 15;
         private BallModel _ballModel;
         private Vector2 _posBallVM;
         private double _xPosBallVM;
@@ -31,14 +30,6 @@ namespace PresentationMVM.ViewModel
         }
 
 
-        public double BallDiameter
-        {
-            get
-            {
-                return _radius * 2;
-            }
-        }
-
         public Vector2 PosBallVM { get 
             { 
                 return _posBallVM; 
@@ -57,23 +48,6 @@ namespace PresentationMVM.ViewModel
         public Vector2 getPosBallVM()
         {
             return PosBallVM;
-        }
-
-        public Vector2 GetBallVMPosition()
-        {
-            return _ballModel.GetBallPosition();
-        }
-
-        public double Radius
-        {
-            get
-            {
-                return _radius;
-            }
-            set
-            {
-                _radius = value;
-            }
         }
 
         public double XPosBallVM { get => _xPosBallVM; set => _xPosBallVM = value; }

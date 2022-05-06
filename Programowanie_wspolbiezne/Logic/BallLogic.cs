@@ -7,56 +7,40 @@ namespace Logic
     public class BallLogic : LogicApi
     {
         private Vector2 _boardSize = new Vector2(750, 750);
-        private DataAPI _dataLayer;
+        private BallAPI _dataLayer;
+        private Vector2 _ballCoords;
+        private Vector2 _ballVelocity;
 
         public Vector2 BoardSize { get => _boardSize; set => _boardSize = value; }
 
         public BallLogic() 
         {
-            Vector2 ballCoords = GenerateStartPositionInsideBoard();
-            Vector2 ballVelocity = new Vector2(10, 10);
-            _dataLayer = DataAPI.CreateObject(ballCoords, ballVelocity, BoardSize);
+            _dataLayer = BallAPI.CreateObject();
         }
 
-        public override DataAPI GetDataAPI()
+        public override BallAPI GetDataAPI()
         {
             return _dataLayer;
         }
         
-
-        public override Vector2 GetCurrentBallPosition()
+        public override Vector2 GetPosition()
         {
             return _dataLayer.getPosition();
         }
 
-        public override void SetCurrentBallPosition(Vector2 newPos)
+        public override void SetPosition(Vector2 newPos)
         {
             _dataLayer.setPosition(newPos);
         }
 
-
-        public override Vector2 GenerateStartPositionInsideBoard()
-        {
-            Random r = new Random();
-            double randomX = r.NextDouble() * BoardSize.X;
-            r = new Random();
-            double randomY = r.NextDouble() * BoardSize.Y;
-            randomY += 30;
-            return new Vector2((float)randomX, (float)randomY);
-        }
-
         public override void moveBallLogic()
         {
-            /*Vector2 desiredMovement = targetPos - currentPos;
-            return currentPos + (desiredMovement / stepCount);*/
             _dataLayer.move();
         }
 
         public override LogicApi CreateBall()
         {
-            Vector2 ballCoords = GenerateStartPositionInsideBoard();
-            Vector2 ballVelocity = new Vector2(10, 10);
-            _dataLayer = DataAPI.CreateObject(ballCoords, ballVelocity, BoardSize);
+            _dataLayer = BallAPI.CreateObject();
             return LogicApi.CreateObjLogic(_dataLayer);
         }
     }

@@ -11,13 +11,12 @@ namespace Logic
     public abstract class LogicApi
     {
         public abstract LogicApi CreateBall();
-        public abstract Vector2 GenerateStartPositionInsideBoard();
-        public abstract Vector2 GetCurrentBallPosition();
-        public abstract void SetCurrentBallPosition(Vector2 newPos);
+        public abstract Vector2 GetPosition();
+        public abstract void SetPosition(Vector2 newPos);
         public abstract void moveBallLogic();
-        public abstract DataAPI GetDataAPI();
+        public abstract BallAPI GetDataAPI();
 
-        public static LogicApi CreateObjLogic(DataAPI data = default(DataAPI))
+        public static LogicApi CreateObjLogic(BallAPI data = default(BallAPI))
         {
             return new BallLogic();
         }

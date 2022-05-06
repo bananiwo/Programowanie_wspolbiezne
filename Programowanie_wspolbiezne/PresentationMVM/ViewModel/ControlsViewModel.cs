@@ -3,6 +3,7 @@ using PresentationMVM.Model;
 using PresentationMVM.ViewModel.Commands;
 using System.Collections.ObjectModel;
 using System.Numerics;
+using System.Diagnostics;
 using Logic;
 
 namespace PresentationMVM.ViewModel
@@ -45,8 +46,10 @@ namespace PresentationMVM.ViewModel
             Items = new ObservableCollection<BallVM>();
             BallVMCollection ballVMColl = new BallVMCollection();
             Items = ballVMColl.CreateBallVMCollection(_ballQuantity);
-            InitBallTargetPosition();
-            InitSmoothMovement();
+            foreach (var item in Items)
+            {
+                Debug.WriteLine(item.PosBallVM);
+            }
         }
 
         public ObservableCollection<BallVM> Items
@@ -97,48 +100,7 @@ namespace PresentationMVM.ViewModel
             }
         }
 
-        private void InitBallTargetPosition() // initiates and updates target position to which every Ball moves towards
-        {
-            // sets initial target position
-            foreach (var item in Items)
-            {
-                Vector2 targetPos = _ballVM.GetBallVMPosition();
-                item.NextPosition = targetPos;
-            }
-            // updates target position periodically
-            _newTargetTimer = new System.Timers.Timer(1000);
-            _newTargetTimer.Elapsed += UpdateBallTargetPositionEvent;
-            _newTargetTimer.Start();
-        }
 
-        private void InitSmoothMovement()
-        {
-            // updates current ball position every frame
-            _newPositionTimer = new System.Timers.Timer(800/_frameRate);
-            _newPositionTimer.Elapsed += BallSmoothMovementEvent;
-            _newPositionTimer.Start();
-        }
 
-        private void BallSmoothMovementEvent(object? sender, EventArgs e) // updates ball position each frame
-        {
-           foreach(var item in Items)
-            {
-                if (item is BallVM)
-                {
-                    Vector2 currentPos = item.PosBallVM;
-                    Vector2 a = ((item.NextPosition - currentPos) / _frameRate) + currentPos;
-                    item.PosBallVM = a;
-                }
-            }
-        }
-
-        private void UpdateBallTargetPositionEvent(object? sender, EventArgs e) // sets target position
-        {
-            foreach(var item in Items)
-            {
-                Vector2 targetPos = _ballVM.GetBallVMPosition();
-                item.NextPosition = targetPos;
-            }
-        }
     }
 }
