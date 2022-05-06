@@ -30,29 +30,34 @@ namespace Data
             while (true)
             {
                 stopwatch.Start();
-                Vector2 currentPos = new Vector2();
-                currentPos.X = (float)X;
-                currentPos.Y = (float)Y;
-                Vector2 speed = new Vector2();
-                speed.X = (float)XSpeed;
-                speed.Y = (float)YSpeed;
-                Vector2 newPos = currentPos + Vector2.Multiply(speed, movementInterval);
-                if (newPos.X < 0) newPos.X = -1;
-                if (newPos.Y < 0) newPos.Y = -1;
-                //750 - rozmiar okna jakos ttu trzeba dostarczyc
-                if (newPos.X + Radius > 750) newPos.X = (float)(750 - Radius);
-                if (newPos.Y + Radius > 750) newPos.Y = (float)(750 - Radius);
-                X = newPos.X;
-                //new DataBase() -> PropertyChanged
-                RaisePropertyChanged("_x");
-                Y = newPos.Y;
-                RaisePropertyChanged("_y");
+                step(movementInterval);
                 stopwatch.Stop();
                 movementInterval = stopwatch.ElapsedMilliseconds;
                 stopwatch.Reset();
             }
 
         }
+
+        public override void step(float interval)
+        {
+            Vector2 currentPos = new Vector2();
+            currentPos.X = (float)X;
+            currentPos.Y = (float)Y;
+            Vector2 speed = new Vector2();
+            speed.X = (float)XSpeed;
+            speed.Y = (float)YSpeed;
+            Vector2 newPos = currentPos + Vector2.Multiply(speed, interval);
+            if (newPos.X < 0) newPos.X = -1;
+            if (newPos.Y < 0) newPos.Y = -1;
+            //750 - rozmiar okna jakos ttu trzeba dostarczyc
+            if (newPos.X + Radius > 750) newPos.X = (float)(750 - Radius);
+            if (newPos.Y + Radius > 750) newPos.Y = (float)(750 - Radius);
+            X = newPos.X;
+            RaisePropertyChanged("_x");
+            Y = newPos.Y;
+            RaisePropertyChanged("_y");
+        }
+
 
         public override double getX()
         {

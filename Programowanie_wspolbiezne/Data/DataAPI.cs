@@ -14,6 +14,7 @@ namespace Data
         public abstract void setX(double x);
         public abstract void setY(double y);
         public abstract void move();
+        public abstract void step(float interval);
         public static DataAPI CreateObject(float X, float Y)
         {
             return new Ball(X, Y);
