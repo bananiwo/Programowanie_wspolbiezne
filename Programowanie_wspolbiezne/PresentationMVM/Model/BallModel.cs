@@ -6,21 +6,26 @@ namespace PresentationMVM.Model
 {
     public class BallModel
     {
-        private LogicApi _logicLayer;
+        private BallLogicCollectionApi _logicLayer;
         private Vector2 _positionBallModel;
-
+        int _quantity;
         
         public BallModel()
         {
-            _logicLayer = LogicApi.CreateObjLogic();
+            Quantity = 5;
+            LogicLayer = BallLogicCollectionApi.CreateObjCollectionLogic();
         }
 
-        public Vector2 Position { get => _positionBallModel; set => _positionBallModel = value; }
+        public BallLogicCollectionApi LogicLayer { get => _logicLayer; set => _logicLayer = value; }
+        public int Quantity { get => _quantity; set => _quantity = value; }
 
-        public Vector2 getPosModelBall()
+        public void CreateBallsAndInitMovement()
         {
-            return Position;
+            LogicLayer.CreateBallLogicCollection(Quantity);
+            LogicLayer.BallLogicCollectionMovement();
         }
+
+        
 
 
     }

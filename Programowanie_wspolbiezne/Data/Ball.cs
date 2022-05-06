@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Data
 {
-    internal class Ball : BallAPI
+    internal class Ball : BallApi
     {
         private Vector2 _position;
         private Vector2 _speed;
@@ -22,27 +22,31 @@ namespace Data
         }
 
         public Vector2 Position { get => _position; set => _position = value; }
-        public override Vector2 getPosition()
+        public override Vector2 GetPosition()
         {
             return Position;
         }
-        public override void setPosition(Vector2 newPos)
+        public override void SetPosition(Vector2 newPos)
         {
             Position = newPos;
+        }
+        public override double GetRadius()
+        {
+            return Radius;
         }
         public Vector2 Speed { get => _speed; set => _speed = value; }
         public double Weight { get => _weight; set => _weight = value; }
         public double Radius { get => _radius; set => _radius = value; }
         public Vector2 Board { get => _board; set => _board = value; }
 
-        public override void move()
+        public override void Move()
         {
             Stopwatch stopwatch = new Stopwatch();
             float movementInterval = 20;
             while (true)
             {
                 stopwatch.Start();
-                step(movementInterval);
+                Step(movementInterval);
                 stopwatch.Stop();
                 movementInterval = stopwatch.ElapsedMilliseconds;
                 stopwatch.Reset();
@@ -50,7 +54,7 @@ namespace Data
 
         }
 
-        public override void step(float interval)
+        public override void Step(float interval)
         {
             Vector2 newPos = Position + Vector2.Multiply(Speed, interval);
             if (newPos.X < 0) newPos.X = 0;
@@ -58,7 +62,7 @@ namespace Data
             if (newPos.X + Radius > Board.X) newPos.X = (float)(Board.X - Radius);
             if (newPos.Y + Radius > Board.Y) newPos.Y = (float)(Board.Y - Radius);
             Position = newPos;
-            RaisePropertyChanged("Position");
+            //RaisePropertyChanged("Position");
         }
 
        

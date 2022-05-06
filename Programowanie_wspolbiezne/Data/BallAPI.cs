@@ -2,17 +2,19 @@
 
 namespace Data
 {
-    public abstract class BallAPI : DataBase
+    public abstract class BallApi : DataBase
 
     {
-        public abstract void move();
-        public abstract void step(float interval);
-        public abstract Vector2 getPosition();
-        public abstract void setPosition(Vector2 newPos);
-        public static BallAPI CreateObject()
+        public abstract void Move();
+        public abstract void Step(float interval);
+        public abstract Vector2 GetPosition();
+        public abstract double GetRadius();
+        public abstract void SetPosition(Vector2 newPos);
+        public static BallApi CreateObject()
         {
             return new Ball(GenerateStartPositionInsideBoard(), GenerateStartSpeed());
         }
+
 
         public static Vector2 GenerateStartPositionInsideBoard()
         {

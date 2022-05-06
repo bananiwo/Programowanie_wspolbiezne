@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public abstract class BallCollectionAPI
+    public abstract class BallCollectionApi
     {
         public abstract void CreateBallCollection(int quantity);
-        public abstract List<BallAPI> GetBallCollection();
-        public static BallCollectionAPI CreateObjCollectionLogic()
+        public abstract List<BallApi> GetBallCollection();
+        public abstract void BallCollectionMovement();
+        public static BallCollectionApi CreateObjCollection()
         {
             return new BallCollection();
         }

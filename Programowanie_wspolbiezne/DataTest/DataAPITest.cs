@@ -7,7 +7,6 @@ namespace DataTest
     [TestClass]
     public class DataAPITest
     {
-        BallAPI _layer;
         [TestMethod]
         public void TestBallValues()
         {

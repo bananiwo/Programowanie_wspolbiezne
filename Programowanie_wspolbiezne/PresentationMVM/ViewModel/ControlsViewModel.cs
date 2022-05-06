@@ -2,30 +2,24 @@
 using PresentationMVM.Model;
 using PresentationMVM.ViewModel.Commands;
 using System.Collections.ObjectModel;
-using System.Numerics;
-using System.Diagnostics;
-using Logic;
 
 namespace PresentationMVM.ViewModel
 {
     public class ControlsViewModel : ViewModelBase
     {
-        BallVM _ballVM;
-
+        BallModel ballModel;
         private ObservableCollection<BallVM> _items;
         private static System.Timers.Timer? _newTargetTimer;
         private static System.Timers.Timer? _newPositionTimer;
         private string _ballQuantityText = "1";
         private int _ballQuantity = 1;
-        private int _frameRate = 50;
 
         public ControlsViewModel()
         {
-            
+            ballModel = new BallModel();
             CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
-            _ballVM = new BallVM();
         }
 
         public ICommand CreateBallsButtonClick { get; set; }
@@ -44,46 +38,40 @@ namespace PresentationMVM.ViewModel
                 _newTargetTimer.Stop();
             }
             Items = new ObservableCollection<BallVM>();
-            BallVMCollection ballVMColl = new BallVMCollection();
-            Items = ballVMColl.CreateBallVMCollection(_ballQuantity);
-            foreach (var item in Items)
+            ballModel.CreateBallsAndInitMovement();
+            for(int i = 0; i < BallQuantity; i++)
             {
-                Debug.WriteLine(item.PosBallVM);
+                BallVM ballVM = new BallVM();
+                
+                Items.Add(new BallVM());
+
             }
+
+
+            
+
         }
 
-        public ObservableCollection<BallVM> Items
-        {
-            get
-            {
-                return _items;
-            }
-            set
-            {
-                _items = value;
-                RaisePropertyChanged("Items");
-            }
-        }
         private void AddBallClickHandler()
         {
             if (String.IsNullOrEmpty(BallQuantityText))
             {
-                _ballQuantity = 1;
+                BallQuantity = 1;
             }
             else
             {
-                _ballQuantity++;
+                BallQuantity++;
             }
 
-            BallQuantityText = _ballQuantity.ToString();
+            BallQuantityText = BallQuantity.ToString();
         }
 
         private void RemoveBallButtonClickHandler()
         {
-            if (_ballQuantity > 1)
-                _ballQuantity--;
+            if (BallQuantity > 1)
+                BallQuantity--;
 
-            BallQuantityText = _ballQuantity.ToString();
+            BallQuantityText = BallQuantity.ToString();
         }
 
         public string BallQuantityText
@@ -95,12 +83,12 @@ namespace PresentationMVM.ViewModel
             set
             {
                 _ballQuantityText = value;
-                _ballQuantity = int.Parse(_ballQuantityText);
+                BallQuantity = int.Parse(_ballQuantityText);
                 RaisePropertyChanged("BallQuantityText");
             }
         }
 
-
-
+        internal ObservableCollection<BallVM> Items { get => _items; set => _items = value; }
+        public int BallQuantity { get => _ballQuantity; set => _ballQuantity = value; }
     }
 }
