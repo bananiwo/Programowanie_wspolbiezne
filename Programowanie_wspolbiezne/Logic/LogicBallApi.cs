@@ -9,8 +9,8 @@ namespace Logic
 {
     public abstract class LogicBallApi
     {
-        Vector2 _position { get; }
-        float _radius { get; }
+        public abstract Vector2 Position { get; }
+        public abstract double Radius { get; }
 
 
     }

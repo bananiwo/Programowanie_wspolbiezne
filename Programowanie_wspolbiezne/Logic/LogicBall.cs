@@ -13,8 +13,8 @@ namespace Logic
 
         public BallApi Ball { get => _ball; set => _ball = value; }
 
-        public Vector2 Position { get => Ball.GetPosition(); }
-        public double Radius { get => Ball.GetRadius(); }
+        public override Vector2 Position { get => Ball.GetPosition(); }
+        public override double Radius { get => Ball.GetRadius(); }
 
     
     }

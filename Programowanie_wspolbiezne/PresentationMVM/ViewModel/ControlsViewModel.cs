@@ -7,7 +7,7 @@ namespace PresentationMVM.ViewModel
 {
     public class ControlsViewModel : ViewModelBase
     {
-        BallModel ballModel;
+        BallModelCollection ballModel;
         private ObservableCollection<BallVM> _items;
         private static System.Timers.Timer? _newTargetTimer;
         private static System.Timers.Timer? _newPositionTimer;
@@ -16,7 +16,7 @@ namespace PresentationMVM.ViewModel
 
         public ControlsViewModel()
         {
-            ballModel = new BallModel();
+            ballModel = new BallModelCollection();
             CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());

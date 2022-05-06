@@ -1,31 +1,20 @@
 ﻿using Logic;
 using System.Numerics;
-using System.Diagnostics;
 
 namespace PresentationMVM.Model
 {
-    public class BallModel
+    internal class BallModel
     {
-        private BallLogicCollectionApi _logicLayer;
-        private Vector2 _positionBallModel;
-        int _quantity;
-        
-        public BallModel()
+        LogicBallApi _ball;
+        public BallModel(LogicBallApi ball)
         {
-            Quantity = 5;
-            LogicLayer = BallLogicCollectionApi.CreateObjCollectionLogic();
+            Ball = ball;
         }
 
-        public BallLogicCollectionApi LogicLayer { get => _logicLayer; set => _logicLayer = value; }
-        public int Quantity { get => _quantity; set => _quantity = value; }
+        public LogicBallApi Ball { get => _ball; set => _ball = value; }
 
-        public void CreateBallsAndInitMovement()
-        {
-            LogicLayer.CreateBallLogicCollection(Quantity);
-            LogicLayer.BallLogicCollectionMovement();
-        }
-
-        
+        public Vector2 Position { get => Ball.Position; }
+        public double Radius { get => Ball.Radius; }
 
 
     }
