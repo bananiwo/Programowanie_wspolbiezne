@@ -1,6 +1,7 @@
 ﻿using Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -11,8 +12,8 @@ namespace Logic
     internal class BallLogicCollection : BallLogicCollectionApi
     {
         BallCollectionApi _data;
-        List<BallApi> _ballCollection;
-        List<LogicBallApi> _logicBallCollection = new List<LogicBallApi>();
+        ObservableCollection<BallApi> _ballCollection;
+        ObservableCollection<LogicBallApi> _logicBallCollection = new ObservableCollection<LogicBallApi>();
         public BallLogicCollection(BallCollectionApi ballCollection)
         {
             this.Data = ballCollection;
@@ -46,7 +47,7 @@ namespace Logic
             Data.BallCollectionMovement();
         }
 
-        public override List<LogicBallApi> GetBallLogicCollection()
+        public override ObservableCollection<LogicBallApi> GetBallLogicCollection()
         {
             BallCollection = Data.GetBallCollection();
             foreach(var ball in BallCollection)
@@ -58,7 +59,7 @@ namespace Logic
         }
 
         public BallCollectionApi Data { get => _data; set => _data = value; }
-        public List<BallApi> BallCollection { get => _ballCollection; set => _ballCollection = value; }
-        internal List<LogicBallApi> LogicBallCollection { get => _logicBallCollection; set => _logicBallCollection = value; }
+        public ObservableCollection<BallApi> BallCollection { get => _ballCollection; set => _ballCollection = value; }
+        internal ObservableCollection<LogicBallApi> LogicBallCollection { get => _logicBallCollection; set => _logicBallCollection = value; }
     }
 }

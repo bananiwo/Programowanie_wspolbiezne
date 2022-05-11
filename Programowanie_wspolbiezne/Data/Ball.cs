@@ -11,7 +11,6 @@ namespace Data
         private double _speed;
         private double _weight;
         private double _radius;
-        public event EventHandler<Vector2> PositionChanged;
          
         public Ball(Vector2 pos, double w = 150, double r = 15)
         {
@@ -28,16 +27,11 @@ namespace Data
             Board = new Vector2(750, 750);
         }
 
-        protected virtual void OnPositionChanged(Vector2 NewPosition)
-        {
-            PositionChanged?.Invoke(this, NewPosition);
-        }
 
         public Vector2 Position { get => _position;
             set
             {
                 _position = value;
-                OnPositionChanged(_position);
             }
         }
         public override Vector2 GetPosition()
@@ -78,7 +72,7 @@ namespace Data
         {
             Stopwatch stopwatch = new Stopwatch();
             float movementInterval = 20;
-            for (int i = 0; i < 3000; i++)
+            for (int i = 0; i < 3; i++)
             {
                 stopwatch.Start();
                 Step(movementInterval);
@@ -92,15 +86,19 @@ namespace Data
         public override void Step(float interval)
         {
             Vector2 newPos = Position + Vector2.Multiply(Vector2.Multiply(Direction, (float)Speed), interval);
+            newPos.X += 10;
+            newPos.Y += 10;
             if (newPos.X < 0) newPos.X = 0;
             if (newPos.Y < 0) newPos.Y = 0;
             if (newPos.X + Radius > Board.X) newPos.X = (float)(Board.X - Radius);
             if (newPos.Y + Radius > Board.Y) newPos.Y = (float)(Board.Y - Radius);
             Position = newPos;
-            //RaisePropertyChanged("Position");
+            Debug.WriteLine(Position);
+            OnPositionChangeOnData(newPos);
         }
 
-       
+        
+
 
     }
 }

@@ -1,14 +1,15 @@
 ﻿using Logic;
 using System.Numerics;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace PresentationMVM.Model
 {
     public class BallModelCollection
     {
         private BallLogicCollectionApi _logicLayer;
-        List<LogicBallApi> _logicBallColection;
-        List<BallModel> _ballModelColection = new List<BallModel>();
+        ObservableCollection<LogicBallApi> _logicBallColection;
+        ObservableCollection<BallModel> _ballModelColection = new ObservableCollection<BallModel>();
         private Vector2 _positionBallModel;
         int _quantity;
         
@@ -19,8 +20,8 @@ namespace PresentationMVM.Model
 
         public BallLogicCollectionApi LogicLayer { get => _logicLayer; set => _logicLayer = value; }
         public int Quantity { get => _quantity; set => _quantity = value; }
-        public List<LogicBallApi> LogicBallColection { get => _logicBallColection; set => _logicBallColection = value; }
-        internal List<BallModel> BallModelColection { get => _ballModelColection; set => _ballModelColection = value; }
+        public ObservableCollection<LogicBallApi> LogicBallColection { get => _logicBallColection; set => _logicBallColection = value; }
+        internal ObservableCollection<BallModel> BallModelColection { get => _ballModelColection; set => _ballModelColection = value; }
 
         internal void CreateBallsAndInitMovement(int quantity=5)
         {
@@ -35,7 +36,7 @@ namespace PresentationMVM.Model
         }
 
 
-        public List<BallModel> GetBallModelCollection()
+        public ObservableCollection<BallModel> GetBallModelCollection()
         {
             return BallModelColection;
         }

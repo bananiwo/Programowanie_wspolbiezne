@@ -1,4 +1,5 @@
 ﻿using Data;
+using System.Collections.ObjectModel;
 
 namespace Logic
 {
@@ -12,6 +13,6 @@ namespace Logic
         }
         public abstract void CreateBallLogicCollection(int quantity);
         public abstract void BallLogicCollectionMovement();
-        public abstract List<LogicBallApi> GetBallLogicCollection();
+        public abstract ObservableCollection<LogicBallApi> GetBallLogicCollection();
     }
 }

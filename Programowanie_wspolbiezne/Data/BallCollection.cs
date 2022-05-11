@@ -1,18 +1,19 @@
-﻿using System.Numerics;
+﻿using System.Collections.ObjectModel;
+using System.Numerics;
 
 namespace Data
 {
     internal class BallCollection : BallCollectionApi
     {
-        List<BallApi> _ballCollection;
+        //List<BallApi> _ballCollection;
+        ObservableCollection<BallApi> _ballCollection;
         public BallCollection()
         {
-            _ballCollection = new List<BallApi>();
+            _ballCollection = new ObservableCollection<BallApi>();
         }
 
         public override void CreateBallCollection(int quantity)
         {
-            _ballCollection = new List<BallApi>();
             for (int i = 0; i < quantity; i++)
             {
                 Ball ball = new Ball(Ball.GenerateStartPositionInsideBoard());
@@ -20,7 +21,7 @@ namespace Data
             }
         }
 
-        public override List<BallApi> GetBallCollection()
+        public override ObservableCollection<BallApi> GetBallCollection()
         {
             return _ballCollection;
         }

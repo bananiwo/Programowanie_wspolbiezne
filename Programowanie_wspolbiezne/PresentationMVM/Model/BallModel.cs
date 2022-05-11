@@ -9,24 +9,30 @@ namespace PresentationMVM.Model
         public BallModel(LogicBallApi ball)
         {
             Ball = ball;
-            Ball.PositionChangedLogic += bl_PositionChangedLogic;
+            ball.PositionChangeOnLogic += model_PositionChangeOnLogic;
 
         }
-        public static void bl_PositionChangedLogic(object sender, Vector2 pos)
+
+        public BallModel()
         {
-            Console.WriteLine(pos);
+
         }
 
-        public event EventHandler<Vector2> PositionChangedModel;
-        protected virtual void OnPositionChangedModel(Vector2 newPosition)
+        public static void model_PositionChangeOnLogic(object sender, Vector2 newPos)
         {
-            PositionChangedModel?.Invoke(this, newPosition);
+            BallModel model= new BallModel();
+            model.OnPositionChangeOnModel(newPos);
+        }
+
+        public event EventHandler<Vector2> PositionChangeOnModel;
+        protected virtual void OnPositionChangeOnModel(Vector2 newPos)
+        {
+            PositionChangeOnModel?.Invoke(this, newPos);
         }
 
         public LogicBallApi Ball { get => _ball; set => _ball = value; }
 
         public Vector2 Position { get { Vector2 currentPos = Ball.Position; 
-                OnPositionChangedModel(currentPos);
                 return currentPos;
             } }
         public double Radius { get => Ball.Radius; }

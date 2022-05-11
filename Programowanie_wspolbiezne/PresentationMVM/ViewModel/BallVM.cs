@@ -6,9 +6,10 @@ namespace PresentationMVM.ViewModel
 {
     public class BallVM : ViewModelBase
     {
-        double _x;
-        double _y;
+        static double _x;
+        static double _y;
         double _radius;
+        static Vector2 positionFromMove;
 
         public double Radius { get => _radius; set => _radius = value; }
         public double X { get => _x; 
@@ -29,12 +30,16 @@ namespace PresentationMVM.ViewModel
             X = ball.Position.X;
             Y = ball.Position.Y;
             Radius = ball.Radius;
-            ball.PositionChangedModel += bl_PositionChangedModel;
+            ball.PositionChangeOnModel += vm_PositionChangeOnModel;
+            
         }
 
-        public static void bl_PositionChangedModel(object sender, Vector2 pos)
+        public static void vm_PositionChangeOnModel(object sender, Vector2 newPos)
         {
-            Console.WriteLine(pos);
+            _x = newPos.X;
+            _y = newPos.Y;
+           
         }
+
     }
 }

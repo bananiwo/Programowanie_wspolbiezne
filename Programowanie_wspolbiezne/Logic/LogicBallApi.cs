@@ -13,14 +13,15 @@ namespace Logic
         public abstract Vector2 Position { get; }
         public abstract double Radius { get; }
 
-        public event EventHandler<Vector2> PositionChangedLogic;
-        protected virtual void OnPositionChangedLogic(Vector2 newPosition)
-        {
-            PositionChangedLogic?.Invoke(this, newPosition);
-        }
         public static LogicBallApi CreateLogicObject(BallApi ballApi)
         {
             return new LogicBall(ballApi);
+        }
+
+        public event EventHandler<Vector2> PositionChangeOnLogic;
+        protected virtual void OnPositionChangeOnLogic(Vector2 newPos)
+        {
+            PositionChangeOnLogic?.Invoke(this, newPos);
         }
 
 

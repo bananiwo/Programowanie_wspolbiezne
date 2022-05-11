@@ -15,7 +15,7 @@ namespace PresentationMVM.ViewModel
             BallModelCollection ballModelCollection = new BallModelCollection();
 
             ballModelCollection.CreateBallsAndInitMovement(quantity);
-            List<BallModel> ballCollection = ballModelCollection.GetBallModelCollection();
+            ObservableCollection<BallModel> ballCollection = ballModelCollection.GetBallModelCollection();
             ObservableCollection<BallVM> ballVMCollection = new ObservableCollection<BallVM>();
             foreach (BallModel ballM in ballCollection)
             {

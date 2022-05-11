@@ -2,7 +2,7 @@
 
 namespace Data
 {
-    public abstract class BallApi 
+    public abstract class BallApi
 
     {
         public abstract void Move();
@@ -19,12 +19,6 @@ namespace Data
             return new Ball(GenerateStartPositionInsideBoard());
         }
 
-        public event EventHandler<Vector2> PositionChanged;
-        protected virtual void OnPositionChanged(Vector2 newPosition)
-        {
-            PositionChanged?.Invoke(this, newPosition);
-        }
-
         public static Vector2 GenerateStartPositionInsideBoard()
         {
             Vector2 boardSize = new Vector2(750, 750);
@@ -34,6 +28,12 @@ namespace Data
             double randomY = r.NextDouble() * boardSize.Y;
             randomY += 30;
             return new Vector2((float)randomX, (float)randomY);
+        }
+
+        public event EventHandler<Vector2> PositionChangeOnData;
+        protected virtual void OnPositionChangeOnData(Vector2 newPos)
+        {
+            PositionChangeOnData?.Invoke(this, newPos);
         }
     }
 }
