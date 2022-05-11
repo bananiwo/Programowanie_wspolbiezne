@@ -8,37 +8,38 @@ namespace PresentationMVM.ViewModel
     {
         static double _x;
         static double _y;
+        static BallVM _ballVM;
         double _radius;
         static Vector2 positionFromMove;
 
         public double Radius { get => _radius; set => _radius = value; }
-        public double X { get => _x; 
+        public static double X { get => _x; 
             set { 
                 _x = value;
-                RaisePropertyChanged("X");
+                _ballVM.RaisePropertyChanged("X");
             } 
         }
-        public double Y { get => _y; 
+        public static double Y { get => _y; 
             set { 
                 _y = value;
-                RaisePropertyChanged("Y");
+                _ballVM.RaisePropertyChanged("Y");
             } 
         }
 
         public BallVM(BallModel ball)
         {
+            _ballVM = this;
             X = ball.Position.X;
             Y = ball.Position.Y;
             Radius = ball.Radius;
             ball.PositionChangeOnModel += vm_PositionChangeOnModel;
-            
         }
 
         public static void vm_PositionChangeOnModel(object sender, Vector2 newPos)
         {
-            _x = newPos.X;
-            _y = newPos.Y;
-           
+            X = newPos.X;
+            Y = newPos.Y;
+
         }
 
     }

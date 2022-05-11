@@ -10,12 +10,13 @@ namespace PresentationMVM.ViewModel
 {
     internal class BallVMCollection
     {
+        BallModelCollection _ballModelCollection;
         public ObservableCollection<BallVM> CreateBallVMCollection(int quantity)
         {
-            BallModelCollection ballModelCollection = new BallModelCollection();
+            _ballModelCollection = new BallModelCollection();
 
-            ballModelCollection.CreateBallsAndInitMovement(quantity);
-            ObservableCollection<BallModel> ballCollection = ballModelCollection.GetBallModelCollection();
+            _ballModelCollection.CreateBallsAndInitMovement(quantity);
+            ObservableCollection<BallModel> ballCollection = _ballModelCollection.GetBallModelCollection();
             ObservableCollection<BallVM> ballVMCollection = new ObservableCollection<BallVM>();
             foreach (BallModel ballM in ballCollection)
             {
@@ -24,6 +25,11 @@ namespace PresentationMVM.ViewModel
             }
 
             return ballVMCollection;
+        }
+
+        public void BallVMCollectionMovement()
+        {
+            _ballModelCollection.BallModelCollectionMovement();
         }
     }
 }

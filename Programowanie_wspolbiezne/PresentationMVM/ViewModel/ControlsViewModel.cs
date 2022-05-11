@@ -40,6 +40,7 @@ namespace PresentationMVM.ViewModel
             Items = new ObservableCollection<BallVM>();
             BallVMCollection ballVMColl = new BallVMCollection();
             Items = ballVMColl.CreateBallVMCollection(_ballQuantity);
+            ballVMColl.BallVMCollectionMovement();
         }
 
         public ObservableCollection<BallVM> Items

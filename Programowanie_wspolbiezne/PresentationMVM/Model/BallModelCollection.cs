@@ -27,12 +27,12 @@ namespace PresentationMVM.Model
         {
             LogicLayer.CreateBallLogicCollection(quantity);
             LogicBallColection = LogicLayer.GetBallLogicCollection();
-            LogicLayer.BallLogicCollectionMovement();
             foreach(var ball in LogicBallColection)
             {
                 BallModel ballModel = new BallModel(ball);
                 BallModelColection.Add(ballModel);
             }
+            //LogicLayer.BallLogicCollectionMovement();
         }
 
 
@@ -41,7 +41,12 @@ namespace PresentationMVM.Model
             return BallModelColection;
         }
 
-        
+        public void BallModelCollectionMovement()
+        {
+            _logicLayer.BallLogicCollectionMovement();
+        }
+
+
 
 
     }
