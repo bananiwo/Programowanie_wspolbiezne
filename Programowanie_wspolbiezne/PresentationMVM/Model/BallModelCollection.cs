@@ -26,8 +26,8 @@ namespace PresentationMVM.Model
         internal void CreateBallsAndInitMovement(int quantity=5)
         {
             LogicLayer.CreateBallLogicCollection(quantity);
-            LogicLayer.BallLogicCollectionMovement();
             LogicBallColection = LogicLayer.GetBallLogicCollection();
+            LogicLayer.BallLogicCollectionMovement();
             foreach(var ball in LogicBallColection)
             {
                 BallModel ballModel = new BallModel(ball);

@@ -6,20 +6,15 @@ namespace Logic
 {
     internal class LogicBall : LogicBallApi
     {
-        BallApi _ball;
+        static BallApi _ball;
+        static LogicBall _logicBall;
         Vector2 _logicPosition;
         public LogicBall(BallApi ball)
         {
             Ball = ball;
-            
+            _logicBall = this;
             Ball.PositionChangeOnData += logic_PositionChangeOnData;
 
-        }
-
-        public LogicBall()
-        {
-            Ball.PositionChangeOnData += logic_PositionChangeOnData;
-            Debug.WriteLine("konstruk");
         }
 
 
@@ -33,8 +28,7 @@ namespace Logic
 
         public static void logic_PositionChangeOnData(object sender, Vector2 newPos)
         {
-            LogicBall logic = new LogicBall();
-            logic.OnPositionChangeOnLogic(newPos);
+            _logicBall.OnPositionChangeOnLogic(newPos);
             Debug.WriteLine("jestem");
 
         }

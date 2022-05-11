@@ -19,7 +19,7 @@ namespace Logic
         }
 
         public event EventHandler<Vector2> PositionChangeOnLogic;
-        protected virtual void OnPositionChangeOnLogic(Vector2 newPos)
+        protected void OnPositionChangeOnLogic(Vector2 newPos)
         {
             PositionChangeOnLogic?.Invoke(this, newPos);
         }

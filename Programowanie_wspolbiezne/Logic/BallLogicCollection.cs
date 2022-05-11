@@ -21,6 +21,12 @@ namespace Logic
         public override void CreateBallLogicCollection(int quantity)
         {
             Data.CreateBallCollection(quantity);
+            BallCollection = Data.GetBallCollection();
+            foreach (var ball in BallCollection)
+            {
+                LogicBallApi logicBallApi = LogicBallApi.CreateLogicObject(ball);
+                LogicBallCollection.Add(logicBallApi);
+            }
         }
 
         private void CollisionDetection()
@@ -49,12 +55,6 @@ namespace Logic
 
         public override ObservableCollection<LogicBallApi> GetBallLogicCollection()
         {
-            BallCollection = Data.GetBallCollection();
-            foreach(var ball in BallCollection)
-            {
-                LogicBallApi logicBallApi = LogicBallApi.CreateLogicObject(ball);
-                LogicBallCollection.Add(logicBallApi);
-            }
             return LogicBallCollection;
         }
 
