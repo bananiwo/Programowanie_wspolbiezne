@@ -10,7 +10,8 @@ namespace Data
         private Vector2 _board;
         private double _weight;
         private double _radius;
-
+        public event EventHandler<Vector2> PositionChanged;
+         
         public Ball(Vector2 pos, Vector2 s, double w = 150, double r = 15)
         {
             Position = pos;
@@ -21,7 +22,18 @@ namespace Data
 
         }
 
-        public Vector2 Position { get => _position; set => _position = value; }
+        protected virtual void OnPositionChanged(Vector2 NewPosition)
+        {
+            PositionChanged?.Invoke(this, NewPosition);
+        }
+
+        public Vector2 Position { get => _position;
+            set
+            {
+                _position = value;
+                OnPositionChanged(_position);
+            }
+        }
         public override Vector2 GetPosition()
         {
             return Position;
