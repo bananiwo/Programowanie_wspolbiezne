@@ -8,11 +8,15 @@ namespace Data
         public abstract void Move();
         public abstract void Step(float interval);
         public abstract Vector2 GetPosition();
+        public abstract Vector2 GetDirection();
+        public abstract double GetSpeed();
         public abstract double GetRadius();
         public abstract void SetPosition(Vector2 newPos);
+        public abstract void SetDirection(Vector2 newDir);
+        public abstract void SetSpeed(double newSpeed);
         public static BallApi CreateObject()
         {
-            return new Ball(GenerateStartPositionInsideBoard(), GenerateStartSpeed());
+            return new Ball(GenerateStartPositionInsideBoard());
         }
 
 
@@ -25,16 +29,6 @@ namespace Data
             double randomY = r.NextDouble() * boardSize.Y;
             randomY += 30;
             return new Vector2((float)randomX, (float)randomY);
-        }
-
-        public static Vector2 GenerateStartSpeed()
-        {
-            Vector2 startSpeed = new Vector2();
-            Random r = new Random();
-            double startSpeedX = r.NextDouble() * 3;
-            r = new Random();
-            double startSpeedY = r.NextDouble() * 3;
-            return new Vector2((float)startSpeedX, (float)startSpeedY);
         }
     }
 }

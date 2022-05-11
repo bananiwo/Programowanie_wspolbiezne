@@ -6,20 +6,26 @@ namespace Data
     internal class Ball : BallApi
     {
         private Vector2 _position;
-        private Vector2 _speed;
+        private Vector2 _direction;
         private Vector2 _board;
+        private double _speed;
         private double _weight;
         private double _radius;
         public event EventHandler<Vector2> PositionChanged;
          
-        public Ball(Vector2 pos, Vector2 s, double w = 150, double r = 15)
+        public Ball(Vector2 pos, double w = 150, double r = 15)
         {
+            Random rnd = new Random();
+            double x = rnd.NextDouble() * 2 - 1;
+            double y = rnd.NextDouble() * 2 - 1;
+            Direction = new Vector2((float)x, (float)y);
+            Direction = Vector2.Normalize(Direction);
+            Speed = rnd.NextDouble() * 1;
+
             Position = pos;
-            Speed = s;
             Weight = w;
             Radius = r;
             Board = new Vector2(750, 750);
-
         }
 
         protected virtual void OnPositionChanged(Vector2 NewPosition)
@@ -42,11 +48,28 @@ namespace Data
         {
             Position = newPos;
         }
+        public override Vector2 GetDirection()
+        {
+            return Direction;
+        }
+        public override void SetDirection(Vector2 newDir)
+        {
+            Direction = newDir;
+        }
+        public override double GetSpeed()
+        {
+            return Speed;
+        }
+        public override void SetSpeed(double newSpeed)
+        {
+            Speed = newSpeed;
+        }
         public override double GetRadius()
         {
             return Radius;
         }
-        public Vector2 Speed { get => _speed; set => _speed = value; }
+        public double Speed { get => _speed; set => _speed = value; }
+        public Vector2 Direction { get => _direction; set => _direction = value; }
         public double Weight { get => _weight; set => _weight = value; }
         public double Radius { get => _radius; set => _radius = value; }
         public Vector2 Board { get => _board; set => _board = value; }
@@ -68,7 +91,7 @@ namespace Data
 
         public override void Step(float interval)
         {
-            Vector2 newPos = Position + Vector2.Multiply(Speed, interval);
+            Vector2 newPos = Position + Vector2.Multiply(Vector2.Multiply(Direction, (float)Speed), interval);
             if (newPos.X < 0) newPos.X = 0;
             if (newPos.Y < 0) newPos.Y = 0;
             if (newPos.X + Radius > Board.X) newPos.X = (float)(Board.X - Radius);
