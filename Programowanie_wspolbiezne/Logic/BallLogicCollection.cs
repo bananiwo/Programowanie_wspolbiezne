@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,8 +22,27 @@ namespace Logic
             Data.CreateBallCollection(quantity);
         }
 
+        private void CollisionDetection()
+        {
+            foreach (BallApi ball in _data.GetBallCollection())
+            {
+                foreach (BallApi otherBall in _data.GetBallCollection())
+                {
+                    if (ball == otherBall)
+                        continue;
+
+                    double distance = Vector2.Distance(ball.GetPosition(), otherBall.GetPosition());
+                    if (distance < ball.GetRadius() + otherBall.GetRadius())
+                    {
+                        ball.SetDirection(Vector2.Multiply(ball.GetDirection(), -1));
+                    }
+                }
+            }
+        }
+
         public override void BallLogicCollectionMovement()
         {
+            CollisionDetection();
             Data.BallCollectionMovement();
         }
 
