@@ -38,13 +38,8 @@ namespace PresentationMVM.ViewModel
                 _newTargetTimer.Stop();
             }
             Items = new ObservableCollection<BallVM>();
-            BallModel.CreateBallsAndInitMovement();
-            for(int i = 0; i < BallQuantity; i++)
-            {
-                BallVM ballVM = new BallVM();
-                Items.Add(new BallVM());
-
-            }
+            BallVMCollection ballVMColl = new BallVMCollection();
+            Items = ballVMColl.CreateBallVMCollection(_ballQuantity);
         }
 
         public ObservableCollection<BallVM> Items

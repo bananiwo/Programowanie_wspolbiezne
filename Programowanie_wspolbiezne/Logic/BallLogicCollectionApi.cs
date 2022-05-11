@@ -12,6 +12,6 @@ namespace Logic
         }
         public abstract void CreateBallLogicCollection(int quantity);
         public abstract void BallLogicCollectionMovement();
-
+        public abstract List<LogicBallApi> GetBallLogicCollection();
     }
 }

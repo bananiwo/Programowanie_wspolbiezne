@@ -10,6 +10,8 @@ namespace Logic
     internal class BallLogicCollection : BallLogicCollectionApi
     {
         BallCollectionApi _data;
+        List<BallApi> _ballCollection;
+        List<LogicBallApi> _logicBallCollection = new List<LogicBallApi>();
         public BallLogicCollection(BallCollectionApi ballCollection)
         {
             this.Data = ballCollection;
@@ -24,7 +26,19 @@ namespace Logic
             Data.BallCollectionMovement();
         }
 
+        public override List<LogicBallApi> GetBallLogicCollection()
+        {
+            BallCollection = Data.GetBallCollection();
+            foreach(var ball in BallCollection)
+            {
+                LogicBallApi logicBallApi = LogicBallApi.CreateLogicObject(ball);
+                LogicBallCollection.Add(logicBallApi);
+            }
+            return LogicBallCollection;
+        }
 
         public BallCollectionApi Data { get => _data; set => _data = value; }
+        public List<BallApi> BallCollection { get => _ballCollection; set => _ballCollection = value; }
+        internal List<LogicBallApi> LogicBallCollection { get => _logicBallCollection; set => _logicBallCollection = value; }
     }
 }

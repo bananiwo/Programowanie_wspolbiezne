@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using PresentationMVM.Model;
+using System.Diagnostics;
+using System.Numerics;
 
 namespace PresentationMVM.ViewModel
 {
@@ -22,11 +24,17 @@ namespace PresentationMVM.ViewModel
             } 
         }
 
-        public BallVM(double x = 0, double y = 0, double r = 0)
+        public BallVM(BallModel ball)
         {
-            X = x;
-            Y = y;
-            Radius = r;
+            X = ball.Position.X;
+            Y = ball.Position.Y;
+            Radius = ball.Radius;
+            ball.PositionChangedModel += bl_PositionChangedModel;
+        }
+
+        public static void bl_PositionChangedModel(object sender, Vector2 pos)
+        {
+            Console.WriteLine(pos);
         }
     }
 }

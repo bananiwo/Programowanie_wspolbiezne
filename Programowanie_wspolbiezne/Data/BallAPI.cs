@@ -2,7 +2,7 @@
 
 namespace Data
 {
-    public abstract class BallApi : DataBase
+    public abstract class BallApi 
 
     {
         public abstract void Move();
@@ -15,6 +15,11 @@ namespace Data
             return new Ball(GenerateStartPositionInsideBoard(), GenerateStartSpeed());
         }
 
+        public event EventHandler<Vector2> PositionChanged;
+        protected virtual void OnPositionChanged(Vector2 newPosition)
+        {
+            PositionChanged?.Invoke(this, newPosition);
+        }
 
         public static Vector2 GenerateStartPositionInsideBoard()
         {
