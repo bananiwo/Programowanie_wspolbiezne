@@ -78,14 +78,14 @@ namespace Data
         {
             Stopwatch stopwatch = new Stopwatch();
             float movementInterval = 20;
-            //while (true)
-            //{
-            //    stopwatch.Start();
-            //    Step(movementInterval);
-            //    stopwatch.Stop();
-            //    movementInterval = stopwatch.ElapsedMilliseconds;
-            //    stopwatch.Reset();
-            //}
+            for (int i = 0; i < 3000; i++)
+            {
+                stopwatch.Start();
+                Step(movementInterval);
+                stopwatch.Stop();
+                movementInterval = stopwatch.ElapsedMilliseconds;
+                stopwatch.Reset();
+            }
 
         }
 
