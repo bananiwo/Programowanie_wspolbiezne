@@ -12,7 +12,7 @@ namespace Data
         private double _weight;
         private double _radius;
         public event EventHandler<Vector2> PositionChanged;
-         
+
         public Ball(Vector2 pos, double w = 150, double r = 15)
         {
             Random rnd = new Random();
@@ -28,12 +28,14 @@ namespace Data
             Board = new Vector2(750, 750);
         }
 
-        protected virtual void OnPositionChanged(Vector2 NewPosition)
+        protected override void OnPositionChanged(Vector2 NewPosition)
         {
             PositionChanged?.Invoke(this, NewPosition);
         }
 
-        public Vector2 Position { get => _position;
+        public Vector2 Position
+        {
+            get => _position;
             set
             {
                 _position = value;
@@ -68,6 +70,10 @@ namespace Data
         {
             return Radius;
         }
+        public override Vector2 GetBoard()
+        {
+            return Board;
+        }
         public double Speed { get => _speed; set => _speed = value; }
         public Vector2 Direction { get => _direction; set => _direction = value; }
         public double Weight { get => _weight; set => _weight = value; }
@@ -100,7 +106,7 @@ namespace Data
             //RaisePropertyChanged("Position");
         }
 
-       
+
 
     }
 }

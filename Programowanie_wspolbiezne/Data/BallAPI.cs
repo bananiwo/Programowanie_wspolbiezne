@@ -2,13 +2,13 @@
 
 namespace Data
 {
-    public abstract class BallApi 
-
+    public abstract class BallApi
     {
         public abstract void Move();
         public abstract void Step(float interval);
         public abstract Vector2 GetPosition();
         public abstract Vector2 GetDirection();
+        public abstract Vector2 GetBoard();
         public abstract double GetSpeed();
         public abstract double GetRadius();
         public abstract void SetPosition(Vector2 newPos);
@@ -19,7 +19,7 @@ namespace Data
             return new Ball(GenerateStartPositionInsideBoard());
         }
 
-        public event EventHandler<Vector2> PositionChanged;
+        public event EventHandler<Vector2>? PositionChanged;
         protected virtual void OnPositionChanged(Vector2 newPosition)
         {
             PositionChanged?.Invoke(this, newPosition);
