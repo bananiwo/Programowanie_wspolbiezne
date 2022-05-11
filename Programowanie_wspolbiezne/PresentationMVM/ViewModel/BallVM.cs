@@ -37,8 +37,12 @@ namespace PresentationMVM.ViewModel
 
         public static void vm_PositionChangeOnModel(object sender, Vector2 newPos)
         {
+            Debug.WriteLine(X);
+            Debug.WriteLine(Y);
             X = newPos.X;
+            _ballVM.RaisePropertyChanged("X");
             Y = newPos.Y;
+            _ballVM.RaisePropertyChanged("Y");
 
         }
 
