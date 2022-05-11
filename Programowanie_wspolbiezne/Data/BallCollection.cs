@@ -15,7 +15,7 @@ namespace Data
             _ballCollection = new List<BallApi>();
             for (int i = 0; i < quantity; i++)
             {
-                Ball ball = new Ball(Ball.GenerateStartPositionInsideBoard(), Ball.GenerateStartSpeed());
+                Ball ball = new Ball(Ball.GenerateStartPositionInsideBoard());
                 _ballCollection.Add(ball);
             }
         }
