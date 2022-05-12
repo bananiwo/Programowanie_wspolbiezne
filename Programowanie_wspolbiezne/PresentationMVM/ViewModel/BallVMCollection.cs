@@ -14,13 +14,14 @@ namespace PresentationMVM.ViewModel
         public ObservableCollection<BallVM> CreateBallVMCollection(int quantity)
         {
             _ballModelCollection = new BallModelCollection();
-
             _ballModelCollection.CreateBallsAndInitMovement(quantity);
             ObservableCollection<BallModel> ballCollection = _ballModelCollection.GetBallModelCollection();
             ObservableCollection<BallVM> ballVMCollection = new ObservableCollection<BallVM>();
             foreach (BallModel ballM in ballCollection)
             {
                 BallVM ballVM = new BallVM(ballM);
+                ballVM.X = ballM.Position.X;
+                ballVM.Y = ballM.Position.Y;
                 ballVMCollection.Add(ballVM);
             }
 

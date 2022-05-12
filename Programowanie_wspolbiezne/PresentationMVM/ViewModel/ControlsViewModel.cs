@@ -35,7 +35,7 @@ namespace PresentationMVM.ViewModel
         private void getBallVMCollection()
         {
             BallVMCollection ballVMColl = new BallVMCollection();
-            Items = ballVMColl.CreateBallVMCollection(_ballQuantity);
+            Items = ballVMColl.CreateBallVMCollection(BallQuantity);
             ballVMColl.BallVMCollectionMovement();
 
         }
