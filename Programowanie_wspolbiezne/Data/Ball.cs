@@ -19,10 +19,10 @@ namespace Data
             Radius = radius;
         }
 
-        public string Uuid { get => _uuid; set => _uuid = value; }
-        public Vector2 Position { get => _position; set => _position = value; }
-        public Vector2 Velocity { get => _velocity; set => _velocity = value; }
-        public double Radius { get => _radius; set => _radius = value; }
+        public override string Uuid { get => _uuid; set => _uuid = value; }
+        public override Vector2 Position { get => _position; set => _position = value; }
+        public override Vector2 Velocity { get => _velocity; set => _velocity = value; }
+        public override double Radius { get => _radius; set => _radius = value; }
 
         public Stopwatch BallStopwatch => _ballStopwatch;
 
