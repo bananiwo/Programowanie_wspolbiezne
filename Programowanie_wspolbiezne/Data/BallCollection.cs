@@ -15,9 +15,14 @@ namespace Data
         {
             for (int i = 0; i < quantity; i++)
             {
-                Ball ball = new Ball(Ball.GenerateStartPositionInsideBoard());
-                _ballCollection.Add(ball);
+                Task task = Task.Factory.StartNew(createBall);
             }
+        }
+
+        private void createBall()
+        {
+            Ball ball = new Ball(Ball.GenerateStartPositionInsideBoard());
+            _ballCollection.Add(ball);
         }
 
         public override List<BallApi> GetBallCollection()
