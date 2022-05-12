@@ -1,35 +1,44 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Data
 {
     internal class BallCollection : BallCollectionApi
     {
-        List<BallApi> _ballCollection;
-        public BallCollection()
+        List<BallApi> _ballApiCollection;
+        Vector2 _boardSize;
+        internal BallCollection()
         {
-            _ballCollection = new List<BallApi>();
+            BallApiCollection = new List<BallApi>();
+            BoardSize = new Vector2(750, 750);
         }
 
-        public override void CreateBallCollection(int quantity)
+        public List<BallApi> BallApiCollection { get => _ballApiCollection; set => _ballApiCollection = value; }
+        public Vector2 BoardSize { get => _boardSize; set => _boardSize = value; }
+
+        public override void Add(BallApi ball)
         {
-            for (int i = 0; i < quantity; i++)
-            {
-                Ball ball = new Ball(Ball.GenerateStartPositionInsideBoard());
-                _ballCollection.Add(ball);
-            }
+            BallApiCollection.Add(ball);
+
         }
 
-        private void createBall()
+        public override BallApi GetBallApi(int i)
         {
-            Ball ball = new Ball(Ball.GenerateStartPositionInsideBoard());
-            _ballCollection.Add(ball);
+            return BallApiCollection[i];
         }
 
-        public override List<BallApi> GetBallCollection()
+        public override List<BallApi> GetBallApiCollection()
         {
-            return _ballCollection;
+            return BallApiCollection;
         }
 
+        public override void Remove(BallApi ball)
+        {
+            BallApiCollection.Remove(ball);
+        }
     }
 }

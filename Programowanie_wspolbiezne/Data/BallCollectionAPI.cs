@@ -1,19 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Data
 {
-    public abstract class BallCollectionApi
+    abstract class BallCollectionApi
     {
-        public abstract void CreateBallCollection(int quantity);
-        public abstract List<BallApi> GetBallCollection();
-        public static BallCollectionApi CreateObjCollection()
+        public Vector2 Board;
+        public abstract void Add(BallApi ball);
+        public abstract void Remove(BallApi ball);
+        public abstract BallApi GetBallApi(int i);
+        public abstract List<BallApi> GetBallApiCollection();
+
+        public static Ball CreateBall(String uuid, Vector2 position, Vector2 velocity, double radius)
+        {
+            return new Ball(uuid, position, velocity, radius);
+        }
+
+        public static double GetBallRadius(Ball ball)
+        {
+            return ball.Radius;
+        }
+
+        public static BallCollectionApi CreateBallsApi()
         {
             return new BallCollection();
         }
+
     }
 }
