@@ -15,7 +15,8 @@ namespace Data
         {
             for (int i = 0; i < quantity; i++)
             {
-                Task task = Task.Factory.StartNew(createBall);
+                Ball ball = new Ball(Ball.GenerateStartPositionInsideBoard());
+                _ballCollection.Add(ball);
             }
         }
 

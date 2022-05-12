@@ -11,6 +11,7 @@ namespace Logic
             data ??= BallCollectionApi.CreateObjCollection();
             return new BallLogicCollection(data);
         }
+        public abstract void BallLogicCollectionStopMovement();
         public abstract void CreateBallLogicCollection(int quantity);
         public abstract void BallLogicCollectionMovement();
         public abstract List<LogicBallApi> GetBallLogicCollection();

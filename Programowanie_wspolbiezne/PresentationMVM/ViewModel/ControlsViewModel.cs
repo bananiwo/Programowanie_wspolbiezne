@@ -17,6 +17,7 @@ namespace PresentationMVM.ViewModel
 
         public ControlsViewModel()
         {
+            BallVMCollectionStopMovement();
             _controller = this;
             BallModel = new BallModelCollection();
             CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
@@ -52,6 +53,10 @@ namespace PresentationMVM.ViewModel
         public void BallVMCollectionMovement()
         {
             _ballModelCollection.BallModelCollectionMovement();
+        }
+        public void BallVMCollectionStopMovement()
+        {
+            _ballModelCollection.BallModelCollectionStopMovement();
         }
 
 

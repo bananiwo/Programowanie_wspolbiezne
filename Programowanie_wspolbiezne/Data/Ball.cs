@@ -11,6 +11,8 @@ namespace Data
         private double _speed;
         private double _weight;
         private double _radius;
+        private readonly Stopwatch _stopwatch = new Stopwatch();
+        private Task task;
          
         public Ball(Vector2 pos, double w = 150, double r = 15)
         {
@@ -70,6 +72,7 @@ namespace Data
         public double Radius { get => _radius; set => _radius = value; }
         public Vector2 Board { get => _board; set => _board = value; }
 
+        public Stopwatch Stopwatch => _stopwatch;
 
         public override void Step(float interval)
         {
@@ -83,6 +86,28 @@ namespace Data
             Debug.WriteLine(newPos.X);
             Debug.WriteLine(newPos.Y);
             OnPositionChangeOnData(newPos);
+        }
+        public override void CreateTask(float interval, CancellationToken cancellationToken)
+        {
+            task = Movement(interval, cancellationToken);
+        }
+
+        private async Task Movement(float interval, CancellationToken cancellationToken)
+        {
+            while(!cancellationToken.IsCancellationRequested)
+            {
+                Stopwatch.Reset();
+                Stopwatch.Start();
+                if(!cancellationToken.IsCancellationRequested)
+                {
+                    Step(interval);
+                }
+                Stopwatch.Stop();
+
+                await Task.Delay((int)(interval - Stopwatch.ElapsedMilliseconds), cancellationToken);
+
+;
+            }
         }
 
         

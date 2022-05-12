@@ -46,6 +46,11 @@ namespace PresentationMVM.Model
             _logicLayer.BallLogicCollectionMovement();
         }
 
+        public void BallModelCollectionStopMovement()
+        {
+            _logicLayer.BallLogicCollectionStopMovement();
+        }
+
 
 
 

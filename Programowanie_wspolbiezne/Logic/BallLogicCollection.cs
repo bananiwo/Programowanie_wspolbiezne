@@ -14,9 +14,13 @@ namespace Logic
         BallCollectionApi _data;
         List<BallApi> _ballCollection;
         List<LogicBallApi> _logicBallCollection;
+        CancellationToken _cancellationToken;
+        CancellationTokenSource _cancellationTokenSource;
+        float _interval;
         public BallLogicCollection(BallCollectionApi ballCollection)
         {
             this.Data = ballCollection;
+            Interval = 20;
         }
         public override void CreateBallLogicCollection(int quantity)
         {
@@ -55,7 +59,21 @@ namespace Logic
 
         public override void BallLogicCollectionMovement()
         {
-            CollisionDetection();
+            //CollisionDetection();
+            CancellationTokenSource = new CancellationTokenSource();
+            CancellationToken = CancellationTokenSource.Token;
+            foreach (var ball in _data.GetBallCollection())
+            {
+                ball.CreateTask(Interval, CancellationToken);
+            }
+        }
+
+        public override void BallLogicCollectionStopMovement()
+        {
+            if(CancellationTokenSource != null && !CancellationTokenSource.IsCancellationRequested)
+            {
+                CancellationTokenSource.Cancel();
+            }
         }
 
         public override List<LogicBallApi> GetBallLogicCollection()
@@ -66,5 +84,8 @@ namespace Logic
         public BallCollectionApi Data { get => _data; set => _data = value; }
         public List<BallApi> BallCollection { get => _ballCollection; set => _ballCollection = value; }
         internal List<LogicBallApi> LogicBallCollection { get => _logicBallCollection; set => _logicBallCollection = value; }
+        public CancellationToken CancellationToken { get => _cancellationToken; set => _cancellationToken = value; }
+        public CancellationTokenSource CancellationTokenSource { get => _cancellationTokenSource; set => _cancellationTokenSource = value; }
+        public float Interval { get => _interval; set => _interval = value; }
     }
 }

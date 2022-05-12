@@ -6,6 +6,8 @@ namespace Data
 
     {
         public abstract void Step(float interval);
+
+        public abstract void CreateTask(float interval, CancellationToken cancellationToken);
         public abstract Vector2 GetPosition();
         public abstract Vector2 GetDirection();
         public abstract double GetSpeed();
