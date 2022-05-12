@@ -70,15 +70,10 @@ namespace Data
 
         public override void Move()
         {
-            Stopwatch stopwatch = new Stopwatch();
             float movementInterval = 20;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 10000; i++)
             {
-                stopwatch.Start();
-                Step(movementInterval);
-                stopwatch.Stop();
-                movementInterval = stopwatch.ElapsedMilliseconds;
-                stopwatch.Reset();
+                Step(movementInterval/1000);
             }
 
         }
@@ -86,8 +81,6 @@ namespace Data
         public override void Step(float interval)
         {
             Vector2 newPos = Position + Vector2.Multiply(Vector2.Multiply(Direction, (float)Speed), interval);
-            newPos.X += 100;
-            newPos.Y += 100;
             if (newPos.X < 0) newPos.X = 0;
             if (newPos.Y < 0) newPos.Y = 0;
             if (newPos.X + Radius > Board.X) newPos.X = (float)(Board.X - Radius);

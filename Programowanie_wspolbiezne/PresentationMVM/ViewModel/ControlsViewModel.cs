@@ -2,13 +2,16 @@
 using PresentationMVM.Model;
 using PresentationMVM.ViewModel.Commands;
 using System.Collections.ObjectModel;
+using System.Numerics;
+using System.Diagnostics;
 
 namespace PresentationMVM.ViewModel
 {
     public class ControlsViewModel : ViewModelBase
     {
         BallModelCollection _ballModel;
-        private ObservableCollection<BallVM> _items;
+        private static ObservableCollection<BallVM> _items;
+        private static ControlsViewModel _controller;
         private static System.Timers.Timer? _newTargetTimer;
         private static System.Timers.Timer? _newPositionTimer;
         private string _ballQuantityText = "1";
@@ -16,10 +19,12 @@ namespace PresentationMVM.ViewModel
 
         public ControlsViewModel()
         {
+            _controller = this;
             BallModel = new BallModelCollection();
             CreateBallsButtonClick = new RelayCommand(() => getBallVMCollection());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
             RemoveBallButtonClick = new RelayCommand(() => RemoveBallButtonClickHandler());
+            
         }
 
         public ICommand CreateBallsButtonClick { get; set; }
@@ -32,7 +37,23 @@ namespace PresentationMVM.ViewModel
             BallVMCollection ballVMColl = new BallVMCollection();
             Items = ballVMColl.CreateBallVMCollection(_ballQuantity);
             ballVMColl.BallVMCollectionMovement();
+
         }
+
+        public static void ChangeBallVMPosition(BallVM ball, Vector2 newPos)
+        {
+            foreach(var item in _items)
+            {
+                if(item == ball)
+                {
+                    item.X = newPos.X;
+                    item.Y = newPos.Y;
+                }
+            }
+            
+        }
+
+
 
         public ObservableCollection<BallVM> Items
         {

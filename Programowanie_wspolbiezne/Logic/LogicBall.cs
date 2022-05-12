@@ -29,7 +29,6 @@ namespace Logic
         public static void logic_PositionChangeOnData(object sender, Vector2 newPos)
         {
             _logicBall.OnPositionChangeOnLogic(newPos);
-            Debug.WriteLine("jestem");
 
         }
 
