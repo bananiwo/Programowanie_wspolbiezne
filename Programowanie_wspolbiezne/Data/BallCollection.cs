@@ -5,11 +5,10 @@ namespace Data
 {
     internal class BallCollection : BallCollectionApi
     {
-        //List<BallApi> _ballCollection;
-        ObservableCollection<BallApi> _ballCollection;
+        List<BallApi> _ballCollection;
         public BallCollection()
         {
-            _ballCollection = new ObservableCollection<BallApi>();
+            _ballCollection = new List<BallApi>();
         }
 
         public override void CreateBallCollection(int quantity)
@@ -21,7 +20,7 @@ namespace Data
             }
         }
 
-        public override ObservableCollection<BallApi> GetBallCollection()
+        public override List<BallApi> GetBallCollection()
         {
             return _ballCollection;
         }

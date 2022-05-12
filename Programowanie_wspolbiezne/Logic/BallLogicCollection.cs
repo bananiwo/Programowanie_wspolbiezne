@@ -12,8 +12,8 @@ namespace Logic
     internal class BallLogicCollection : BallLogicCollectionApi
     {
         BallCollectionApi _data;
-        ObservableCollection<BallApi> _ballCollection;
-        ObservableCollection<LogicBallApi> _logicBallCollection;
+        List<BallApi> _ballCollection;
+        List<LogicBallApi> _logicBallCollection;
         public BallLogicCollection(BallCollectionApi ballCollection)
         {
             this.Data = ballCollection;
@@ -22,7 +22,7 @@ namespace Logic
         {
             Data.CreateBallCollection(quantity);
             BallCollection = Data.GetBallCollection();
-            _logicBallCollection = new ObservableCollection<LogicBallApi>();
+            _logicBallCollection = new List<LogicBallApi>();
             foreach (var ball in BallCollection)
             {
                 LogicBallApi logicBallApi = LogicBallApi.CreateLogicObject(ball);
@@ -54,13 +54,13 @@ namespace Logic
             Data.BallCollectionMovement();
         }
 
-        public override ObservableCollection<LogicBallApi> GetBallLogicCollection()
+        public override List<LogicBallApi> GetBallLogicCollection()
         {
             return LogicBallCollection;
         }
 
         public BallCollectionApi Data { get => _data; set => _data = value; }
-        public ObservableCollection<BallApi> BallCollection { get => _ballCollection; set => _ballCollection = value; }
-        internal ObservableCollection<LogicBallApi> LogicBallCollection { get => _logicBallCollection; set => _logicBallCollection = value; }
+        public List<BallApi> BallCollection { get => _ballCollection; set => _ballCollection = value; }
+        internal List<LogicBallApi> LogicBallCollection { get => _logicBallCollection; set => _logicBallCollection = value; }
     }
 }

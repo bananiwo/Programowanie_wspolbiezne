@@ -8,7 +8,6 @@ namespace PresentationMVM.ViewModel
     {
         static double _x;
         static double _y;
-        string _uuid;
         static BallVM _ballVM;
         double _radius;
 
@@ -29,27 +28,19 @@ namespace PresentationMVM.ViewModel
         public BallVM(BallModel ball)
         {
             _ballVM = this;
-            Guid myUUId = Guid.NewGuid();
-            _uuid = myUUId.ToString();
             X = ball.Position.X;
             Y = ball.Position.Y;
             Radius = ball.Radius;
-            ball.PositionChangeOnModel += vm_PositionChangeOnModel;
+            ball.PositionChangeOnModel += Vm_PositionChangeOnModel;
             Debug.WriteLine("BallVM");
             Debug.WriteLine(X);
             Debug.WriteLine(Y);
         }
 
-        public event EventHandler<Vector2> PositionChangeOnBallVM;
-        protected virtual void OnPositionChangeOnModel(Vector2 newPos)
-        {
-            PositionChangeOnBallVM.Invoke(this, newPos);
-        }
 
-        public static void vm_PositionChangeOnModel(object sender, Vector2 newPos)
+        public void Vm_PositionChangeOnModel(object sender, Vector2 newPos)
         {
-            ControlsViewModel.ChangeBallVMPosition(_ballVM, newPos);
-
+            Debug.WriteLine(newPos);
         }
 
     }

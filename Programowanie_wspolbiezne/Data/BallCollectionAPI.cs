@@ -10,7 +10,7 @@ namespace Data
     public abstract class BallCollectionApi
     {
         public abstract void CreateBallCollection(int quantity);
-        public abstract ObservableCollection<BallApi> GetBallCollection();
+        public abstract List<BallApi> GetBallCollection();
         public abstract void BallCollectionMovement();
         public static BallCollectionApi CreateObjCollection()
         {

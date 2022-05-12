@@ -12,8 +12,6 @@ namespace PresentationMVM.ViewModel
         BallModelCollection _ballModel;
         private static ObservableCollection<BallVM> _items;
         private static ControlsViewModel _controller;
-        private static System.Timers.Timer? _newTargetTimer;
-        private static System.Timers.Timer? _newPositionTimer;
         private string _ballQuantityText = "1";
         private int _ballQuantity = 1;
 
@@ -31,31 +29,38 @@ namespace PresentationMVM.ViewModel
         public ICommand AddBallButtonClick { get; set; }
         public ICommand RemoveBallButtonClick { get; set; }
 
+        BallModelCollection _ballModelCollection;
+
+        public ObservableCollection<BallVM> CreateBallVMCollection(int quantity)
+        {
+            _ballModelCollection = new BallModelCollection();
+            _ballModelCollection.CreateBallsAndInitMovement(quantity);
+            List<BallModel> ballCollection = _ballModelCollection.GetBallModelCollection();
+            ObservableCollection<BallVM> ballVMCollection = new ObservableCollection<BallVM>();
+            foreach (BallModel ballM in ballCollection)
+            {
+                BallVM ballVM = new BallVM(ballM);
+                ballVM.X = ballM.Position.X;
+                ballVM.Y = ballM.Position.Y;
+                ballVMCollection.Add(ballVM);
+            }
+
+            return ballVMCollection;
+        }
+
+
+        public void BallVMCollectionMovement()
+        {
+            _ballModelCollection.BallModelCollectionMovement();
+        }
+
 
         private void getBallVMCollection()
         {
-            BallVMCollection ballVMColl = new BallVMCollection();
-            Items = ballVMColl.CreateBallVMCollection(BallQuantity);
-            ballVMColl.BallVMCollectionMovement();
+            Items = CreateBallVMCollection(BallQuantity);
+            BallVMCollectionMovement();
 
         }
-
-        public static void ChangeBallVMPosition(BallVM ball, Vector2 newPos)
-        {
-            foreach(var item in _items)
-            {
-                if(item == ball)
-                {
-                    Debug.WriteLine("na gorze");
-                    Debug.WriteLine(newPos.X);
-                    Debug.WriteLine(newPos.Y);
-                    item.X = newPos.X;
-                    item.Y = newPos.Y;
-                }
-            }
-            
-        }
-
 
 
         public ObservableCollection<BallVM> Items

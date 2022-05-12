@@ -13,6 +13,6 @@ namespace Logic
         }
         public abstract void CreateBallLogicCollection(int quantity);
         public abstract void BallLogicCollectionMovement();
-        public abstract ObservableCollection<LogicBallApi> GetBallLogicCollection();
+        public abstract List<LogicBallApi> GetBallLogicCollection();
     }
 }

@@ -8,20 +8,20 @@ namespace PresentationMVM.Model
     public class BallModelCollection
     {
         private BallLogicCollectionApi _logicLayer;
-        ObservableCollection<LogicBallApi> _logicBallColection;
-        ObservableCollection<BallModel> _ballModelColection = new ObservableCollection<BallModel>();
-        private Vector2 _positionBallModel;
+        List<LogicBallApi> _logicBallColection;
+        List<BallModel> _ballModelColection;
         int _quantity;
         
         public BallModelCollection()
         {
+            BallModelColection = new List<BallModel>();
             LogicLayer = BallLogicCollectionApi.CreateObjCollectionLogic();
         }
 
         public BallLogicCollectionApi LogicLayer { get => _logicLayer; set => _logicLayer = value; }
         public int Quantity { get => _quantity; set => _quantity = value; }
-        public ObservableCollection<LogicBallApi> LogicBallColection { get => _logicBallColection; set => _logicBallColection = value; }
-        internal ObservableCollection<BallModel> BallModelColection { get => _ballModelColection; set => _ballModelColection = value; }
+        public List<LogicBallApi> LogicBallColection { get => _logicBallColection; set => _logicBallColection = value; }
+        internal List<BallModel> BallModelColection { get => _ballModelColection; set => _ballModelColection = value; }
 
         internal void CreateBallsAndInitMovement(int quantity)
         {
@@ -36,7 +36,7 @@ namespace PresentationMVM.Model
         }
 
 
-        public ObservableCollection<BallModel> GetBallModelCollection()
+        public List<BallModel> GetBallModelCollection()
         {
             return BallModelColection;
         }
