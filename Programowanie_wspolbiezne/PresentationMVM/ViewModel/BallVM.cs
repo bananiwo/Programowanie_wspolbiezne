@@ -38,6 +38,8 @@ namespace PresentationMVM.ViewModel
 
         public void Vm_PositionChangeOnModel(object sender, Vector2 newPos)
         {
+            this.X = newPos.X;
+            this.Y = newPos.Y;
             Debug.WriteLine("jestem na gorze");
             Debug.WriteLine(newPos);
         }
