@@ -8,7 +8,6 @@ namespace PresentationMVM.ViewModel
     {
         static double _x;
         static double _y;
-        static BallVM _ballVM;
         double _radius;
 
         public double Radius { get => _radius; set => _radius = value; }
@@ -27,7 +26,6 @@ namespace PresentationMVM.ViewModel
 
         public BallVM(BallModel ball)
         {
-            _ballVM = this;
             X = ball.Position.X;
             Y = ball.Position.Y;
             Radius = ball.Radius;
@@ -40,6 +38,7 @@ namespace PresentationMVM.ViewModel
 
         public void Vm_PositionChangeOnModel(object sender, Vector2 newPos)
         {
+            Debug.WriteLine("jestem na gorze");
             Debug.WriteLine(newPos);
         }
 
