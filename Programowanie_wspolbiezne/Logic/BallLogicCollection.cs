@@ -14,6 +14,7 @@ namespace Logic
         BallCollectionApi _data;
         List<BallApi> _ballCollection;
         List<LogicBallApi> _logicBallCollection;
+        private static System.Timers.Timer? _movementTimer;
         public BallLogicCollection(BallCollectionApi ballCollection)
         {
             this.Data = ballCollection;
@@ -30,32 +31,33 @@ namespace Logic
             }
         }
 
-        private void CollisionDetection()
+        private void MovementEvent(object? sender, EventArgs e)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                foreach (BallApi ball in _data.GetBallCollection())
-                {
-                    foreach (BallApi otherBall in _data.GetBallCollection())
-                    {
-                        if (ball == otherBall)
-                            continue;
+            //{
+            foreach (BallApi ball in _data.GetBallCollection())
+                //    {
+                //        foreach (BallApi otherBall in _data.GetBallCollection())
+                //        {
+                //            if (ball == otherBall)
+                //                continue;
 
-                        double distance = Vector2.Distance(ball.GetPosition(), otherBall.GetPosition());
-                        if (distance < ball.GetRadius() + otherBall.GetRadius())
-                        {
-                            ball.SetDirection(Vector2.Multiply(ball.GetDirection(), -1));
-                        }
-                    }
-                    ball.Step(20 / 1000);
-                    ;
-                }
-            }
+                //            double distance = Vector2.Distance(ball.GetPosition(), otherBall.GetPosition());
+                //            if (distance < ball.GetRadius() + otherBall.GetRadius())
+                //            {
+                //                ball.SetDirection(Vector2.Multiply(ball.GetDirection(), -1));
+                //            }
+                //        }
+                ball.Step();
+                    
+            //    }
+            //}
         }
 
         public override void BallLogicCollectionMovement()
         {
-            CollisionDetection();
+                _movementTimer = new System.Timers.Timer(800 / 30);
+            _movementTimer.Elapsed += MovementEvent;
+            _movementTimer.Start();
         }
 
         public override List<LogicBallApi> GetBallLogicCollection()

@@ -19,7 +19,8 @@ namespace Data
             double y = rnd.NextDouble() * 2 - 1;
             Direction = new Vector2((float)x, (float)y);
             Direction = Vector2.Normalize(Direction);
-            Speed = rnd.NextDouble() * 1;
+            //Speed = rnd.NextDouble() * 1;
+            Speed = 20;
 
             Position = pos;
             Weight = w;
@@ -71,18 +72,26 @@ namespace Data
         public Vector2 Board { get => _board; set => _board = value; }
 
 
-        public override void Step(float interval)
+        public override void Step()
         {
-            Vector2 newPos = Position + Vector2.Multiply(Vector2.Multiply(Direction, (float)Speed), interval);
-            if (newPos.X < 0) newPos.X = 0;
-            if (newPos.Y < 0) newPos.Y = 0;
-            if (newPos.X + Radius > Board.X) newPos.X = (float)(Board.X - Radius);
-            if (newPos.Y + Radius > Board.Y) newPos.Y = (float)(Board.Y - Radius);
+            BounceIfHitsWall();
+            Vector2 newPos = Position + Vector2.Multiply(Direction, (float)Speed);
             Position = newPos;
             Debug.WriteLine("na dole");
             Debug.WriteLine(newPos.X);
             Debug.WriteLine(newPos.Y);
             OnPositionChangeOnData(newPos);
+        }
+
+        private void BounceIfHitsWall()
+        {
+            double x = Position.X;
+            double y = Position.Y;
+            if (x <= 0 + Radius || x >= Board.X)
+                Direction = new Vector2(-1*Direction.X, Direction.Y);
+
+            if (y <= 0 + Radius || y >= Board.Y)
+                Direction = new Vector2(Direction.X, -1*Direction.Y);
         }
 
         
