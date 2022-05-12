@@ -70,21 +70,10 @@ namespace Data
         public double Radius { get => _radius; set => _radius = value; }
         public Vector2 Board { get => _board; set => _board = value; }
 
-        public override void Move()
-        {
-            float movementInterval = 20;
-            for (int i = 0; i < 3; i++)
-            {
-                Step(movementInterval/1000);
-            }
-
-        }
 
         public override void Step(float interval)
         {
             Vector2 newPos = Position + Vector2.Multiply(Vector2.Multiply(Direction, (float)Speed), interval);
-            newPos.X = Position.X + 50;
-            newPos.Y = Position.Y + 50;
             if (newPos.X < 0) newPos.X = 0;
             if (newPos.Y < 0) newPos.Y = 0;
             if (newPos.X + Radius > Board.X) newPos.X = (float)(Board.X - Radius);

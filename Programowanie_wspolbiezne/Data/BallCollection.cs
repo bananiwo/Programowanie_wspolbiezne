@@ -25,12 +25,5 @@ namespace Data
             return _ballCollection;
         }
 
-        public override void BallCollectionMovement()
-        {
-            foreach(Ball ball in _ballCollection)
-            {
-                ball.Move();
-            }
-        }
     }
 }

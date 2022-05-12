@@ -32,18 +32,23 @@ namespace Logic
 
         private void CollisionDetection()
         {
-            foreach (BallApi ball in _data.GetBallCollection())
+            for (int i = 0; i < 3; i++)
             {
-                foreach (BallApi otherBall in _data.GetBallCollection())
+                foreach (BallApi ball in _data.GetBallCollection())
                 {
-                    if (ball == otherBall)
-                        continue;
-
-                    double distance = Vector2.Distance(ball.GetPosition(), otherBall.GetPosition());
-                    if (distance < ball.GetRadius() + otherBall.GetRadius())
+                    foreach (BallApi otherBall in _data.GetBallCollection())
                     {
-                        ball.SetDirection(Vector2.Multiply(ball.GetDirection(), -1));
+                        if (ball == otherBall)
+                            continue;
+
+                        double distance = Vector2.Distance(ball.GetPosition(), otherBall.GetPosition());
+                        if (distance < ball.GetRadius() + otherBall.GetRadius())
+                        {
+                            ball.SetDirection(Vector2.Multiply(ball.GetDirection(), -1));
+                        }
                     }
+                    ball.Step(20 / 1000);
+                    ;
                 }
             }
         }
@@ -51,7 +56,6 @@ namespace Logic
         public override void BallLogicCollectionMovement()
         {
             CollisionDetection();
-            Data.BallCollectionMovement();
         }
 
         public override List<LogicBallApi> GetBallLogicCollection()

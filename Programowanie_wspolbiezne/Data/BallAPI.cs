@@ -5,7 +5,6 @@ namespace Data
     public abstract class BallApi
 
     {
-        public abstract void Move();
         public abstract void Step(float interval);
         public abstract Vector2 GetPosition();
         public abstract Vector2 GetDirection();

@@ -11,7 +11,6 @@ namespace Data
     {
         public abstract void CreateBallCollection(int quantity);
         public abstract List<BallApi> GetBallCollection();
-        public abstract void BallCollectionMovement();
         public static BallCollectionApi CreateObjCollection()
         {
             return new BallCollection();
