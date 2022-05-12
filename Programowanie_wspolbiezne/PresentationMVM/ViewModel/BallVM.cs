@@ -11,7 +11,6 @@ namespace PresentationMVM.ViewModel
         string _uuid;
         static BallVM _ballVM;
         double _radius;
-        static Vector2 positionFromMove;
 
         public double Radius { get => _radius; set => _radius = value; }
         public double X { get => _x; 
@@ -36,6 +35,9 @@ namespace PresentationMVM.ViewModel
             Y = ball.Position.Y;
             Radius = ball.Radius;
             ball.PositionChangeOnModel += vm_PositionChangeOnModel;
+            Debug.WriteLine("BallVM");
+            Debug.WriteLine(X);
+            Debug.WriteLine(Y);
         }
 
         public event EventHandler<Vector2> PositionChangeOnBallVM;

@@ -25,6 +25,8 @@ namespace Data
             Weight = w;
             Radius = r;
             Board = new Vector2(750, 750);
+            Debug.WriteLine("Ball");
+            Debug.WriteLine(Position);
         }
 
 
@@ -71,7 +73,7 @@ namespace Data
         public override void Move()
         {
             float movementInterval = 20;
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Step(movementInterval/1000);
             }
@@ -81,12 +83,16 @@ namespace Data
         public override void Step(float interval)
         {
             Vector2 newPos = Position + Vector2.Multiply(Vector2.Multiply(Direction, (float)Speed), interval);
+            newPos.X = Position.X + 50;
+            newPos.Y = Position.Y + 50;
             if (newPos.X < 0) newPos.X = 0;
             if (newPos.Y < 0) newPos.Y = 0;
             if (newPos.X + Radius > Board.X) newPos.X = (float)(Board.X - Radius);
             if (newPos.Y + Radius > Board.Y) newPos.Y = (float)(Board.Y - Radius);
             Position = newPos;
-            Debug.WriteLine(Position);
+            Debug.WriteLine("na dole");
+            Debug.WriteLine(newPos.X);
+            Debug.WriteLine(newPos.Y);
             OnPositionChangeOnData(newPos);
         }
 

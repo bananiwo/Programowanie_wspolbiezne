@@ -10,7 +10,7 @@ namespace Logic
 {
     public abstract class LogicBallApi
     {
-        public abstract Vector2 Position { get; }
+        public abstract Vector2 Position { get; set; }
         public abstract double Radius { get; }
 
         public static LogicBallApi CreateLogicObject(BallApi ballApi)

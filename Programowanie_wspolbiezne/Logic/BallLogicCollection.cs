@@ -13,7 +13,7 @@ namespace Logic
     {
         BallCollectionApi _data;
         ObservableCollection<BallApi> _ballCollection;
-        ObservableCollection<LogicBallApi> _logicBallCollection = new ObservableCollection<LogicBallApi>();
+        ObservableCollection<LogicBallApi> _logicBallCollection;
         public BallLogicCollection(BallCollectionApi ballCollection)
         {
             this.Data = ballCollection;
@@ -22,6 +22,7 @@ namespace Logic
         {
             Data.CreateBallCollection(quantity);
             BallCollection = Data.GetBallCollection();
+            _logicBallCollection = new ObservableCollection<LogicBallApi>();
             foreach (var ball in BallCollection)
             {
                 LogicBallApi logicBallApi = LogicBallApi.CreateLogicObject(ball);

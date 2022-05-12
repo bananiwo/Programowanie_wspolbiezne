@@ -1,4 +1,5 @@
 ﻿using Logic;
+using System.Diagnostics;
 using System.Numerics;
 
 namespace PresentationMVM.Model
@@ -7,11 +8,15 @@ namespace PresentationMVM.Model
     {
         LogicBallApi _ball;
         static BallModel _ballModel;
+        private Vector2 _position;
         public BallModel(LogicBallApi ball)
         {
             Ball = ball;
             _ballModel = this;
             ball.PositionChangeOnLogic += model_PositionChangeOnLogic;
+            Position = ball.Position;
+            Debug.WriteLine("ModelBall");
+            Debug.WriteLine(Position);
 
         }
 
@@ -28,11 +33,7 @@ namespace PresentationMVM.Model
 
         public LogicBallApi Ball { get => _ball; set => _ball = value; }
 
-        public Vector2 Position { get { Vector2 currentPos = Ball.Position; 
-                return currentPos;
-            } }
         public double Radius { get => Ball.Radius; }
-
-
+        public Vector2 Position { get => _position; set => _position = value; }
     }
 }

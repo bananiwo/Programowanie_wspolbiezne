@@ -23,7 +23,7 @@ namespace PresentationMVM.Model
         public ObservableCollection<LogicBallApi> LogicBallColection { get => _logicBallColection; set => _logicBallColection = value; }
         internal ObservableCollection<BallModel> BallModelColection { get => _ballModelColection; set => _ballModelColection = value; }
 
-        internal void CreateBallsAndInitMovement(int quantity=5)
+        internal void CreateBallsAndInitMovement(int quantity)
         {
             LogicLayer.CreateBallLogicCollection(quantity);
             LogicBallColection = LogicLayer.GetBallLogicCollection();

@@ -46,6 +46,9 @@ namespace PresentationMVM.ViewModel
             {
                 if(item == ball)
                 {
+                    Debug.WriteLine("na gorze");
+                    Debug.WriteLine(newPos.X);
+                    Debug.WriteLine(newPos.Y);
                     item.X = newPos.X;
                     item.Y = newPos.Y;
                 }
