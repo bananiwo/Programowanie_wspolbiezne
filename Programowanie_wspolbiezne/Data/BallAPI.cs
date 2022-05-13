@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System.ComponentModel;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Data
 {
@@ -11,10 +13,10 @@ namespace Data
         public abstract string Uuid { get; set; }
         public abstract void MakeTask(float interval, CancellationToken cancellationToken);
 
-        public event EventHandler<Vector2> PositionChangeOnData;
-        protected virtual void OnPositionChangeOnData(Vector2 newPos)
+        public event PropertyChangedEventHandler PositionChangeOnData;
+        protected virtual void OnPositionChangeOnData([CallerMemberName] string name = null)
         {
-            PositionChangeOnData?.Invoke(this, newPos);
+            PositionChangeOnData?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
     }

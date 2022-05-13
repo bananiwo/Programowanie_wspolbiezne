@@ -41,14 +41,28 @@ namespace Logic
             }
         }
 
+        public bool DetectCollision(BallApi first, BallApi second)
+        {
+            if (first == null || second == null)
+            {
+                return false;
+            }
+            double distance = Vector2.Distance(first.Position, second.Position);
+            if (distance <= second.Radius + first.Radius)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
 
 
         public void BallCollision(List<BallApi> ballApis, BallApi ballApi)
         {
             foreach (var ball in ballApis)
             {
-                double distance = Vector2.Distance(ballApi.Position, ball.Position);
-                if (distance <= ball.Radius + ballApi.Radius)
+                if (detectCollision(ball, ball))
                 {
                     var radiusBallApi = ballApi.Radius;
                     var radiusBall = ball.Radius;

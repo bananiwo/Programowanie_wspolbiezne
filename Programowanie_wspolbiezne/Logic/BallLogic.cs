@@ -1,6 +1,7 @@
 ﻿using Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -14,38 +15,88 @@ namespace Logic
         Collisions _collisions;
         CancellationTokenSource _cancellationTokenSource;
         CancellationToken _cancellationToken;
+        Mutex _mutex = new Mutex();
+        Random _random;
 
         public BallCollectionApi BallCollectionApi { get => _ballCollectionApi; set => _ballCollectionApi = value; }
         internal Collisions Collisions { get => _collisions; set => _collisions = value; }
         public CancellationTokenSource CancellationTokenSource { get => _cancellationTokenSource; set => _cancellationTokenSource = value; }
         public CancellationToken CancellationToken { get => _cancellationToken; set => _cancellationToken = value; }
+        public Mutex Mutex { get => _mutex; set => _mutex = value; }
+        public Random Random { get => _random; set => _random = value; }
 
         public BallLogic(BallCollectionApi ballCollectionApi)
         {
             BallCollectionApi = ballCollectionApi;
             Collisions = new Collisions();
             CancellationTokenSource = null;
+            Random = new Random();
             Interval = 20;
+        }
+        public override bool isSimulating()
+        {
+            return CancellationTokenSource != null && !CancellationToken.IsCancellationRequested;
         }
 
         public override void Add()
         {
-            throw new NotImplementedException();
+            Mutex.WaitOne();
+            while (true)
+            {
+                var radius = 15;
+                Vector2 startPosition = new Vector2((float)Random.NextDouble() * (BallCollectionApi.Board.X - radius * 2),
+                                                    (float)Random.NextDouble() * (BallCollectionApi.Board.Y - radius * 2));
+
+                Vector2 startVelocity = new Vector2((float)(Random.NextDouble() - 0.5) / 2,
+                                                    (float)(Random.NextDouble() - 0.5) / 2);
+                Guid ballUUId = Guid.NewGuid();
+                var ball = BallCollectionApi.CreateBall(ballUUId.ToString(), startPosition, startVelocity, radius);
+
+
+                if (BallCollectionApi.GetBallApiCollection().All(u => !Collisions.DetectCollision((BallApi)u, (BallApi)ball))) ;
+                {
+                    ball.PositionChangeOnData += BallPositionChanged;
+                    Mutex.ReleaseMutex();
+                }
+            } }
+
+        void BallPositionChanged(object sender, PropertyChangedEventArgs args)
+        {
+            BallApi ball = (BallApi)sender;
+            Update(ball);
+        }
+
+        void Update(BallApi ball)
+        {
+            Mutex.WaitOne();
+
+            if (ball == null)
+            {
+                Mutex.ReleaseMutex();
+                return;
+            }
+
+            Collisions.WallCollision(ball, BallCollectionApi.Board);
+            Collisions.BallCollision(BallCollectionApi.GetBallApiCollection(), ball);
+            OnPositionChangeOnLogic(ball);
+            Mutex.ReleaseMutex();
         }
 
         public override void Remove(BallApi ball)
         {
-            throw new NotImplementedException();
+            Mutex.WaitOne();
+            BallCollectionApi.Remove(ball);
+            Mutex.ReleaseMutex();
         }
 
         public override BallApi GetBall(int i)
         {
-            throw new NotImplementedException();
+            return BallCollectionApi.GetBallApi(i);
         }
 
-        public override void GetPosition(int i)
+        public override Vector2 GetPosition(int i)
         {
-            return BallCollectionApi.GetBallApi.Position;
+            return BallCollectionApi.GetBallApi(i).Position;
         }
 
         public override Vector2 GetBoardSize()
