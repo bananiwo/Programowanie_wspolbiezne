@@ -26,9 +26,9 @@ namespace Data
 
         }
 
-        public override BallApi GetBallApi(int i)
+        public override BallApi GetBallApi(int id)
         {
-            return BallApiCollection[i];
+            return BallApiCollection[id];
         }
 
         public override List<BallApi> GetBallApiCollection()

@@ -17,6 +17,7 @@ namespace Logic
         CancellationToken _cancellationToken;
         Mutex _mutex = new Mutex();
         Random _random;
+        int counter = 0;
 
         public BallCollectionApi BallCollectionApi { get => _ballCollectionApi; set => _ballCollectionApi = value; }
         internal Collisions Collisions { get => _collisions; set => _collisions = value; }
@@ -38,8 +39,9 @@ namespace Logic
             return CancellationTokenSource != null && !CancellationToken.IsCancellationRequested;
         }
 
-        public override void Add()
+        public override int Add()
         {
+            BallApi ball;
             Mutex.WaitOne();
             while (true)
             {
@@ -49,16 +51,20 @@ namespace Logic
 
                 Vector2 startVelocity = new Vector2((float)(Random.NextDouble() - 0.5) / 2,
                                                     (float)(Random.NextDouble() - 0.5) / 2);
-                Guid ballUUId = Guid.NewGuid();
-                var ball = BallCollectionApi.CreateBall(ballUUId.ToString(), startPosition, startVelocity, radius);
+                counter += 1;
+                ball = BallCollectionApi.CreateBall(counter, startPosition, startVelocity, radius);
+               
 
 
                 if (BallCollectionApi.GetBallApiCollection().All(u => !Collisions.DetectCollision((BallApi)u, (BallApi)ball))) ;
                 {
                     ball.PositionChangeOnData += BallPositionChanged;
                     Mutex.ReleaseMutex();
+                    return ball.Id;
                 }
-            } }
+            }
+            
+        }
 
         void BallPositionChanged(object sender, PropertyChangedEventArgs args)
         {
@@ -89,14 +95,14 @@ namespace Logic
             Mutex.ReleaseMutex();
         }
 
-        public override BallApi GetBall(int i)
+        public override BallApi GetBall(int id)
         {
-            return BallCollectionApi.GetBallApi(i);
+            return BallCollectionApi.GetBallApi(id);
         }
 
-        public override Vector2 GetPosition(int i)
+        public override Vector2 GetPosition(int id)
         {
-            return BallCollectionApi.GetBallApi(i).Position;
+            return BallCollectionApi.GetBallApi(id).Position;
         }
 
         public override Vector2 GetBoardSize()

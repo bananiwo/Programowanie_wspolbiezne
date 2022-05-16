@@ -10,7 +10,7 @@ namespace Data
         public abstract double Radius { get; set; }
         public abstract Vector2 Position { get; set; }
         public abstract Vector2 Velocity { get; set; }
-        public abstract string Uuid { get; set; }
+        public abstract int Id { get; set; }
         public abstract void MakeTask(float interval, CancellationToken cancellationToken);
 
         public event PropertyChangedEventHandler PositionChangeOnData;

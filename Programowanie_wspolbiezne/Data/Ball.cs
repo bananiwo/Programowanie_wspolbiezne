@@ -5,21 +5,21 @@ namespace Data
 {
     internal class Ball : BallApi
     {
-        private String _uuid;
+        private int _id;
         private Vector2 _position;
         private Vector2 _velocity;
         private double _radius;
         private readonly Stopwatch _ballStopwatch = new Stopwatch();
         private Task task;
-        public Ball(String uuid, Vector2 position, Vector2 velocity, double radius)
+        public Ball(int id, Vector2 position, Vector2 velocity, double radius)
         {
-            Uuid = uuid;
+            Id = id;
             Position = position;   
             Velocity = velocity;
             Radius = radius;
         }
 
-        public override string Uuid { get => _uuid; set => _uuid = value; }
+        public override int Id { get => _id; set => _id = value; }
         public override Vector2 Position { get => _position; set => _position = value; }
         public override Vector2 Velocity { get => _velocity; set => _velocity = value; }
         public override double Radius { get => _radius; set => _radius = value; }

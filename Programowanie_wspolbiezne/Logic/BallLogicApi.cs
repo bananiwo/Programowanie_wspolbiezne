@@ -10,19 +10,20 @@ using System.Threading.Tasks;
 
 namespace Logic
 {
-    public abstract class BallLogicApi
+    public abstract class BallLogicApi : INotifyPropertyChanged
     {
-        public event EventHandler PositionChangeOnLogic;
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         protected virtual void OnPositionChangeOnLogic(BallApi ball, [CallerMemberName] string name = null)
         {
-            PositionChangeOnLogic?.Invoke(ball, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(ball, new PropertyChangedEventArgs(name));
         }
 
         public int Interval { get; set; }
-        public abstract void Add();
+        public abstract int Add();
         public abstract void Remove(BallApi ball);
-        public abstract BallApi GetBall(int i);
-        public abstract Vector2 GetPosition(int i);
+        public abstract BallApi GetBall(int id);
+        public abstract Vector2 GetPosition(int id);
         public abstract Vector2 GetBoardSize();
 
         public abstract void StartSimulation();
