@@ -16,7 +16,7 @@ namespace PresentationModelViewModel.ViewModel
         public ViewModel()
         {
             BallModel = new Model.BallModel();
-            CreateBallsButtonClick = new RelayCommand(() => CreateBalls());
+            CreateBallsButtonClick = new RelayCommand(() => BallModel.MakeBalls());
             Start = new RelayCommand(() => StartSimulation());
             Stop = new RelayCommand(() => StopSimulation());
             AddBallButtonClick = new RelayCommand(() => AddBallClickHandler());
@@ -86,11 +86,6 @@ namespace PresentationModelViewModel.ViewModel
         public void StopSimulation()
         {
             BallModel.Stop();
-        }
-
-        private void CreateBalls()
-        {
-            BallModel.MakeBalls();
         }
     }
 }

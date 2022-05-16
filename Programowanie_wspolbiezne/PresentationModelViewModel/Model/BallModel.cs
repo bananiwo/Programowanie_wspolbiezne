@@ -1,4 +1,5 @@
-﻿using Data;
+﻿
+using Data;
 using Logic;
 using System;
 using System.Collections.Generic;
@@ -29,12 +30,9 @@ namespace PresentationModelViewModel.Model
             BallLogic.PropertyChanged += UpdateEllipses;
             _balls = new List<Ellipse>();
             Canvas = new Canvas();
-            Rectangle = new Rectangle();
             Canvas.Width = BallLogic.GetBoardSize().X;
             Canvas.Height = BallLogic.GetBoardSize().Y;
             Canvas.Background = new SolidColorBrush(Color.FromRgb(95, 158, 160));
-            Rectangle.Width = BallLogic.GetBoardSize().X;
-            Rectangle.Height = BallLogic.GetBoardSize().Y;
         }
 
 
@@ -51,7 +49,7 @@ namespace PresentationModelViewModel.Model
             Canvas.SetBottom(ellipse, pos.Y);
 
             Canvas.Children.Add(ellipse);
-            if(BallLogic.isSimulating())
+            if(BallLogic.IsSimulating())
             {
                 Stop();
                 Start();
