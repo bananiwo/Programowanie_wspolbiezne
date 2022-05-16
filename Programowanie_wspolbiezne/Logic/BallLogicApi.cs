@@ -14,7 +14,7 @@ namespace Logic
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPositionChangeOnLogic(BallApi ball, [CallerMemberName] string name = null)
+        protected virtual void OnPropertyChanged(BallApi ball, [CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(ball, new PropertyChangedEventArgs(name));
         }
@@ -28,7 +28,8 @@ namespace Logic
 
         public abstract void StartSimulation();
         public abstract void StopSimulation();
-        public abstract bool isSimulating();
+        public abstract int Count();
+        public abstract bool IsSimulating();
 
         public static BallLogicApi CreateLogic(BallCollectionApi data = default(BallCollectionApi) ){
             return new BallLogic(data ?? BallCollectionApi.CreateBallsApi());

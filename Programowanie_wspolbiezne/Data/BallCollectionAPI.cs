@@ -9,8 +9,9 @@ namespace Data
 {
     public abstract class BallCollectionApi
     {
-        public Vector2 Board;
-        public abstract void Add(BallApi ball);
+        public abstract Vector2 Board { get; set; }
+        public abstract int CountBallApis();
+        public abstract int Add(BallApi ball);
         public abstract void Remove(BallApi ball);
         public abstract BallApi GetBallApi(int id);
         public abstract List<BallApi> GetBallApiCollection();

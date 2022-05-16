@@ -34,7 +34,7 @@ namespace Logic
             Random = new Random();
             Interval = 20;
         }
-        public override bool isSimulating()
+        public override bool IsSimulating()
         {
             return CancellationTokenSource != null && !CancellationToken.IsCancellationRequested;
         }
@@ -53,13 +53,13 @@ namespace Logic
                                                     (float)(Random.NextDouble() - 0.5) / 2);
                 
                 ball = BallCollectionApi.CreateBall(counter, startPosition, startVelocity, radius);
-                counter += 1;
 
                 if (BallCollectionApi.GetBallApiCollection().All(u => !Collisions.DetectCollision((BallApi)u, (BallApi)ball))) ;
                 {
-                    ball.PositionChangeOnData += BallPositionChanged;
+                    var result = BallCollectionApi.Add(ball);
+                    ball.PropertyChanged += BallPositionChanged;
                     Mutex.ReleaseMutex();
-                    return ball.Id;
+                    return result;
                 }
             }
             
@@ -83,7 +83,7 @@ namespace Logic
 
             Collisions.WallCollision(ball, BallCollectionApi.Board);
             Collisions.BallCollision(BallCollectionApi.GetBallApiCollection(), ball);
-            OnPositionChangeOnLogic(ball);
+            OnPropertyChanged(ball);
             Mutex.ReleaseMutex();
         }
 
@@ -125,6 +125,11 @@ namespace Logic
             {
                 CancellationTokenSource.Cancel();
             }
+        }
+
+        public override int Count()
+        {
+            return BallCollectionApi.CountBallApis();
         }
     }
 }

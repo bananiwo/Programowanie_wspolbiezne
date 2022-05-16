@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Data
 {
-    public abstract class BallApi
+    public abstract class BallApi : INotifyPropertyChanged
     {
         public abstract void Step(float interval);
         public abstract double Radius { get; set; }
@@ -13,10 +13,11 @@ namespace Data
         public abstract int Id { get; set; }
         public abstract void MakeTask(float interval, CancellationToken cancellationToken);
 
-        public event PropertyChangedEventHandler PositionChangeOnData;
-        protected virtual void OnPositionChangeOnData([CallerMemberName] string name = null)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string name = null)
         {
-            PositionChangeOnData?.Invoke(this, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
     }
