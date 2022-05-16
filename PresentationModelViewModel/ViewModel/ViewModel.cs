@@ -34,10 +34,22 @@ namespace PresentationModelViewModel.ViewModel
 
         public ICommand Start { get; set; }
         public ICommand Stop { get; set; }
-        public ICommand CreateBallsButtonClick { get; set; }
-        public ICommand AddBallButtonClick { get; set; }
-        public ICommand RemoveBallButtonClick { get; set; }
-        public string BallQuantityText { get => _ballQuantityText; set => _ballQuantityText = value; }
+        public RelayCommand CreateBallsButtonClick { get; set; }
+        public RelayCommand AddBallButtonClick { get; set; }
+        public RelayCommand RemoveBallButtonClick { get; set; }
+        public string BallQuantityText
+        {
+            get
+            {
+                return _ballQuantityText;
+            }
+            set
+            {
+                _ballQuantityText = value;
+                BallCounter = int.Parse(_ballQuantityText);
+                RaisePropertyChanged("BallQuantityText");
+            }
+        }
 
         private void AddBallClickHandler()
         {

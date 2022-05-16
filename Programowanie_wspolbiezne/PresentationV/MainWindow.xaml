@@ -13,13 +13,14 @@
     </Window.DataContext>
     <Grid Height="784" VerticalAlignment="Top">
         <Grid.RowDefinitions>
-            <RowDefinition Height="751*"/>
             <RowDefinition Height="33*"/>
+            <RowDefinition Height="751*"/>
+            
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="1">
             <ContentPresenter Content="{Binding Canvas}"  Height="750" Width="750" />
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="4" RenderTransformOrigin="0.5,0.5">
+        <Grid Grid.Row="0" Grid.Column="4" RenderTransformOrigin="0.5,0.5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
@@ -65,6 +66,7 @@
 
             <Button Content="Wygeneruj układ startowy" 
                     Command="{Binding CreateBallsButtonClick}"
+                    CommandParameter="{Binding BallCounter}"
                     FontSize="10" 
                     FontWeight="Light" 
                     Foreground="White"

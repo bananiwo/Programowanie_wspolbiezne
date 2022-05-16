@@ -51,10 +51,9 @@ namespace Logic
 
                 Vector2 startVelocity = new Vector2((float)(Random.NextDouble() - 0.5) / 2,
                                                     (float)(Random.NextDouble() - 0.5) / 2);
-                counter += 1;
+                
                 ball = BallCollectionApi.CreateBall(counter, startPosition, startVelocity, radius);
-               
-
+                counter += 1;
 
                 if (BallCollectionApi.GetBallApiCollection().All(u => !Collisions.DetectCollision((BallApi)u, (BallApi)ball))) ;
                 {

@@ -45,6 +45,7 @@ namespace Data
                 if (!cancellationToken.IsCancellationRequested)
                 {
                     Step(interval);
+                    OnPropertyChanged();
                 }
                 BallStopwatch.Stop();
 

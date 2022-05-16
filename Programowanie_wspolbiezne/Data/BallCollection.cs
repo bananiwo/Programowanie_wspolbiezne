@@ -14,16 +14,20 @@ namespace Data
         internal BallCollection()
         {
             BallApiCollection = new List<BallApi>();
-            BoardSize = new Vector2(750, 750);
+            Board = new Vector2(750, 750);
         }
 
         public List<BallApi> BallApiCollection { get => _ballApiCollection; set => _ballApiCollection = value; }
-        public Vector2 BoardSize { get => _boardSize; set => _boardSize = value; }
-
-        public override void Add(BallApi ball)
+        public override Vector2 Board { get => _boardSize; set => _boardSize = value; }
+        public override int Add(BallApi ball)
         {
             BallApiCollection.Add(ball);
+            return BallApiCollection.Count + 1;
+        }
 
+        public override int CountBallApis()
+        {
+            return BallApiCollection.Count;
         }
 
         public override BallApi GetBallApi(int id)
