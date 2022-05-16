@@ -6,34 +6,75 @@
         xmlns:local="clr-namespace:PresentationV"
         xmlns:viewmodel="clr-namespace:PresentationModelViewModel.ViewModel;assembly=PresentationModelViewModel"
         mc:Ignorable="d"
-        Title="Malinowska, Banasiak" Height="600" Width="800">
+        Title="Malinowska, Banasiak" Height="800" Width="900" Background="#FF5FA896"
+         MinHeight="750" MinWidth="750">
     <Window.DataContext>
         <viewmodel:ViewModel/>
     </Window.DataContext>
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" ShowGridLines="False" Width="780" Height="560" Margin="10,10,10,10">
+    <Grid Height="784" VerticalAlignment="Top">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="10*" />
+            <RowDefinition Height="751*"/>
+            <RowDefinition Height="33*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid ShowGridLines="False">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="9*" />
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Slider Name="StartingSlider" Value="{Binding StartingBalls, Mode=TwoWay}" Grid.Column="0" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,0,10,0" AutomationProperties.Name="StartingBalls" Minimum="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" IsSnapToTickEnabled="True" TickFrequency="1"/>
-            <Label Grid.Column="1" Content="{Binding ElementName=StartingSlider, Path=Value}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10" FontSize="20" />
-            <Button Name="StartingBallsButton" Command="{Binding AddBalls}" IsEnabled="{Binding OkIsEnabled}" CommandParameter="{Binding ElementName=StartingSlider, Path=Value}" Grid.Column="2" Margin="10,10,90,10" Content="OK"/>
-            <Button Command="{Binding AddBall}" IsEnabled="{Binding NewBallIsEndabled}" Grid.Column="3" Margin="10,10,10,10" Content="New Ball"/>
-            <Button Command="{Binding StartMovement}" IsEnabled="{Binding StartIsEndabled}" Grid.Column="4" Margin="10,10,10,10" Content="Start"/>
-            <Button Command="{Binding StopMovement}" IsEnabled="{Binding StopIsEndabled}" Grid.Column="5" Margin="10,10,10,10" Content="Stop"/>
+        <Grid Grid.Row="0">
+            <ContentPresenter Content="{Binding Canvas}"  Height="750" Width="750" />
         </Grid>
-        <ContentPresenter Content="{Binding Canvas}" Grid.Row="1" Width="770" Height="500"/>
+        <Grid Grid.Row="1" Grid.Column="4" RenderTransformOrigin="0.5,0.5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Usuń kulę" 
+                    Command="{Binding RemoveBallButtonClick}"
+                    FontSize="10" 
+                    FontWeight="Light" 
+                    Foreground="White"
+                    HorizontalAlignment="Center" 
+                    Grid.Column="0" 
+                    VerticalAlignment="Center" 
+                    Background="DarkSlateGray" 
+                    Height="30" 
+                    Width="66"
+                    BorderBrush="#FF1E3636"/>
+            <Button Content="Dodaj kule" 
+                    Command="{Binding AddBallButtonClick}"
+                    FontSize="10" 
+                    FontWeight="Light" 
+                    Foreground="White"
+                    HorizontalAlignment="Center" 
+                    Grid.Column="1" 
+                    Background="DarkSlateGray" 
+                    Width="70"
+                    BorderBrush="#FF1E3636"/>
+            <TextBox HorizontalAlignment="Right" 
+                     BorderBrush="#FF1E3636"
+                     Grid.Column="2"
+                     TextAlignment="Right"
+                     FontSize="24"
+                     TextWrapping="Wrap" 
+                     Text="{Binding BallQuantityText}" 
+                     VerticalAlignment="Center" 
+                     Width="100"
+                     Height="30"
+                     Background="DarkSlateGray"
+                     Foreground="White"
+                     FontFamily="Leelawadee"
+                     SelectionBrush="#FF113333"/>
+
+            <Button Content="Wygeneruj układ startowy" 
+                    Command="{Binding CreateBallsButtonClick}"
+                    FontSize="10" 
+                    FontWeight="Light" 
+                    Foreground="White"
+                    HorizontalAlignment="Left" 
+                
+                    Grid.Column="3" 
+                    Background="DarkSlateGray" 
+                    Width="144"
+                    BorderBrush="#FF1E3636"/>
+        </Grid>
     </Grid>
+
 </Window>

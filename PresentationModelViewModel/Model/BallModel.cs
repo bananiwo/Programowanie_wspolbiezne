@@ -16,10 +16,12 @@ namespace PresentationModelViewModel.Model
         List<Ellipse> _balls;
         int _ballCounter = 1;
         Canvas _canvas;
+        Rectangle _rectangle;
 
         public BallLogicApi BallLogic { get => _ballLogic; set => _ballLogic = value; }
         public int BallCounter { get => _ballCounter; set => _ballCounter = value; }
         public Canvas Canvas { get => _canvas; set => _canvas = value; }
+        public Rectangle Rectangle { get => _rectangle; set => _rectangle = value; }
 
         public BallModel(BallLogicApi ballLogicApi = null)
         {
@@ -27,8 +29,12 @@ namespace PresentationModelViewModel.Model
             BallLogic.PropertyChanged += UpdateEllipses;
             _balls = new List<Ellipse>();
             Canvas = new Canvas();
+            Rectangle = new Rectangle();
             Canvas.Width = BallLogic.GetBoardSize().X;
             Canvas.Height = BallLogic.GetBoardSize().Y;
+            Canvas.Background = new SolidColorBrush(Color.FromRgb(95, 158, 160));
+            Rectangle.Width = BallLogic.GetBoardSize().X;
+            Rectangle.Height = BallLogic.GetBoardSize().Y;
         }
 
 

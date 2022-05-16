@@ -51,11 +51,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\madzi\\source\\repos\\bananiwo\\Programowanie_wspolbiezne\\PresentationModelViewModel\\PresentationModelViewModel.csproj",
+      "projectUniqueName": "C:\\Users\\madzi\\Source\\Repos\\bananiwo\\Programowanie_wspolbiezne\\PresentationModelViewModel\\PresentationModelViewModel.csproj",
       "projectName": "PresentationModelViewModel",
-      "projectPath": "C:\\Users\\madzi\\source\\repos\\bananiwo\\Programowanie_wspolbiezne\\PresentationModelViewModel\\PresentationModelViewModel.csproj",
+      "projectPath": "C:\\Users\\madzi\\Source\\Repos\\bananiwo\\Programowanie_wspolbiezne\\PresentationModelViewModel\\PresentationModelViewModel.csproj",
       "packagesPath": "C:\\Users\\madzi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\madzi\\source\\repos\\bananiwo\\Programowanie_wspolbiezne\\PresentationModelViewModel\\obj\\",
+      "outputPath": "C:\\Users\\madzi\\Source\\Repos\\bananiwo\\Programowanie_wspolbiezne\\PresentationModelViewModel\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -76,8 +76,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\madzi\\source\\repos\\bananiwo\\Programowanie_wspolbiezne\\Programowanie_wspolbiezne\\Logic\\Logic.csproj": {
-              "projectPath": "C:\\Users\\madzi\\source\\repos\\bananiwo\\Programowanie_wspolbiezne\\Programowanie_wspolbiezne\\Logic\\Logic.csproj"
+            "C:\\Users\\madzi\\Source\\Repos\\bananiwo\\Programowanie_wspolbiezne\\Programowanie_wspolbiezne\\Logic\\Logic.csproj": {
+              "projectPath": "C:\\Users\\madzi\\Source\\Repos\\bananiwo\\Programowanie_wspolbiezne\\Programowanie_wspolbiezne\\Logic\\Logic.csproj"
             }
           }
         }
