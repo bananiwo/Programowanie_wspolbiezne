@@ -31,8 +31,6 @@ namespace Data
             double x = Velocity.X * interval;
             double y = Velocity.Y * interval;
             Position += new Vector2((float)x, (float)y);
-            Debug.WriteLine("Data");
-            Debug.WriteLine(Position);
         }
 
         public override void MakeTask(int interval, CancellationToken cancellationToken)
