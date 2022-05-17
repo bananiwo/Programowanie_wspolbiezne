@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PresentationMVM.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace PresentationMVM.ViewModel
 
         public ViewModelBall()
         {
-            BallModel = new Model.BallModel();
+            BallModel = new BallModel();
             CreateBallsButtonClick = new RelayCommand(() => BallModel.MakeBalls());
             Start = new RelayCommand(() => StartSimulation());
             Stop = new RelayCommand(() => StopSimulation());

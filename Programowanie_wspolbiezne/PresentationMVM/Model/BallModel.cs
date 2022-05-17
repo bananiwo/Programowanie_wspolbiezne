@@ -4,6 +4,7 @@ using Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Numerics;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,7 +12,7 @@ using System.Windows.Shapes;
 
 namespace PresentationMVM.Model
 {
-    internal class BallModel
+    public class BallModel
     {
         BallLogicApi _ballLogic;
         List<Ellipse> _balls;
@@ -81,6 +82,8 @@ namespace PresentationMVM.Model
         private void UpdateEllipses(object sender, PropertyChangedEventArgs args)
         {
             BallApi ball = (BallApi)sender;
+            Debug.WriteLine("Model");
+            Debug.WriteLine(ball.Position);
             Canvas.SetLeft(_balls[ball.Id], ball.Position.X);
             Canvas.SetBottom(_balls[ball.Id], ball.Position.Y);
         }

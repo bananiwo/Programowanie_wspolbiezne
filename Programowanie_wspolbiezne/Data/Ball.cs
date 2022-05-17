@@ -28,12 +28,10 @@ namespace Data
 
         public override void Step(float interval)
         {
-            Debug.WriteLine("Przed kulka:");
-            Debug.WriteLine(Id);
-            Debug.WriteLine(Position);
-            Position += Vector2.Multiply(Velocity, interval);
-            Debug.WriteLine("Po kulka:");
-            Debug.WriteLine(Id);
+            double x = Velocity.X * interval;
+            double y = Velocity.Y * interval;
+            Position += new Vector2((float)x, (float)y);
+            Debug.WriteLine("Data");
             Debug.WriteLine(Position);
         }
 

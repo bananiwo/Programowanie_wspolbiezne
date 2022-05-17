@@ -32,7 +32,7 @@ namespace Logic
             Collisions = new Collisions();
             CancellationTokenSource = null;
             Random = new Random();
-            Interval = 40;
+            Interval = 20;
         }
         public override bool IsSimulating()
         {

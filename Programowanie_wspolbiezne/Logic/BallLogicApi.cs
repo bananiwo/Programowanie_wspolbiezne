@@ -12,7 +12,7 @@ namespace Logic
 {
     public abstract class BallLogicApi : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(BallApi ball, [CallerMemberName] string name = null)
         {

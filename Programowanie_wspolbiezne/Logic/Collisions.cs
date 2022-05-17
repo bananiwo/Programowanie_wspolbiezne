@@ -62,24 +62,28 @@ namespace Logic
         {
             foreach (var otherBall in ballApis)
             {
-                if (DetectCollision(ballApi, otherBall))
+                if (otherBall != ballApi)
                 {
-                    double radiusBallApi = ballApi.Radius;
-                    double radiusOtherBall = otherBall.Radius;
-                    double xVelocityBallApi = ballApi.Velocity.X;
-                    double yVelocityBallApi = ballApi.Velocity.Y;
-                    double xVelocityOtherBall = otherBall.Velocity.X;
-                    double yVelocityOtherBall = otherBall.Velocity.Y;
+                    if (DetectCollision(ballApi, otherBall))
+                    {
+                        ballApi.Step(-1);
+                        double radiusBallApi = ballApi.Radius;
+                        double radiusOtherBall = otherBall.Radius;
+                        double xVelocityBallApi = ballApi.Velocity.X;
+                        double yVelocityBallApi = ballApi.Velocity.Y;
+                        double xVelocityOtherBall = otherBall.Velocity.X;
+                        double yVelocityOtherBall = otherBall.Velocity.Y;
 
-                    double xVelocityBallApiAfterCollision = (radiusBallApi - radiusOtherBall) * xVelocityBallApi / (radiusBallApi + radiusOtherBall) + (2 * radiusOtherBall) * xVelocityOtherBall / (radiusBallApi + radiusOtherBall);
-                    double yVelocityBallApiAfterCollision = (radiusBallApi - radiusOtherBall) * yVelocityBallApi / (radiusBallApi + radiusOtherBall) + (2 * radiusOtherBall) * yVelocityOtherBall / (radiusBallApi + radiusOtherBall);
+                        double xVelocityBallApiAfterCollision = (radiusBallApi - radiusOtherBall) * xVelocityBallApi / (radiusBallApi + radiusOtherBall) + (2 * radiusOtherBall) * xVelocityOtherBall / (radiusBallApi + radiusOtherBall);
+                        double yVelocityBallApiAfterCollision = (radiusBallApi - radiusOtherBall) * yVelocityBallApi / (radiusBallApi + radiusOtherBall) + (2 * radiusOtherBall) * yVelocityOtherBall / (radiusBallApi + radiusOtherBall);
 
-                    ballApi.Position = new Vector2((float)xVelocityBallApiAfterCollision, (float)yVelocityBallApiAfterCollision);
+                        ballApi.Position = new Vector2((float)xVelocityBallApiAfterCollision, (float)yVelocityBallApiAfterCollision);
 
-                    double xVelocityOtherBallAfterCollision = 2 * radiusBallApi * xVelocityBallApi / (radiusBallApi + radiusOtherBall) + (radiusOtherBall - radiusBallApi) * xVelocityOtherBall / (radiusBallApi + radiusOtherBall);
-                    double yVelocityOtherBallAfterCollision = 2 * radiusBallApi * yVelocityBallApi / (radiusBallApi + radiusOtherBall) + (radiusOtherBall - radiusBallApi) * yVelocityOtherBall / (radiusBallApi + radiusOtherBall);
+                        double xVelocityOtherBallAfterCollision = 2 * radiusBallApi * xVelocityBallApi / (radiusBallApi + radiusOtherBall) + (radiusOtherBall - radiusBallApi) * xVelocityOtherBall / (radiusBallApi + radiusOtherBall);
+                        double yVelocityOtherBallAfterCollision = 2 * radiusBallApi * yVelocityBallApi / (radiusBallApi + radiusOtherBall) + (radiusOtherBall - radiusBallApi) * yVelocityOtherBall / (radiusBallApi + radiusOtherBall);
 
-                    otherBall.Position = new Vector2((float)xVelocityOtherBallAfterCollision, (float)yVelocityOtherBallAfterCollision);
+                        otherBall.Position = new Vector2((float)xVelocityOtherBallAfterCollision, (float)yVelocityOtherBallAfterCollision);
+                    }
                 }
             }
         }
