@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Logic
 {
-    internal class Collisions
+    public class Collisions
     {
         public void WallCollision(BallApi ballApi, Vector2 boardSize)
         {

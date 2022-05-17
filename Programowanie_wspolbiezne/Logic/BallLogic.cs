@@ -12,7 +12,6 @@ namespace Logic
         CancellationToken _cancellationToken;
         Mutex _mutex = new Mutex();
         Random _random;
-        int counter = 0;
 
         public BallCollectionApi BallApis { get => _ballApis; set => _ballApis = value; }
         internal Collisions Collisions { get => _collisions; set => _collisions = value; }
