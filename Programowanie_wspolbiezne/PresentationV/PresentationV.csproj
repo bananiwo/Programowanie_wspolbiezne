@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PresentationModelViewModel\PresentationModelViewModel.csproj" />
+    <ProjectReference Include="..\PresentationMVM\PresentationMVM.csproj" />
   </ItemGroup>
 
 </Project>

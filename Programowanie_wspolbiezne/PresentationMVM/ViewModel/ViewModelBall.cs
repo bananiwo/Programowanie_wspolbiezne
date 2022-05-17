@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace PresentationModelViewModel.ViewModel
+namespace PresentationMVM.ViewModel
 {
-    public class ViewModel : ViewModelBase
+    public class ViewModelBall : ViewModelBase
     {
         Model.BallModel BallModel { get; set; }
         private string _ballQuantityText;
 
-        public ViewModel()
+        public ViewModelBall()
         {
             BallModel = new Model.BallModel();
             CreateBallsButtonClick = new RelayCommand(() => BallModel.MakeBalls());

@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Logic\Logic.csproj" />
-    <ProjectReference Include="..\Programowanie_wspolbiezne\Logic\Logic.csproj" />
   </ItemGroup>
 
 </Project>
