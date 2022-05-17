@@ -77,12 +77,12 @@ namespace Logic
                         double xVelocityBallApiAfterCollision = (radiusBallApi - radiusOtherBall) * xVelocityBallApi / (radiusBallApi + radiusOtherBall) + (2 * radiusOtherBall) * xVelocityOtherBall / (radiusBallApi + radiusOtherBall);
                         double yVelocityBallApiAfterCollision = (radiusBallApi - radiusOtherBall) * yVelocityBallApi / (radiusBallApi + radiusOtherBall) + (2 * radiusOtherBall) * yVelocityOtherBall / (radiusBallApi + radiusOtherBall);
 
-                        ballApi.Position = new Vector2((float)xVelocityBallApiAfterCollision, (float)yVelocityBallApiAfterCollision);
+                        ballApi.Velocity = new Vector2((float)xVelocityBallApiAfterCollision, (float)yVelocityBallApiAfterCollision);
 
                         double xVelocityOtherBallAfterCollision = 2 * radiusBallApi * xVelocityBallApi / (radiusBallApi + radiusOtherBall) + (radiusOtherBall - radiusBallApi) * xVelocityOtherBall / (radiusBallApi + radiusOtherBall);
                         double yVelocityOtherBallAfterCollision = 2 * radiusBallApi * yVelocityBallApi / (radiusBallApi + radiusOtherBall) + (radiusOtherBall - radiusBallApi) * yVelocityOtherBall / (radiusBallApi + radiusOtherBall);
 
-                        otherBall.Position = new Vector2((float)xVelocityOtherBallAfterCollision, (float)yVelocityOtherBallAfterCollision);
+                        otherBall.Velocity = new Vector2((float)xVelocityOtherBallAfterCollision, (float)yVelocityOtherBallAfterCollision);
                     }
                 }
             }
