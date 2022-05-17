@@ -1,36 +1,50 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Data
 {
     internal class BallCollection : BallCollectionApi
     {
-        List<BallApi> _ballCollection;
-        public BallCollection()
+        List<BallApi> _ballApiCollection;
+        Vector2 _boardSize;
+        internal BallCollection()
         {
-            _ballCollection = new List<BallApi>();
+            _ballApiCollection = new List<BallApi>();
+            Board = new Vector2(700, 700);
         }
 
-        public override void CreateBallCollection(int quantity)
+        public List<BallApi> BallApiCollection { get => _ballApiCollection; }
+        public override Vector2 Board { get => _boardSize; set => _boardSize = value; }
+        public override int Add(BallApi ball)
         {
-            _ballCollection = new List<BallApi>();
-            for (int i = 0; i < quantity; i++)
-            {
-                Ball ball = new Ball(Ball.GenerateStartPositionInsideBoard());
-                _ballCollection.Add(ball);
-            }
+            BallApiCollection.Add(ball);
+            return BallApiCollection.Count-1;
         }
 
-        public override List<BallApi> GetBallCollection()
+        public override int CountBallApis()
         {
-            return _ballCollection;
+            return BallApiCollection.Count;
         }
 
-        public override void BallCollectionMovement()
+        public override BallApi GetBallApi(int id)
         {
-            foreach(Ball ball in _ballCollection)
-            {
-                ball.Move();
-            }
+            return BallApiCollection[id];
+        }
+
+
+
+        public override List<BallApi> GetBallApiCollection()
+        {
+            return BallApiCollection;
+        }
+
+        public override bool Remove(BallApi ball)
+        {
+            return BallApiCollection.Remove(ball);
         }
     }
 }

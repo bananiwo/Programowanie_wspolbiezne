@@ -6,73 +6,52 @@
         xmlns:local="clr-namespace:PresentationV"
         xmlns:vm="clr-namespace:PresentationMVM.ViewModel;assembly=PresentationMVM"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="800"
-        MinHeight="750" MinWidth="750"
-        Background="DarkSlateGray">
+        Title="Malinowska, Banasiak" Height="800" Width="800" Background="#FF1E3636"
+         MinHeight="750" MinWidth="750">
     <Window.DataContext>
-        <vm:ControlsViewModel/>
+        <vm:ViewModelBall/>
     </Window.DataContext>
-    <Viewbox Stretch="Fill"
-           Width="700"
-           Height="700">
-
-        <StackPanel Orientation="Vertical">
-            <Canvas x:Name="canvasArea" Width="800" Height="800" Background="CadetBlue">
-                <Rectangle Fill="Transparent" Stroke="Black" StrokeThickness="3" Width="780" Height="780" Margin="10"/>
-            </Canvas>
-
-            <ItemsControl x:Name="ic" ItemsSource="{Binding Items}">
-                <ItemsControl.Resources>
-                    <DataTemplate DataType="{x:Type vm:BallVM}">
-                        <Ellipse Fill="Red" Stroke="LightBlue" StrokeThickness="1" Width="30" Height="30"/>
-                    </DataTemplate>
-                </ItemsControl.Resources>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left" Value="{Binding X}"/>
-                        <Setter Property="Canvas.Bottom" Value="{Binding Y}"/>
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
-            </ItemsControl>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="20*"/>
-                    <ColumnDefinition Width="20*"/>
-                    <ColumnDefinition Width="20*"/>
-                    <ColumnDefinition Width="20*"/>
-                </Grid.ColumnDefinitions>
-
-                <Button Content="Usuń kulę" 
+    <Grid Height="784" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="33*"/>
+            <RowDefinition Height="751*"/>
+            
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <ContentPresenter Content="{Binding Canvas}"  Height="700" Width="700" />
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="6" RenderTransformOrigin="0.5,0.5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Usuń kulę" 
                     Command="{Binding RemoveBallButtonClick}"
                     FontSize="10" 
                     FontWeight="Light" 
                     Foreground="White"
                     HorizontalAlignment="Center" 
-                    Grid.Column="1" 
+                    Grid.Column="0" 
                     VerticalAlignment="Center" 
                     Background="DarkSlateGray" 
                     Height="30" 
                     Width="66"
                     BorderBrush="#FF1E3636"/>
-
-                <Button Content="Dodaj kule" 
+            <Button Content="Dodaj kule" 
                     Command="{Binding AddBallButtonClick}"
                     FontSize="10" 
                     FontWeight="Light" 
                     Foreground="White"
                     HorizontalAlignment="Center" 
-                    Grid.Column="0" 
+                    Grid.Column="1" 
                     Background="DarkSlateGray" 
                     Width="70"
                     BorderBrush="#FF1E3636"/>
-
-                <TextBox HorizontalAlignment="Right" 
+            <TextBox HorizontalAlignment="Right" 
                      BorderBrush="#FF1E3636"
                      Grid.Column="2"
                      TextAlignment="Right"
@@ -87,20 +66,38 @@
                      FontFamily="Leelawadee"
                      SelectionBrush="#FF113333"/>
 
-                <Button Content="Wygeneruj układ startowy" 
+            <Button Content="Wygeneruj układ startowy" 
                     Command="{Binding CreateBallsButtonClick}"
+                    CommandParameter="{Binding BallCounter}"
                     FontSize="10" 
                     FontWeight="Light" 
                     Foreground="White"
                     HorizontalAlignment="Left" 
-                
                     Grid.Column="3" 
                     Background="DarkSlateGray" 
                     Width="144"
                     BorderBrush="#FF1E3636"/>
+            <Button Content="Symuluj" 
+                    Command="{Binding Start}"
+                    FontSize="10" 
+                    FontWeight="Light" 
+                    Foreground="White"
+                    HorizontalAlignment="Left" 
+                    Grid.Column="4" 
+                    Background="DarkSlateGray" 
+                    Width="144"
+                    BorderBrush="#FF1E3636"/>
+            <Button Content="Przestan" 
+                    Command="{Binding Stop}"
+                    FontSize="10" 
+                    FontWeight="Light" 
+                    Foreground="White"
+                    HorizontalAlignment="Left" 
+                    Grid.Column="5" 
+                    Background="DarkSlateGray" 
+                    Width="144"
+                    BorderBrush="#FF1E3636"/>
+        </Grid>
+    </Grid>
 
-
-            </Grid>
-        </StackPanel>
-    </Viewbox>
 </Window>
