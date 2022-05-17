@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PresentationV"
-        xmlns:viewmodel="clr-namespace:PresentationMVM.ViewModel;assembly=PresentationMVM"
+        xmlns:vm="clr-namespace:PresentationMVM.ViewModel;assembly=PresentationMVM"
         mc:Ignorable="d"
-        Title="Malinowska, Banasiak" Height="800" Width="900" Background="#FF5FA896"
+        Title="Malinowska, Banasiak" Height="800" Width="800" Background="#FF1E3636"
          MinHeight="750" MinWidth="750">
     <Window.DataContext>
-        <viewmodel:ViewModelBall/>
+        <vm:ViewModelBall/>
     </Window.DataContext>
     <Grid Height="784" VerticalAlignment="Top">
         <Grid.RowDefinitions>
@@ -18,10 +18,12 @@
             
         </Grid.RowDefinitions>
         <Grid Grid.Row="1">
-            <ContentPresenter Content="{Binding Canvas}"  Height="750" Width="750" />
+            <ContentPresenter Content="{Binding Canvas}"  Height="700" Width="700" />
         </Grid>
-        <Grid Grid.Row="0" Grid.Column="4" RenderTransformOrigin="0.5,0.5">
+        <Grid Grid.Row="0" Grid.Column="6" RenderTransformOrigin="0.5,0.5">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
@@ -71,8 +73,27 @@
                     FontWeight="Light" 
                     Foreground="White"
                     HorizontalAlignment="Left" 
-                
                     Grid.Column="3" 
+                    Background="DarkSlateGray" 
+                    Width="144"
+                    BorderBrush="#FF1E3636"/>
+            <Button Content="Symuluj" 
+                    Command="{Binding Start}"
+                    FontSize="10" 
+                    FontWeight="Light" 
+                    Foreground="White"
+                    HorizontalAlignment="Left" 
+                    Grid.Column="4" 
+                    Background="DarkSlateGray" 
+                    Width="144"
+                    BorderBrush="#FF1E3636"/>
+            <Button Content="Przestan" 
+                    Command="{Binding Stop}"
+                    FontSize="10" 
+                    FontWeight="Light" 
+                    Foreground="White"
+                    HorizontalAlignment="Left" 
+                    Grid.Column="5" 
                     Background="DarkSlateGray" 
                     Width="144"
                     BorderBrush="#FF1E3636"/>

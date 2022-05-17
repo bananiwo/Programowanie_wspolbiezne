@@ -13,16 +13,16 @@ namespace Data
         Vector2 _boardSize;
         internal BallCollection()
         {
-            BallApiCollection = new List<BallApi>();
-            Board = new Vector2(750, 750);
+            _ballApiCollection = new List<BallApi>();
+            Board = new Vector2(700, 700);
         }
 
-        public List<BallApi> BallApiCollection { get => _ballApiCollection; set => _ballApiCollection = value; }
+        public List<BallApi> BallApiCollection { get => _ballApiCollection; }
         public override Vector2 Board { get => _boardSize; set => _boardSize = value; }
         public override int Add(BallApi ball)
         {
             BallApiCollection.Add(ball);
-            return BallApiCollection.Count + 1;
+            return BallApiCollection.Count-1;
         }
 
         public override int CountBallApis()
@@ -35,14 +35,16 @@ namespace Data
             return BallApiCollection[id];
         }
 
+
+
         public override List<BallApi> GetBallApiCollection()
         {
             return BallApiCollection;
         }
 
-        public override void Remove(BallApi ball)
+        public override bool Remove(BallApi ball)
         {
-            BallApiCollection.Remove(ball);
+            return BallApiCollection.Remove(ball);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Logic
 {
     internal class BallLogic : BallLogicApi
     {
-        BallCollectionApi _ballCollectionApi;
+        BallCollectionApi _ballApis;
         Collisions _collisions;
         CancellationTokenSource _cancellationTokenSource;
         CancellationToken _cancellationToken;
@@ -19,7 +19,7 @@ namespace Logic
         Random _random;
         int counter = 0;
 
-        public BallCollectionApi BallCollectionApi { get => _ballCollectionApi; set => _ballCollectionApi = value; }
+        public BallCollectionApi BallApis { get => _ballApis; set => _ballApis = value; }
         internal Collisions Collisions { get => _collisions; set => _collisions = value; }
         public CancellationTokenSource CancellationTokenSource { get => _cancellationTokenSource; set => _cancellationTokenSource = value; }
         public CancellationToken CancellationToken { get => _cancellationToken; set => _cancellationToken = value; }
@@ -28,11 +28,11 @@ namespace Logic
 
         public BallLogic(BallCollectionApi ballCollectionApi)
         {
-            BallCollectionApi = ballCollectionApi;
+            BallApis = ballCollectionApi;
             Collisions = new Collisions();
             CancellationTokenSource = null;
             Random = new Random();
-            Interval = 20;
+            Interval = 40;
         }
         public override bool IsSimulating()
         {
@@ -46,17 +46,17 @@ namespace Logic
             while (true)
             {
                 var radius = 15;
-                Vector2 startPosition = new Vector2((float)Random.NextDouble() * (BallCollectionApi.Board.X - radius * 2),
-                                                    (float)Random.NextDouble() * (BallCollectionApi.Board.Y - radius * 2));
+                Vector2 startPosition = new Vector2((float)Random.NextDouble() * (BallApis.Board.X - radius * 2),
+                                                    (float)Random.NextDouble() * (BallApis.Board.Y - radius * 2));
 
                 Vector2 startVelocity = new Vector2((float)(Random.NextDouble() - 0.5) / 2,
                                                     (float)(Random.NextDouble() - 0.5) / 2);
                 
-                ball = BallCollectionApi.CreateBall(counter, startPosition, startVelocity, radius);
+                ball = BallCollectionApi.CreateBall(BallApis.CountBallApis(), startPosition, startVelocity, radius);
 
-                if (BallCollectionApi.GetBallApiCollection().All(u => !Collisions.DetectCollision((BallApi)u, (BallApi)ball))) ;
+                if (BallApis.GetBallApiCollection().All(u => !Collisions.DetectCollision((BallApi)u, (BallApi)ball))) ;
                 {
-                    var result = BallCollectionApi.Add(ball);
+                    var result = BallApis.Add(ball);
                     ball.PropertyChanged += BallPositionChanged;
                     Mutex.ReleaseMutex();
                     return result;
@@ -81,8 +81,8 @@ namespace Logic
                 return;
             }
 
-            Collisions.WallCollision(ball, BallCollectionApi.Board);
-            Collisions.BallCollision(BallCollectionApi.GetBallApiCollection(), ball);
+            Collisions.WallCollision(ball, BallApis.Board);
+            Collisions.BallCollision(BallApis.GetBallApiCollection(), ball);
             OnPropertyChanged(ball);
             Mutex.ReleaseMutex();
         }
@@ -90,30 +90,35 @@ namespace Logic
         public override void Remove(BallApi ball)
         {
             Mutex.WaitOne();
-            BallCollectionApi.Remove(ball);
+            BallApis.Remove(ball);
             Mutex.ReleaseMutex();
+        }
+
+        public override void RemoveAll()
+        {
+            BallApis.GetBallApiCollection().Clear();
         }
 
         public override BallApi GetBall(int id)
         {
-            return BallCollectionApi.GetBallApi(id);
+            return BallApis.GetBallApi(id);
         }
 
         public override Vector2 GetPosition(int id)
         {
-            return BallCollectionApi.GetBallApi(id).Position;
+            return BallApis.GetBallApi(id).Position;
         }
 
         public override Vector2 GetBoardSize()
         {
-            return BallCollectionApi.Board;
+            return BallApis.Board;
         }
 
         public override void StartSimulation()
         {
             CancellationTokenSource = new CancellationTokenSource();
             CancellationToken = CancellationTokenSource.Token;
-            foreach(var ball in BallCollectionApi.GetBallApiCollection())
+            foreach(var ball in BallApis.GetBallApiCollection())
             {
                 ball.MakeTask(Interval, CancellationToken);
             }
@@ -129,7 +134,7 @@ namespace Logic
 
         public override int Count()
         {
-            return BallCollectionApi.CountBallApis();
+            return BallApis.CountBallApis();
         }
     }
 }

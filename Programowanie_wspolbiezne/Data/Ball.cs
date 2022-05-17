@@ -28,15 +28,21 @@ namespace Data
 
         public override void Step(float interval)
         {
+            Debug.WriteLine("Przed kulka:");
+            Debug.WriteLine(Id);
+            Debug.WriteLine(Position);
             Position += Vector2.Multiply(Velocity, interval);
+            Debug.WriteLine("Po kulka:");
+            Debug.WriteLine(Id);
+            Debug.WriteLine(Position);
         }
 
-        public override void MakeTask(float interval, CancellationToken cancellationToken)
+        public override void MakeTask(int interval, CancellationToken cancellationToken)
         {
             task = Movement(interval, cancellationToken);
         }
 
-        private async Task Movement(float interval, CancellationToken cancellationToken)
+        private async Task Movement(int interval, CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -49,7 +55,7 @@ namespace Data
                 }
                 BallStopwatch.Stop();
 
-                await Task.Delay((int)(interval - BallStopwatch.ElapsedMilliseconds), cancellationToken);
+                await Task.Delay((int)(10), cancellationToken);
             }
         }
 

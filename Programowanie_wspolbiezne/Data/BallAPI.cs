@@ -11,7 +11,7 @@ namespace Data
         public abstract Vector2 Position { get; set; }
         public abstract Vector2 Velocity { get; set; }
         public abstract int Id { get; set; }
-        public abstract void MakeTask(float interval, CancellationToken cancellationToken);
+        public abstract void MakeTask(int interval, CancellationToken cancellationToken);
 
         public event PropertyChangedEventHandler PropertyChanged;
 

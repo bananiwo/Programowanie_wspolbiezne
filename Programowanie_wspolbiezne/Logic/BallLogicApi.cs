@@ -29,6 +29,7 @@ namespace Logic
         public abstract void StartSimulation();
         public abstract void StopSimulation();
         public abstract int Count();
+        public abstract void RemoveAll();
         public abstract bool IsSimulating();
 
         public static BallLogicApi CreateLogic(BallCollectionApi data = default(BallCollectionApi) ){

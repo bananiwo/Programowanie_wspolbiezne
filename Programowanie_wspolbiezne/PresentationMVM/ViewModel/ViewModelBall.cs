@@ -32,8 +32,8 @@ namespace PresentationMVM.ViewModel
             } 
         }
 
-        public ICommand Start { get; set; }
-        public ICommand Stop { get; set; }
+        public RelayCommand Start { get; set; }
+        public RelayCommand Stop { get; set; }
         public RelayCommand CreateBallsButtonClick { get; set; }
         public RelayCommand AddBallButtonClick { get; set; }
         public RelayCommand RemoveBallButtonClick { get; set; }

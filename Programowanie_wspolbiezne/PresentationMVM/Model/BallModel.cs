@@ -42,7 +42,7 @@ namespace PresentationMVM.Model
             double radius = BallLogicApi.GetRadius(BallLogic.GetBall(id));
             Vector2 pos = BallLogic.GetPosition(id);
 
-            Ellipse ellipse = new Ellipse { Width = radius * 2, Height = radius * 2, Fill = Brushes.Brown, StrokeThickness = 3, Stroke = Brushes.Black };
+            Ellipse ellipse = new Ellipse { Width = radius * 2, Height = radius * 2, Fill = Brushes.Red, StrokeThickness = 1, Stroke = Brushes.Red };
             _balls.Add(ellipse);
 
             Canvas.SetLeft(ellipse, pos.X);
@@ -58,6 +58,10 @@ namespace PresentationMVM.Model
 
         public void MakeBalls()
         {
+            _balls.Clear();
+            Canvas.Children.Clear();
+            BallLogic.RemoveAll();
+
             for(int i = 0; i < BallCounter; i++)
             {
                 MakeBall();
