@@ -6,101 +6,58 @@
         xmlns:local="clr-namespace:PresentationV"
         xmlns:vm="clr-namespace:PresentationMVM.ViewModel;assembly=PresentationMVM"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="800"
-        MinHeight="750" MinWidth="750"
-        Background="DarkSlateGray">
+        Title="Banasiak (236494), Malinowska (236596)" Height="700" Width="800" Background="DarkSlateGray" Foreground="Black" BorderBrush="#FFFB3737 " Topmost="True">
+
     <Window.DataContext>
-        <vm:ControlsViewModel/>
+        <vm:MainWindowViewModel isRunEnabled="False" isStopEnabled="False"/>
     </Window.DataContext>
-    <Viewbox Stretch="Fill"
-           Width="700"
-           Height="700">
 
-        <StackPanel Orientation="Vertical">
-            <Canvas x:Name="canvasArea" Width="800" Height="800" Background="CadetBlue">
-                <Rectangle Fill="Transparent" Stroke="Black" StrokeThickness="3" Width="780" Height="780" Margin="10"/>
-            </Canvas>
 
-            <ItemsControl x:Name="ic" ItemsSource="{Binding Items}">
-                <ItemsControl.Resources>
-                    <DataTemplate DataType="{x:Type vm:BallVM}">
-                        <Ellipse Fill="Red" Stroke="LightBlue" StrokeThickness="1" Width="30" Height="30"/>
+    <Grid>
+        <Canvas Width="{Binding Width}" Height="{Binding Height}" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FF1D3030" Margin="110,94,0,0">
+            <ItemsControl Name="Balls" ItemsSource="{Binding Balls}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Canvas>
+                            <Ellipse Stroke="Black" Fill="Red"  Width="{Binding Size}" Height="{Binding Size}" Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}"/>
+                        </Canvas>
                     </DataTemplate>
-                </ItemsControl.Resources>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left" Value="{Binding XPos}"/>
-                        <Setter Property="Canvas.Bottom" Value="{Binding YPos}"/>
-                    </Style>
-                </ItemsControl.ItemContainerStyle>
+                </ItemsControl.ItemTemplate>
             </ItemsControl>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="20*"/>
-                    <ColumnDefinition Width="20*"/>
-                    <ColumnDefinition Width="20*"/>
-                    <ColumnDefinition Width="20*"/>
-                </Grid.ColumnDefinitions>
-
-                <Button Content="Usuń kulę" 
-                    Command="{Binding RemoveBallButtonClick}"
-                    FontSize="10" 
-                    FontWeight="Light" 
-                    Foreground="White"
-                    HorizontalAlignment="Center" 
-                    Grid.Column="1" 
-                    VerticalAlignment="Center" 
-                    Background="DarkSlateGray" 
-                    Height="30" 
-                    Width="66"
-                    BorderBrush="#FF1E3636"/>
-
-                <Button Content="Dodaj kule" 
-                    Command="{Binding AddBallButtonClick}"
-                    FontSize="10" 
-                    FontWeight="Light" 
-                    Foreground="White"
-                    HorizontalAlignment="Center" 
-                    Grid.Column="0" 
-                    Background="DarkSlateGray" 
-                    Width="70"
-                    BorderBrush="#FF1E3636"/>
-
-                <TextBox HorizontalAlignment="Right" 
-                     BorderBrush="#FF1E3636"
-                     Grid.Column="2"
-                     TextAlignment="Right"
-                     FontSize="24"
-                     TextWrapping="Wrap" 
-                     Text="{Binding BallQuantityText}" 
-                     VerticalAlignment="Center" 
-                     Width="100"
-                     Height="30"
-                     Background="DarkSlateGray"
-                     Foreground="White"
-                     FontFamily="Leelawadee"
-                     SelectionBrush="#FF113333"/>
-
-                <Button Content="Wygeneruj układ startowy" 
-                    Command="{Binding CreateBallsButtonClick}"
-                    FontSize="10" 
+            <Border BorderBrush="Black" BorderThickness="5,5,5,5" Height="{Binding Height}" Width="{Binding Width}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </Canvas>
+        <TextBox HorizontalAlignment="Left" Margin="513,27,0,0" TextWrapping="Wrap" Text="{Binding BallVal}"  VerticalAlignment="Top" Width="113" Height="43" TextAlignment="Center" FontSize="24px" BorderBrush="#FF1D3030" BorderThickness="3,3,3,3" Background="Transparent" RenderTransformOrigin="0.5,0.5" >
+        </TextBox>
+        <Button x:Name= "StartButton"
+                Content="Symuluj" 
+                FontSize="10" 
+                FontWeight="Light" 
+                Foreground="White"
+                HorizontalAlignment="Left" 
+                Background="DarkSlateGray" 
+                Width="153"
+                BorderBrush="#FF1E3636"   
+                Command="{Binding RunCommand}" 
+                IsEnabled="{Binding isRunEnabled}" Margin="313,27,0,616" Height="26" Visibility="{Binding isAddEnabled.FalseString}"/>
+        <Button x:Name= "StopButton"  Content="Zatrzymaj symulacje" 
+                FontSize="10" 
+                FontWeight="Light" 
+                Foreground="White"
+                HorizontalAlignment="Left" 
+                Background="DarkSlateGray" 
+                Width="154"
+                BorderBrush="#FF1E3636"  
+                Command="{Binding StopCommand}" IsEnabled="{Binding isStopEnabled}" Margin="141,26,0,616" Height="26" />
+        <Button x:Name= "AddButton" FontSize="10" 
                     FontWeight="Light" 
                     Foreground="White"
                     HorizontalAlignment="Left" 
-                
-                    Grid.Column="3" 
+                    VerticalAlignment="Top" 
                     Background="DarkSlateGray" 
-                    Width="144"
-                    BorderBrush="#FF1E3636"/>
-
-
-            </Grid>
-        </StackPanel>
-    </Viewbox>
+                    Height="41" 
+                    Width="73"
+                    BorderBrush="#FF1E3636"
+                    Command="{Binding AddCommand}" 
+                    IsEnabled="{Binding isAddEnabled}" Content="Dodaj " Margin="637,27,0,0"/>
+    </Grid>
 </Window>

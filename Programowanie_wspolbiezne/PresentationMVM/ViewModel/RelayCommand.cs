@@ -1,39 +1,41 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 
-namespace PresentationMVM.ViewModel.Commands
+namespace PresentationMVM.ViewModel
 {
-    public class RelayCommand : ICommand
+    internal class RelayCommand : ICommand
     {
-        private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
+        private readonly Action m_Execute;
+        private readonly Func<bool> m_CanExecute;
 
-        public event EventHandler? CanExecuteChanged;
         public RelayCommand(Action execute) : this(execute, null) { }
 
         public RelayCommand(Action execute, Func<bool> canExecute)
         {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
+            m_Execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            m_CanExecute = canExecute;
         }
 
-
+        public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {
-            if (_canExecute == null) return true;
-            if (parameter == null) return _canExecute();
+            if (m_CanExecute == null)
+            {
+                return true;
+            }
 
-            return _canExecute();
+            if (parameter == null)
+            {
+                return m_CanExecute();
+            }
+
+            return m_CanExecute();
         }
 
-        public virtual void Execute(object parameter)
+        public void Execute(object parameter)
         {
-            this._execute();
-        }
-
-        internal void RaiseCanExecuteChanged()
-        {
-            this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            m_Execute();
         }
     }
 }
