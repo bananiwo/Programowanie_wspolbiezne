@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Extensions.Logging;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ namespace Data
 
 {
     public interface IBall : INotifyPropertyChanged
-    {
+    { 
         int ID { get; }
         int Size { get; }
         double Weight { get; }
@@ -28,6 +29,7 @@ namespace Data
 
     internal class Ball : IBall
     {
+        private readonly ILogger<IBall> _loggerData;
         private readonly int size;
         private readonly int id;
         private double x;
@@ -39,7 +41,7 @@ namespace Data
         private Task task;
         private bool stop = false;
 
-        public Ball(int identyfikator, int size, double x, double y, double newX, double newY, double weight)
+        public Ball(ILogger<IBall> logger, int identyfikator, int size, double x, double y, double newX, double newY, double weight)
         {
             id = identyfikator;
             this.size = size;
@@ -48,6 +50,7 @@ namespace Data
             this.newX = newX;
             this.newY = newY;
             this.weight = weight;
+            _loggerData = logger;
         }
 
         public int ID { get => id; }
@@ -113,6 +116,7 @@ namespace Data
         {
             X += NewX;
             Y += NewY;
+            _loggerData.LogDebug(String.Concat("Ball  ", id.ToString(), " changed position to", X.ToString(), " ", Y.ToString()));
         }
 
 
