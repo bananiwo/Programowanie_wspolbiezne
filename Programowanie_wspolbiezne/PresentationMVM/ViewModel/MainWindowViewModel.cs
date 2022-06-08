@@ -11,9 +11,6 @@ namespace PresentationMVM.ViewModel
         private int _BallVal = 1;
         private int width;
         private int height;
-        private bool _isStopEnabled = false;
-        private bool isStartEnabled = false;
-        private bool _isAddEnabled = true;
         private int size = 0;
         private IList _balls;
         public ICommand AddCommand { get; set; }
@@ -32,39 +29,6 @@ namespace PresentationMVM.ViewModel
 
         }
 
-        public bool isStopEnabled
-        {
-            get { return _isStopEnabled; }
-            set
-            {
-                _isStopEnabled = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool isRunEnabled
-        {
-            get { return isStartEnabled; }
-            set
-            {
-                isStartEnabled = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool isAddEnabled
-        {
-            get
-            {
-                return _isAddEnabled;
-            }
-            set
-            {
-                _isAddEnabled = value;
-
-                RaisePropertyChanged();
-            }
-        }
 
         public int BallVal
         {
@@ -122,15 +86,6 @@ namespace PresentationMVM.ViewModel
         private void AddBalls()
         {
             size += BallVal;
-            if (size > 0)
-            {
-                isRunEnabled = true;
-            }
-            else
-            {
-                size = 0;
-                isRunEnabled = false;
-            }
             Balls = ModelLayer.Start(BallVal);
             BallVal = 0;
 
@@ -138,16 +93,10 @@ namespace PresentationMVM.ViewModel
         }
         private void Stop()
         {
-            isStopEnabled = false;
-            isAddEnabled = true;
-            isRunEnabled = true;
             ModelLayer.Stop();
         }
         private void Start()
         {
-            isStopEnabled = true;
-            isRunEnabled = false;
-            isAddEnabled = false;
             ModelLayer.StartMoving();
         }
         public IList Balls

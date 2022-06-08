@@ -61,8 +61,7 @@
                     Height="42" 
                     Width="92"
                     BorderBrush="#FF1E3636"
-                    Command="{Binding AddCommand}" 
-                    IsEnabled="{Binding isAddEnabled}" Content="Dodaj " Margin="698,0,0,605" Grid.ColumnSpan="2"/>
+                    Command="{Binding AddCommand}"  Content="Dodaj " Margin="698,0,0,605" Grid.ColumnSpan="2"/>
         <Button x:Name="CleanButton" Content="Wyzeruj" Command="{Binding ClearCommand}"  FontSize="10"  HorizontalAlignment="Right" Margin="0,0,219,605" VerticalAlignment="Bottom" Width="154" Height="45" Background="DarkSlateGray" Foreground="White" BorderBrush="#FF1E3636"/>
     </Grid>
 </Window>
