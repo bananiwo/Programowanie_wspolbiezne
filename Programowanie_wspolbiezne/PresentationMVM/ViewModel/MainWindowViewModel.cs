@@ -8,7 +8,7 @@ namespace PresentationMVM.ViewModel
     public class MainWindowViewModel : BaseViewModel
     {
         private readonly ModelAbstractApi ModelLayer;
-        private int _BallVal = 1;
+        private int quantity = 1;
         private int width;
         private int height;
         private int size = 0;
@@ -30,30 +30,21 @@ namespace PresentationMVM.ViewModel
         }
 
 
-        public int BallVal
+        public int Quantity
         {
-            get
-            {
-
-                return _BallVal;
-            }
+            get => quantity;
             set
             {
 
-                _BallVal = value;
+                quantity = value;
                 RaisePropertyChanged();
-
 
             }
 
         }
         public int Width
         {
-            get
-            {
-
-                return width;
-            }
+            get => width;
             set
             {
 
@@ -64,11 +55,7 @@ namespace PresentationMVM.ViewModel
         }
         public int Height
         {
-            get
-            {
-
-                return height;
-            }
+            get => height;
             set
             {
 
@@ -85,11 +72,9 @@ namespace PresentationMVM.ViewModel
 
         private void AddBalls()
         {
-            size += BallVal;
-            Balls = ModelLayer.Start(BallVal);
-            BallVal = 0;
-
-
+            size += Quantity;
+            Balls = ModelLayer.Start(Quantity);
+            Quantity = 1;
         }
         private void Stop()
         {
@@ -104,11 +89,6 @@ namespace PresentationMVM.ViewModel
             get => _balls;
             set
             {
-                if (value.Equals(_balls))
-                {
-                    return;
-                }
-
                 _balls = value;
                 RaisePropertyChanged();
             }
