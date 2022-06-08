@@ -78,11 +78,11 @@ namespace PresentationMVM.ViewModel
         }
         private void Stop()
         {
-            ModelLayer.Stop();
+            ModelLayer.StopSimulating();
         }
         private void Start()
         {
-            ModelLayer.StartMoving();
+            ModelLayer.StartSimulating();
         }
         public IList Balls
         {

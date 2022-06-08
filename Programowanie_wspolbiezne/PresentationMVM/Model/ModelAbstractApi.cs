@@ -9,9 +9,9 @@ namespace PresentationMVM.Model
     {
         public abstract int width { get; }
         public abstract int height { get; }
-        public abstract void StartMoving();
+        public abstract void StartSimulating();
         public abstract IList Start(int ballVal);
-        public abstract void Stop();
+        public abstract void StopSimulating();
         public abstract void ClearBalls();
 
 

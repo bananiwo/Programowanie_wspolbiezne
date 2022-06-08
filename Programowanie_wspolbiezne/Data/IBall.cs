@@ -20,7 +20,7 @@ namespace Data
         void Move(double time);
         void CreateMovementTask(int interval);
 
-        void Stop();
+        void StopMovement();
 
 
 

@@ -19,18 +19,18 @@ namespace PresentationMVM.Model
 
             width = Width;
             height = Height;
-            LogicLayer = LogicAbstractApi.CreateApi(width, height);
+            LogicLayer = LogicAbstractApi.CreateLogicApi(width, height);
         }
 
-        public override void StartMoving()
+        public override void StartSimulating()
         {
-            LogicLayer.Start();
+            LogicLayer.StartSimulating();
         }
 
 
-        public override void Stop()
+        public override void StopSimulating()
         {
-            LogicLayer.Stop();
+            LogicLayer.StopSimulating();
         }
 
         public override IList Start(int ballVal) => LogicLayer.CreateBalls(ballVal);

@@ -10,21 +10,21 @@ namespace Logic
     public abstract class LogicAbstractApi
     {
 
-        public abstract int GetCount { get; }
+        public abstract int GetBallCounter { get; }
         public abstract IList CreateBalls(int count);
-        public abstract void Start();
-        public abstract void Stop();
+        public abstract void StartSimulating();
+        public abstract void StopSimulating();
         public abstract int Width { get; set; }
         public abstract int Height { get; set; }
-        public abstract IBall GetBall(int index);
-        public abstract void WallCollision(IBall ball);
+        public abstract IBall GetBallAt(int index);
+        public abstract void WallBounce(IBall ball);
         public abstract void BallBounce(IBall ball);
         public abstract void BallPositionChanged(object sender, PropertyChangedEventArgs args);
         public abstract void ClearBalls();
 
 
 
-        public static LogicAbstractApi CreateApi(int width, int height)
+        public static LogicAbstractApi CreateLogicApi(int width, int height)
         {
             return new LogicApi(width, height);
         }

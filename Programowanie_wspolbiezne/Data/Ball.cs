@@ -101,7 +101,7 @@ namespace Data
                 await Task.Delay((int)delay);
             }
         }
-        public void Stop()
+        public void StopMovement()
         {
             stop = true;
         }

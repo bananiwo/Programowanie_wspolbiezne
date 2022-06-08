@@ -42,9 +42,11 @@ namespace Data
                 {
                     mutex.WaitOne();
                     int radius = 20;
-                    double x = random.Next(radius, Width - radius);
-                    double y = random.Next(radius, Height - radius);
-                    IBall ball = new Ball(i + 1 + ballsCount, radius, x, y, new System.Numerics.Vector2((float)(random.Next(-10, 10) + random.NextDouble()), (float)(random.Next(-10, 10) + random.NextDouble())));
+                    IBall ball = new Ball(i + 1 + ballsCount, 
+                        radius,
+                        random.Next(radius, Width - radius),
+                        random.Next(radius, Height - radius), 
+                        new System.Numerics.Vector2((float)(random.Next(-10, 10) + random.NextDouble()),(float)(random.Next(-10, 10) + random.NextDouble())));
 
                     balls.Add(ball);
                     mutex.ReleaseMutex();
@@ -68,11 +70,11 @@ namespace Data
             return balls;
         }
 
-        public override int GetCount { get => balls.Count; }
+        public override int GetBallCounter { get => balls.Count; }
 
 
 
-        public override IBall GetBall(int index)
+        public override IBall GetBallAt(int index)
         {
             return balls[index];
         }
