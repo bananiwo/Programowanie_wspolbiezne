@@ -19,7 +19,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Canvas>
-                            <Ellipse Stroke="Black" Fill="Red"  Width="{Binding Size}" Height="{Binding Size}" Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}"/>
+                            <Ellipse Stroke="Black" Fill="Red"  Width="{Binding Radius}" Height="{Binding Radius}" Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}"/>
                         </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -38,7 +38,7 @@
                 Width="153"
                 BorderBrush="#FF1E3636"   
                 Command="{Binding RunCommand}" 
-                IsEnabled="{Binding isRunEnabled}" Margin="313,27,0,616" Height="26" Visibility="{Binding isAddEnabled.FalseString}"/>
+                IsEnabled="{Binding isRunEnabled}" Margin="313,27,0,616" Height="26"/>
         <Button x:Name= "StopButton"  Content="Zatrzymaj symulacje" 
                 FontSize="10" 
                 FontWeight="Light" 

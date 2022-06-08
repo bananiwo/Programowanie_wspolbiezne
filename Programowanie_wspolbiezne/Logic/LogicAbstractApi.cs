@@ -33,6 +33,8 @@ namespace Logic
     {
         private readonly DataAbstractApi dataLayer;
         private readonly Mutex mutex = new Mutex();
+        private readonly BallLogger ballLogger = new BallLogger();
+        private readonly int error = 10;
 
 
         public LogicApi(int width, int height)
@@ -50,8 +52,7 @@ namespace Logic
         {
             for (int i = 0; i < dataLayer.GetCount; i++)
             {
-                dataLayer.GetBall(i).CreateMovementTask(30);
-
+                dataLayer.GetBall(i).CreateMovementTask(50);
             }
         }
 
@@ -68,34 +69,42 @@ namespace Logic
         public override void WallCollision(IBall ball)
         {
 
-            double diameter = ball.Size;
+            double diameter = ball.Radius;
 
             double right = Width - diameter;
 
             double down = Height - diameter;
 
 
-            if (ball.X <= 0)
+            if (ball.X <= error)
             {
-                ball.X = -ball.X;
-                ball.NewX = -ball.NewX;
+                if (ball.NewX <= 0)
+                {
+                    ball.NewX = -ball.NewX;
+                }
             }
 
-            else if (ball.X >= right)
+            else if (ball.X >= right - error)
             {
-                ball.X = right - (ball.X - right);
-                ball.NewX = -ball.NewX;
+                if (ball.NewX > 0)
+                {
+                    ball.NewX = -ball.NewX;
+                }
             }
-            if (ball.Y <= 0)
+            if (ball.Y <= error)
             {
-                ball.Y = -ball.Y;
-                ball.NewY = -ball.NewY;
+                if (ball.NewY <= 0)
+                {
+                    ball.NewY = -ball.NewY;
+                }
             }
 
-            else if (ball.Y >= down)
+            else if (ball.Y >= down - error)
             {
-                ball.Y = down - (ball.Y - down);
-                ball.NewY = -ball.NewY;
+                if (ball.NewY > 0)
+                {
+                    ball.NewY = -ball.NewY;
+                }
             }
         }
 
@@ -112,8 +121,8 @@ namespace Logic
                 if (Collision(ball, secondBall))
                 {
 
-                    double m1 = ball.Weight;
-                    double m2 = secondBall.Weight;
+                    double m1 = ball.Radius;
+                    double m2 = secondBall.Radius;
                     double v1x = ball.NewX;
                     double v1y = ball.NewY;
                     double v2x = secondBall.NewX;
@@ -151,15 +160,15 @@ namespace Logic
                 return false;
             }
 
-            return Distance(a, b) <= (a.Size / 2 + b.Size / 2);
+            return Distance(a, b) <= (a.Radius / 2 + b.Radius / 2);
         }
 
         internal double Distance(IBall a, IBall b)
         {
-            double x1 = a.X + a.Size / 2 + a.NewX;
-            double y1 = a.Y + a.Size / 2 + a.NewY;
-            double x2 = b.X + b.Size / 2 + b.NewY;
-            double y2 = b.Y + b.Size / 2 + b.NewY;
+            double x1 = a.X + a.Radius / 2 + a.NewX;
+            double y1 = a.Y + a.Radius / 2 + a.NewY;
+            double x2 = b.X + b.Radius / 2 + b.NewY;
+            double y2 = b.Y + b.Radius / 2 + b.NewY;
 
             return Math.Sqrt((Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2)));
         }
@@ -187,6 +196,7 @@ namespace Logic
         {
             IBall ball = (IBall)sender;
             mutex.WaitOne();
+            ballLogger.EnqueueToLoggingQueue(ball);
             WallCollision(ball);
             BallBounce(ball);
             mutex.ReleaseMutex();
