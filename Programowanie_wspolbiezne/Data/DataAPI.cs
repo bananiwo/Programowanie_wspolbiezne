@@ -5,23 +5,6 @@ using System.Threading;
 
 namespace Data
 {
-    public abstract class DataAbstractApi
-    {
-
-        public abstract int GetCount { get; }
-        public abstract IList CreateBallsList(int count);
-        public abstract int Width { get; }
-        public abstract int Height { get; }
-
-
-        public abstract IBall GetBall(int index);
-
-        public static DataAbstractApi CreateApi(int width, int height)
-        {
-            return new DataApi(width, height);
-        }
-    }
-
     internal class DataApi : DataAbstractApi
     {
         private ObservableCollection<IBall> balls { get; }
@@ -58,7 +41,7 @@ namespace Data
                     double y = random.Next(radius, Height - radius);
                     double newX = random.Next(-10, 10) + random.NextDouble();
                     double newY = random.Next(-10, 10) + random.NextDouble();
-                    Ball ball = new Ball(i + 1 + ballsCount, radius, x, y, newX, newY);
+                    IBall ball = new Ball(i + 1 + ballsCount, radius, x, y, newX, newY);
 
                     balls.Add(ball);
                     mutex.ReleaseMutex();
