@@ -2,12 +2,13 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace Data
 
 {
-    public interface IBall : INotifyPropertyChanged
+    public interface IBall : INotifyPropertyChanged, ISerializable
     { 
         int ID { get; }
         int Radius { get; }
@@ -149,6 +150,15 @@ namespace Data
             stop = true;
         }
 
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("ID", id);
+            info.AddValue("Radius", radius);
+            info.AddValue("X Position", X);
+            info.AddValue("Y Position", Y);
+            info.AddValue("X Velocity", NewX);
+            info.AddValue("Y Velocity", NewY);
+        }
     }
 }
 

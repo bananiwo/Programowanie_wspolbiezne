@@ -53,7 +53,7 @@ namespace Data
                 for (int i = 0; i < count; i++)
                 {
                     mutex.WaitOne();
-                    int radius = random.Next(20, 40);
+                    int radius = 20;
                     double x = random.Next(radius, Width - radius);
                     double y = random.Next(radius, Height - radius);
                     double newX = random.Next(-10, 10) + random.NextDouble();

@@ -33,6 +33,8 @@ namespace Logic
     {
         private readonly DataAbstractApi dataLayer;
         private readonly Mutex mutex = new Mutex();
+        private readonly BallLogger ballLogger = new BallLogger();
+        private readonly int error = 10;
 
 
         public LogicApi(int width, int height)
@@ -50,8 +52,7 @@ namespace Logic
         {
             for (int i = 0; i < dataLayer.GetCount; i++)
             {
-                dataLayer.GetBall(i).CreateMovementTask(30);
-
+                dataLayer.GetBall(i).CreateMovementTask(50);
             }
         }
 
@@ -75,7 +76,7 @@ namespace Logic
             double down = Height - diameter;
 
 
-            if (ball.X <= 5)
+            if (ball.X <= error)
             {
                 if (ball.NewX <= 0)
                 {
@@ -83,14 +84,14 @@ namespace Logic
                 }
             }
 
-            else if (ball.X >= right - 5)
+            else if (ball.X >= right - error)
             {
                 if (ball.NewX > 0)
                 {
                     ball.NewX = -ball.NewX;
                 }
             }
-            if (ball.Y <= 5)
+            if (ball.Y <= error)
             {
                 if (ball.NewY <= 0)
                 {
@@ -98,7 +99,7 @@ namespace Logic
                 }
             }
 
-            else if (ball.Y >= down - 5)
+            else if (ball.Y >= down - error)
             {
                 if (ball.NewY > 0)
                 {
@@ -195,6 +196,7 @@ namespace Logic
         {
             IBall ball = (IBall)sender;
             mutex.WaitOne();
+            ballLogger.EnqueueToLoggingQueue(ball);
             WallCollision(ball);
             BallBounce(ball);
             mutex.ReleaseMutex();
