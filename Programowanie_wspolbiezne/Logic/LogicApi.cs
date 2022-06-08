@@ -58,32 +58,32 @@ namespace Logic
 
             if (ball.X <= error)
             {
-                if (ball.NewX <= 0)
+                if (ball.Velocity.X <= 0)
                 {
-                    ball.NewX = -ball.NewX;
+                    ball.Velocity = new System.Numerics.Vector2(- ball.Velocity.X, ball.Velocity.Y);
                 }
             }
 
             else if (ball.X >= right - error)
             {
-                if (ball.NewX > 0)
+                if (ball.Velocity.X > 0)
                 {
-                    ball.NewX = -ball.NewX;
+                    ball.Velocity = new System.Numerics.Vector2(-ball.Velocity.X, ball.Velocity.Y);
                 }
             }
             if (ball.Y <= error)
             {
-                if (ball.NewY <= 0)
+                if (ball.Velocity.Y <= 0)
                 {
-                    ball.NewY = -ball.NewY;
+                    ball.Velocity = new System.Numerics.Vector2(ball.Velocity.X, -ball.Velocity.Y);
                 }
             }
 
             else if (ball.Y >= down - error)
             {
-                if (ball.NewY > 0)
+                if (ball.Velocity.Y > 0)
                 {
-                    ball.NewY = -ball.NewY;
+                    ball.Velocity = new System.Numerics.Vector2(ball.Velocity.X, -ball.Velocity.Y);
                 }
             }
         }
@@ -103,10 +103,10 @@ namespace Logic
 
                     double m1 = ball.Radius;
                     double m2 = secondBall.Radius;
-                    double v1x = ball.NewX;
-                    double v1y = ball.NewY;
-                    double v2x = secondBall.NewX;
-                    double v2y = secondBall.NewY;
+                    double v1x = ball.Velocity.X;
+                    double v1y = ball.Velocity.Y;
+                    double v2x = secondBall.Velocity.X;
+                    double v2y = secondBall.Velocity.Y;
 
 
 
@@ -116,10 +116,8 @@ namespace Logic
                     double u2x = 2 * m1 * v1x / (m1 + m2) + (m2 - m1) * v2x / (m1 + m2);
                     double u2y = 2 * m1 * v1y / (m1 + m2) + (m2 - m1) * v2y / (m1 + m2);
 
-                    ball.NewX = u1x;
-                    ball.NewY = u1y;
-                    secondBall.NewX = u2x;
-                    secondBall.NewY = u2y;
+                    ball.Velocity = new System.Numerics.Vector2((float)u1x, (float)u1y);
+                    secondBall.Velocity = new System.Numerics.Vector2((float)u2x, (float)u2y);
                     return;
 
                 }
@@ -141,10 +139,10 @@ namespace Logic
 
         internal double Distance(IBall a, IBall b)
         {
-            double x1 = a.X + a.Radius / 2 + a.NewX;
-            double y1 = a.Y + a.Radius / 2 + a.NewY;
-            double x2 = b.X + b.Radius / 2 + b.NewY;
-            double y2 = b.Y + b.Radius / 2 + b.NewY;
+            double x1 = a.X + a.Radius / 2 + a.Velocity.X;
+            double y1 = a.Y + a.Radius / 2 + a.Velocity.Y;
+            double x2 = b.X + b.Radius / 2 + b.Velocity.X;
+            double y2 = b.Y + b.Radius / 2 + b.Velocity.Y;
 
             return Math.Sqrt((Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2)));
         }

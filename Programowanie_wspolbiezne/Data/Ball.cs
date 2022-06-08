@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
@@ -16,53 +17,30 @@ namespace Data
         private readonly int id;
         private double x;
         private double y;
-        private double newX;
-        private double newY;
+        private Vector2 velocity;
         private readonly Stopwatch stopwatch;
         private Task task;
         private bool stop = false;
 
-        public Ball(int identyfikator, int size, double x, double y, double newX, double newY)
+        public Ball(int identyfikator, int size, double x, double y, Vector2 velocity)
         {
             id = identyfikator;
             this.radius = size;
             this.x = x;
             this.y = y;
-            this.newX = newX;
-            this.newY = newY;
+            this.velocity = velocity;
             stopwatch = new Stopwatch();
         }
 
         public int ID { get => id; }
         public int Radius { get => radius; }
-        public double NewX
-        {
-            get => newX;
-            set
+
+        public Vector2 Velocity { get => velocity; set
             {
-                if (value.Equals(newX))
-                {
-                    return;
-                }
-
-                newX = value;
-
+                velocity = value;
             }
         }
-        public double NewY
-        {
-            get => newY;
-            set
-            {
-                if (value.Equals(newY))
-                {
-                    return;
-                }
 
-                newY = value;
-
-            }
-        }
         public double X
         {
             get => x;
@@ -94,8 +72,8 @@ namespace Data
 
         public void Move(double time)
         {
-            X += NewX * time;
-            Y += NewY * time;
+            X += Velocity.X * time;
+            Y += Velocity.Y * time;
         }
 
 
@@ -144,8 +122,7 @@ namespace Data
             info.AddValue("Radius", radius);
             info.AddValue("X Position", X);
             info.AddValue("Y Position", Y);
-            info.AddValue("X Velocity", NewX);
-            info.AddValue("Y Velocity", NewY);
+            info.AddValue("Velocity", Velocity);
         }
     }
 }
