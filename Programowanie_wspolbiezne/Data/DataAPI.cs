@@ -5,23 +5,6 @@ using System.Threading;
 
 namespace Data
 {
-    public abstract class DataAbstractApi
-    {
-
-        public abstract int GetCount { get; }
-        public abstract IList CreateBallsList(int count);
-        public abstract int Width { get; }
-        public abstract int Height { get; }
-
-
-        public abstract IBall GetBall(int index);
-
-        public static DataAbstractApi CreateApi(int width, int height)
-        {
-            return new DataApi(width, height);
-        }
-    }
-
     internal class DataApi : DataAbstractApi
     {
         private ObservableCollection<IBall> balls { get; }
@@ -44,6 +27,11 @@ namespace Data
 
         public ObservableCollection<IBall> Balls => balls;
 
+        public override void ClearBalls()
+        {
+            balls.Clear();
+        }
+
         public override IList CreateBallsList(int count)
         {
 
@@ -54,11 +42,11 @@ namespace Data
                 {
                     mutex.WaitOne();
                     int radius = 20;
-                    double x = random.Next(radius, Width - radius);
-                    double y = random.Next(radius, Height - radius);
-                    double newX = random.Next(-10, 10) + random.NextDouble();
-                    double newY = random.Next(-10, 10) + random.NextDouble();
-                    Ball ball = new Ball(i + 1 + ballsCount, radius, x, y, newX, newY);
+                    IBall ball = new Ball(i + 1 + ballsCount, 
+                        radius,
+                        random.Next(radius, Width - radius),
+                        random.Next(radius, Height - radius), 
+                        new System.Numerics.Vector2((float)(random.Next(-10, 10) + random.NextDouble()),(float)(random.Next(-10, 10) + random.NextDouble())));
 
                     balls.Add(ball);
                     mutex.ReleaseMutex();
@@ -82,11 +70,11 @@ namespace Data
             return balls;
         }
 
-        public override int GetCount { get => balls.Count; }
+        public override int GetBallCounter { get => balls.Count; }
 
 
 
-        public override IBall GetBall(int index)
+        public override IBall GetBallAt(int index)
         {
             return balls[index];
         }

@@ -8,18 +8,15 @@ namespace PresentationMVM.ViewModel
     public class MainWindowViewModel : BaseViewModel
     {
         private readonly ModelAbstractApi ModelLayer;
-        private int _BallVal = 1;
+        private int quantity = 1;
         private int width;
         private int height;
-        private bool _isStopEnabled = false;
-        private bool isStartEnabled = false;
-        private bool _isAddEnabled = true;
         private int size = 0;
         private IList _balls;
         public ICommand AddCommand { get; set; }
         public ICommand RunCommand { get; set; }
-        public ICommand StopCommand
-        { get; set; }
+        public ICommand StopCommand{ get; set; }
+        public ICommand ClearCommand { get; set; }
         public MainWindowViewModel()
         {
             width = 600;
@@ -28,67 +25,26 @@ namespace PresentationMVM.ViewModel
             StopCommand = new RelayCommand(Stop);
             AddCommand = new RelayCommand(AddBalls);
             RunCommand = new RelayCommand(Start);
+            ClearCommand = new RelayCommand(ClearBalls);
 
         }
 
-        public bool isStopEnabled
+
+        public int Quantity
         {
-            get { return _isStopEnabled; }
-            set
-            {
-                _isStopEnabled = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool isRunEnabled
-        {
-            get { return isStartEnabled; }
-            set
-            {
-                isStartEnabled = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool isAddEnabled
-        {
-            get
-            {
-                return _isAddEnabled;
-            }
-            set
-            {
-                _isAddEnabled = value;
-
-                RaisePropertyChanged();
-            }
-        }
-
-        public int BallVal
-        {
-            get
-            {
-
-                return _BallVal;
-            }
+            get => quantity;
             set
             {
 
-                _BallVal = value;
+                quantity = value;
                 RaisePropertyChanged();
-
 
             }
 
         }
         public int Width
         {
-            get
-            {
-
-                return width;
-            }
+            get => width;
             set
             {
 
@@ -99,11 +55,7 @@ namespace PresentationMVM.ViewModel
         }
         public int Height
         {
-            get
-            {
-
-                return height;
-            }
+            get => height;
             set
             {
 
@@ -112,47 +64,31 @@ namespace PresentationMVM.ViewModel
             }
 
         }
+
+        private void ClearBalls()
+        {
+            ModelLayer.ClearBalls();
+        }
+
         private void AddBalls()
         {
-            size += BallVal;
-            if (size > 0)
-            {
-                isRunEnabled = true;
-            }
-            else
-            {
-                size = 0;
-                isRunEnabled = false;
-            }
-            Balls = ModelLayer.Start(BallVal);
-            BallVal = 1;
-
-
+            size += Quantity;
+            Balls = ModelLayer.Start(Quantity);
+            Quantity = 1;
         }
         private void Stop()
         {
-            isStopEnabled = false;
-            isAddEnabled = true;
-            isRunEnabled = true;
-            ModelLayer.Stop();
+            ModelLayer.StopSimulating();
         }
         private void Start()
         {
-            isStopEnabled = true;
-            isRunEnabled = false;
-            isAddEnabled = false;
-            ModelLayer.StartMoving();
+            ModelLayer.StartSimulating();
         }
         public IList Balls
         {
             get => _balls;
             set
             {
-                if (value.Equals(_balls))
-                {
-                    return;
-                }
-
                 _balls = value;
                 RaisePropertyChanged();
             }
