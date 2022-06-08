@@ -11,34 +11,33 @@ namespace Data
 {
     public class BallLogger
     {
-        private readonly string _path;
-        private Task _logTask;
-        private readonly ConcurrentQueue<JObject> _logQueue;
-        private readonly JArray _logArray;
+        private readonly string path;
+        private Task logTask;
+        private readonly ConcurrentQueue<JObject> queue;
+        private readonly JArray logArray;
         private readonly Mutex ballsMutex = new Mutex();
         private Mutex fileMutex = new Mutex();
 
         public BallLogger()
         {
-            string tempPath = Path.GetTempPath();
-            _path = tempPath + "BallsLog.json";
-            _logQueue = new ConcurrentQueue<JObject>();
-            if (File.Exists(_path))
+            path = Path.GetTempPath() + "PWBallLog.json";
+            queue = new ConcurrentQueue<JObject>();
+            if (File.Exists(path))
             {
                 try
                 {
-                    string input = File.ReadAllText(_path);
-                    _logArray = JArray.Parse(input);
+                    string input = File.ReadAllText(path);
+                    logArray = JArray.Parse(input);
                     return;
                 }
                 catch (JsonReaderException)
                 {
-                    _logArray = new JArray();
+                    logArray = new JArray();
                 }
             }
 
-            _logArray = new JArray();
-            File.Create(_path);
+            logArray = new JArray();
+            File.Create(path);
         }
 
 
@@ -50,11 +49,11 @@ namespace Data
                 JObject timeObject = JObject.FromObject(ball);
                 timeObject["Time"] = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss.fff");
 
-                _logQueue.Enqueue(timeObject);
+                queue.Enqueue(timeObject);
 
-                if (_logTask == null || _logTask.IsCompleted)
+                if (logTask == null || logTask.IsCompleted)
                 {
-                    _logTask = Task.Factory.StartNew(WriteLogToFile);
+                    logTask = Task.Factory.StartNew(WriteLogToFile);
                 }
             }
             finally
@@ -66,15 +65,14 @@ namespace Data
 
         private async void WriteLogToFile()
         {
-            while (_logQueue.TryDequeue(out JObject ball))
+            while (queue.TryDequeue(out JObject ball))
             {
-                _logArray.Add(ball);
+                logArray.Add(ball);
             }
-            string output = JsonConvert.SerializeObject(_logArray);
             fileMutex.WaitOne();
             try
             {
-                File.WriteAllText(_path, output);
+                File.WriteAllText(path, JsonConvert.SerializeObject(logArray));
             }
             finally
             {

@@ -22,9 +22,9 @@ namespace Data
         private Task task;
         private bool stop = false;
 
-        public Ball(int identyfikator, int size, double x, double y, Vector2 velocity)
+        public Ball(int ballID, int size, double x, double y, Vector2 velocity)
         {
-            id = identyfikator;
+            id = ballID;
             this.radius = size;
             this.x = x;
             this.y = y;
@@ -46,11 +46,6 @@ namespace Data
             get => x;
             private set
             {
-                if (value.Equals(x))
-                {
-                    return;
-                }
-
                 x = value;
                 RaisePropertyChanged();
             }
@@ -60,11 +55,6 @@ namespace Data
             get => y;
             private set
             {
-                if (value.Equals(y))
-                {
-                    return;
-                }
-
                 y = value;
                 RaisePropertyChanged();
             }
