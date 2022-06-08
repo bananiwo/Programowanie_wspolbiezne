@@ -10,14 +10,13 @@ namespace Data
     public interface IBall : INotifyPropertyChanged
     { 
         int ID { get; }
-        int Size { get; }
-        double Weight { get; }
-        double X { get; set; }
-        double Y { get; set; }
+        int Radius { get; }
+        double X { get; }
+        double Y { get; }
         double NewX { get; set; }
         double NewY { get; set; }
 
-        void Move();
+        void Move(double time);
         void CreateMovementTask(int interval);
 
         void Stop();
@@ -29,30 +28,29 @@ namespace Data
 
     internal class Ball : IBall
     {
-        private readonly int size;
+        private readonly int radius;
         private readonly int id;
         private double x;
         private double y;
         private double newX;
         private double newY;
-        private readonly double weight;
-        private readonly Stopwatch stopwatch = new Stopwatch();
+        private readonly Stopwatch stopwatch;
         private Task task;
         private bool stop = false;
 
-        public Ball(int identyfikator, int size, double x, double y, double newX, double newY, double weight)
+        public Ball(int identyfikator, int size, double x, double y, double newX, double newY)
         {
             id = identyfikator;
-            this.size = size;
+            this.radius = size;
             this.x = x;
             this.y = y;
             this.newX = newX;
             this.newY = newY;
-            this.weight = weight;
+            stopwatch = new Stopwatch();
         }
 
         public int ID { get => id; }
-        public int Size { get => size; }
+        public int Radius { get => radius; }
         public double NewX
         {
             get => newX;
@@ -84,7 +82,7 @@ namespace Data
         public double X
         {
             get => x;
-            set
+            private set
             {
                 if (value.Equals(x))
                 {
@@ -98,7 +96,7 @@ namespace Data
         public double Y
         {
             get => y;
-            set
+            private set
             {
                 if (value.Equals(y))
                 {
@@ -110,14 +108,13 @@ namespace Data
             }
         }
 
-        public void Move()
+        public void Move(double time)
         {
-            X += NewX;
-            Y += NewY;
+            X += NewX * time;
+            Y += NewY * time;
         }
 
 
-        public double Weight { get => weight; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -139,7 +136,7 @@ namespace Data
                 stopwatch.Start();
                 if (!stop)
                 {
-                    Move();
+                    Move((interval - stopwatch.ElapsedMilliseconds) / 16);
 
                 }
                 stopwatch.Stop();
