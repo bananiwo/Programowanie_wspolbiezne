@@ -142,7 +142,12 @@ namespace Data
                 }
                 stopwatch.Stop();
 
-                await Task.Delay((int)(interval - stopwatch.ElapsedMilliseconds));
+                int delay = (int)(interval - stopwatch.ElapsedMilliseconds);
+                if (delay < 0)
+                {
+                    delay = 0;
+                }
+                await Task.Delay((int)delay);
             }
         }
         public void Stop()
