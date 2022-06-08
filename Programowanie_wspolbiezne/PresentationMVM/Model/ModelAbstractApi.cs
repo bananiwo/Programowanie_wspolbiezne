@@ -12,6 +12,7 @@ namespace PresentationMVM.Model
         public abstract void StartMoving();
         public abstract IList Start(int ballVal);
         public abstract void Stop();
+        public abstract void ClearBalls();
 
 
         public static ModelAbstractApi CreateApi(int Weight, int Height)
@@ -31,8 +32,6 @@ namespace PresentationMVM.Model
             width = Width;
             height = Height;
             LogicLayer = LogicAbstractApi.CreateApi(width, height);
-
-
         }
 
         public override void StartMoving()
@@ -48,6 +47,10 @@ namespace PresentationMVM.Model
 
         public override IList Start(int ballVal) => LogicLayer.CreateBalls(ballVal);
 
+        public override void ClearBalls()
+        {
+            LogicLayer.ClearBalls();
+        }
     }
 
 }

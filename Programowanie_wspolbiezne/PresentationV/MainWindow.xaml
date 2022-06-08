@@ -6,14 +6,18 @@
         xmlns:local="clr-namespace:PresentationV"
         xmlns:vm="clr-namespace:PresentationMVM.ViewModel;assembly=PresentationMVM"
         mc:Ignorable="d"
-        Title="Banasiak (236494), Malinowska (236596)" Height="700" Width="800" Background="DarkSlateGray" Foreground="Black" BorderBrush="#FFFB3737 " Topmost="True">
+        Title="Banasiak (236494), Malinowska (236596)" ResizeMode="NoResize" Height="700" Width="850" Background="DarkSlateGray" Foreground="Black" BorderBrush="#FFFB3737 " Topmost="True">
 
     <Window.DataContext>
-        <vm:MainWindowViewModel isRunEnabled="False" isStopEnabled="False"/>
+        <vm:MainWindowViewModel/>
     </Window.DataContext>
 
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="369*"/>
+            <ColumnDefinition Width="31*"/>
+        </Grid.ColumnDefinitions>
         <Canvas Width="{Binding Width}" Height="{Binding Height}" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FF1D3030" Margin="110,94,0,0">
             <ItemsControl Name="Balls" ItemsSource="{Binding Balls}">
                 <ItemsControl.ItemTemplate>
@@ -26,38 +30,39 @@
             </ItemsControl>
             <Border BorderBrush="Black" BorderThickness="5,5,5,5" Height="{Binding Height}" Width="{Binding Width}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Canvas>
-        <TextBox HorizontalAlignment="Left" Margin="513,27,0,0" TextWrapping="Wrap" Text="{Binding BallVal}"  VerticalAlignment="Top" Width="113" Height="43" TextAlignment="Center" FontSize="24px" BorderBrush="#FF1D3030" BorderThickness="3,3,3,3" Background="Transparent" RenderTransformOrigin="0.5,0.5" >
+        <TextBox HorizontalAlignment="Left" Margin="570,0,0,605" TextWrapping="Wrap" Text="{Binding BallVal}"  VerticalAlignment="Bottom" Width="113" Height="43" TextAlignment="Center" FontSize="24px" BorderBrush="#FF1D3030" BorderThickness="3,3,3,3" Background="Transparent" RenderTransformOrigin="0.5,0.5" >
         </TextBox>
         <Button x:Name= "StartButton"
                 Content="Symuluj" 
                 FontSize="10" 
                 FontWeight="Light" 
                 Foreground="White"
-                HorizontalAlignment="Left" 
+                HorizontalAlignment="Right" 
                 Background="DarkSlateGray" 
                 Width="153"
                 BorderBrush="#FF1E3636"   
                 Command="{Binding RunCommand}" 
-                IsEnabled="{Binding isRunEnabled}" Margin="313,27,0,616" Height="26"/>
+                Margin="0,0,392,604" Height="45" VerticalAlignment="Bottom"/>
         <Button x:Name= "StopButton"  Content="Zatrzymaj symulacje" 
                 FontSize="10" 
                 FontWeight="Light" 
                 Foreground="White"
-                HorizontalAlignment="Left" 
+                HorizontalAlignment="Right" 
                 Background="DarkSlateGray" 
                 Width="154"
                 BorderBrush="#FF1E3636"  
-                Command="{Binding StopCommand}" IsEnabled="{Binding isStopEnabled}" Margin="141,26,0,616" Height="26" />
+                Command="{Binding StopCommand}" Margin="0,0,575,605" Height="45" VerticalAlignment="Bottom" />
         <Button x:Name= "AddButton" FontSize="10" 
                     FontWeight="Light" 
                     Foreground="White"
                     HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" 
+                    VerticalAlignment="Bottom" 
                     Background="DarkSlateGray" 
-                    Height="41" 
-                    Width="73"
+                    Height="42" 
+                    Width="92"
                     BorderBrush="#FF1E3636"
                     Command="{Binding AddCommand}" 
-                    IsEnabled="{Binding isAddEnabled}" Content="Dodaj " Margin="637,27,0,0"/>
+                    IsEnabled="{Binding isAddEnabled}" Content="Dodaj " Margin="698,0,0,605" Grid.ColumnSpan="2"/>
+        <Button x:Name="CleanButton" Content="Wyzeruj" Command="{Binding ClearCommand}"  FontSize="10"  HorizontalAlignment="Right" Margin="0,0,219,605" VerticalAlignment="Bottom" Width="154" Height="45" Background="DarkSlateGray" Foreground="White" BorderBrush="#FF1E3636"/>
     </Grid>
 </Window>

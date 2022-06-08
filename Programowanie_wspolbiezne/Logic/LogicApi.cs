@@ -123,11 +123,7 @@ namespace Logic
                     return;
 
                 }
-
-
-
             }
-
         }
 
 
@@ -164,6 +160,12 @@ namespace Logic
             }
             return temp;
         }
+
+        public override void ClearBalls()
+        {
+            dataLayer.ClearBalls();
+        }
+
         public override IBall GetBall(int index)
         {
             return dataLayer.GetBall(index);

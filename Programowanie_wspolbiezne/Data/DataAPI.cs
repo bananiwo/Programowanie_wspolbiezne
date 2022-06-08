@@ -27,6 +27,11 @@ namespace Data
 
         public ObservableCollection<IBall> Balls => balls;
 
+        public override void ClearBalls()
+        {
+            balls.Clear();
+        }
+
         public override IList CreateBallsList(int count)
         {
 

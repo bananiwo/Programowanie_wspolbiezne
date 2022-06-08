@@ -18,8 +18,8 @@ namespace PresentationMVM.ViewModel
         private IList _balls;
         public ICommand AddCommand { get; set; }
         public ICommand RunCommand { get; set; }
-        public ICommand StopCommand
-        { get; set; }
+        public ICommand StopCommand{ get; set; }
+        public ICommand ClearCommand { get; set; }
         public MainWindowViewModel()
         {
             width = 600;
@@ -28,6 +28,7 @@ namespace PresentationMVM.ViewModel
             StopCommand = new RelayCommand(Stop);
             AddCommand = new RelayCommand(AddBalls);
             RunCommand = new RelayCommand(Start);
+            ClearCommand = new RelayCommand(ClearBalls);
 
         }
 
@@ -112,6 +113,12 @@ namespace PresentationMVM.ViewModel
             }
 
         }
+
+        private void ClearBalls()
+        {
+            ModelLayer.ClearBalls();
+        }
+
         private void AddBalls()
         {
             size += BallVal;
@@ -125,7 +132,7 @@ namespace PresentationMVM.ViewModel
                 isRunEnabled = false;
             }
             Balls = ModelLayer.Start(BallVal);
-            BallVal = 1;
+            BallVal = 0;
 
 
         }

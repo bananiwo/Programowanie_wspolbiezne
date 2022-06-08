@@ -20,6 +20,7 @@ namespace Logic
         public abstract void WallCollision(IBall ball);
         public abstract void BallBounce(IBall ball);
         public abstract void BallPositionChanged(object sender, PropertyChangedEventArgs args);
+        public abstract void ClearBalls();
 
 
 
