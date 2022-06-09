@@ -14,7 +14,6 @@ namespace Logic
         private readonly DataAbstractApi dataLayer;
         private readonly Mutex mutex = new Mutex();
         private readonly int error = 10;
-
         private Collisions collisions = new Collisions();
 
         public LogicApi(int width, int height)
@@ -32,7 +31,7 @@ namespace Logic
         {
             for (int i = 0; i < dataLayer.GetBallCounter; i++)
             {
-                dataLayer.GetBallAt(i).CreateMovementTask(50);
+                dataLayer.GetBallAt(i).CreateMovementTask(30);
             }
         }
 
