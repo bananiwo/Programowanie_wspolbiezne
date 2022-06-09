@@ -1,5 +1,4 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Numerics;
 using Data;
 
 namespace DataTest
@@ -7,50 +6,38 @@ namespace DataTest
     [TestClass]
     public class DataAPITest
     {
+        private DataAbstractApi api;
+
         [TestMethod]
-        public void TestBallValues()
+        public void GetWidthTest()
         {
-            BallApi ball = BallCollectionApi.CreateBall(1, new Vector2(1, 1), new Vector2(2, 2), 10);
-            Assert.AreEqual(ball.Radius, 10);
-            Assert.AreEqual(ball.Position, new Vector2(1, 1));
-            Assert.AreEqual(ball.Velocity, new Vector2(2, 2));
-            ball.Step(1);
-            Assert.AreEqual(ball.Position, new Vector2(3, 3));
+            api = DataAbstractApi.CreateDataApi(400, 400);
+            Assert.AreEqual(api.Width, 400);
         }
 
         [TestMethod]
-        public void TestAddBallToCollectionValues()
+        public void GetHeightTest()
         {
-            BallCollectionApi balls = BallCollectionApi.CreateBallsApi();
-            BallApi ball = BallCollectionApi.CreateBall(1, new Vector2(1, 1), new Vector2(2, 2), 10);
-            BallApi ball2 = BallCollectionApi.CreateBall(1, new Vector2(1, 1), new Vector2(2, 2), 15);
-            Assert.AreEqual(balls.Add(ball), 0);
-            Assert.AreEqual(balls.Add(ball2), 1);
-            Assert.AreEqual(balls.CountBallApis(), 2);
+            api = DataAbstractApi.CreateDataApi(400, 400);
+            Assert.AreEqual(api.Height, 400);
         }
 
         [TestMethod]
-        public void TestGetBallFromCollectionValues()
+        public void TestCreateBallsList()
         {
-            BallCollectionApi balls = BallCollectionApi.CreateBallsApi();
-            BallApi ball = BallCollectionApi.CreateBall(1, new Vector2(1, 1), new Vector2(2, 2), 10);
-            BallApi ball2 = BallCollectionApi.CreateBall(1, new Vector2(1, 1), new Vector2(2, 2), 15);
-            Assert.AreEqual(balls.Add(ball), 0);
-            Assert.AreEqual(balls.Add(ball2), 1);
-            Assert.AreEqual(balls.GetBallApi(0), ball);
-            Assert.AreEqual(balls.GetBallApi(1), ball2);
+            api = DataAbstractApi.CreateDataApi(400, 400);
+            api.CreateBallsList(5);
+            Assert.AreEqual(api.GetBallCounter, 5);
         }
 
         [TestMethod]
-        public void TestRemoveBallFromCollectionValues()
+        public void TestClearBalls()
         {
-            BallCollectionApi balls = BallCollectionApi.CreateBallsApi();
-            BallApi ball = BallCollectionApi.CreateBall(1, new Vector2(1, 1), new Vector2(2, 2), 10);
-            BallApi ball2 = BallCollectionApi.CreateBall(1, new Vector2(1, 1), new Vector2(2, 2), 15);
-            Assert.AreEqual(balls.Add(ball), 0);
-            Assert.AreEqual(balls.Add(ball2), 1);
-            Assert.AreEqual(balls.CountBallApis(), 2);
-            Assert.AreEqual(balls.Remove(ball), true);
-            Assert.AreEqual(balls.CountBallApis(), 1);}
-}
+            api = DataAbstractApi.CreateDataApi(400, 400);
+            api.CreateBallsList(5);
+            Assert.AreEqual(api.GetBallCounter, 5);
+            api.ClearBalls();
+            Assert.AreEqual(api.GetBallCounter, 0);
+        }
+    }
 }

@@ -6,49 +6,34 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace LogicTest
 {
     [TestClass]
-    public class LogicTest
+    public class LogicApiTest
     {
-        Collisions collisions = new Collisions();
-        BallLogicApi ballLogic;
-        
+        LogicAbstractApi api;
+
         [TestMethod]
-        public void CollisionTest()
+        public void TestWidthAndHeight()
         {
-            ballLogic = BallLogicApi.CreateLogic();
-            ballLogic.Add();
-            Assert.AreEqual(collisions.DetectCollision(ballLogic.GetBall(0), null), false);
+            api = LogicAbstractApi.CreateLogicApi(400, 300);
+            Assert.AreEqual(api.Height, 300);
+            Assert.AreEqual(api.Width, 400);
         }
 
         [TestMethod]
-        public void LogicBallTest()
+        public void TestCreateBalls()
         {
-            ballLogic = BallLogicApi.CreateLogic();
-            ballLogic.Add();
-            Assert.AreEqual(ballLogic.GetBoardSize(), new Vector2(700, 700));
+            api = LogicAbstractApi.CreateLogicApi(400, 300);
+            api.CreateBalls(4);
+            Assert.AreEqual(api.GetBallCounter, 4);
         }
 
         [TestMethod]
-        public void LogicBallTest2()
+        public void TestCleareBalls()
         {
-            ballLogic = BallLogicApi.CreateLogic();
-            ballLogic.Add();
-            Assert.AreEqual(ballLogic.Count(), 1);
-            ballLogic.Remove(ballLogic.GetBall(0));
-            Assert.AreEqual(ballLogic.Count(), 0);
+            api = LogicAbstractApi.CreateLogicApi(400, 300);
+            api.CreateBalls(4);
+            Assert.AreEqual(api.GetBallCounter, 4);
+            api.ClearBalls();
+            Assert.AreEqual(api.GetBallCounter, 0);
         }
-
-        [TestMethod]
-        public void LogicBallTest3()
-        {
-            ballLogic = BallLogicApi.CreateLogic();
-            ballLogic.Add();
-            ballLogic.Add();
-            ballLogic.Add();
-            ballLogic.Add();
-            Assert.AreEqual(ballLogic.Count(), 4);
-            ballLogic.RemoveAll();
-            Assert.AreEqual(ballLogic.Count(), 0);
-        }
-
     }
 }

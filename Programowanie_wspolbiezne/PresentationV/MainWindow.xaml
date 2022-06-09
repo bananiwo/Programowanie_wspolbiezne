@@ -6,98 +6,62 @@
         xmlns:local="clr-namespace:PresentationV"
         xmlns:vm="clr-namespace:PresentationMVM.ViewModel;assembly=PresentationMVM"
         mc:Ignorable="d"
-        Title="Malinowska, Banasiak" Height="800" Width="800" Background="#FF1E3636"
-         MinHeight="750" MinWidth="750">
+        Title="Banasiak (236494), Malinowska (236596)" ResizeMode="NoResize" Height="700" Width="850" Background="DarkSlateGray" Foreground="Black" BorderBrush="#FFFB3737 " Topmost="True">
+
     <Window.DataContext>
-        <vm:ViewModelBall/>
+        <vm:MainWindowViewModel/>
     </Window.DataContext>
-    <Grid Height="784" VerticalAlignment="Top">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="33*"/>
-            <RowDefinition Height="751*"/>
-            
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1">
-            <ContentPresenter Content="{Binding Canvas}"  Height="700" Width="700" />
-        </Grid>
-        <Grid Grid.Row="0" Grid.Column="6" RenderTransformOrigin="0.5,0.5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-            </Grid.ColumnDefinitions>
-            <Button Content="Usuń kulę" 
-                    Command="{Binding RemoveBallButtonClick}"
-                    FontSize="10" 
-                    FontWeight="Light" 
-                    Foreground="White"
-                    HorizontalAlignment="Center" 
-                    Grid.Column="0" 
-                    VerticalAlignment="Center" 
-                    Background="DarkSlateGray" 
-                    Height="30" 
-                    Width="66"
-                    BorderBrush="#FF1E3636"/>
-            <Button Content="Dodaj kule" 
-                    Command="{Binding AddBallButtonClick}"
-                    FontSize="10" 
-                    FontWeight="Light" 
-                    Foreground="White"
-                    HorizontalAlignment="Center" 
-                    Grid.Column="1" 
-                    Background="DarkSlateGray" 
-                    Width="70"
-                    BorderBrush="#FF1E3636"/>
-            <TextBox HorizontalAlignment="Right" 
-                     BorderBrush="#FF1E3636"
-                     Grid.Column="2"
-                     TextAlignment="Right"
-                     FontSize="24"
-                     TextWrapping="Wrap" 
-                     Text="{Binding BallQuantityText}" 
-                     VerticalAlignment="Center" 
-                     Width="100"
-                     Height="30"
-                     Background="DarkSlateGray"
-                     Foreground="White"
-                     FontFamily="Leelawadee"
-                     SelectionBrush="#FF113333"/>
 
-            <Button Content="Wygeneruj układ startowy" 
-                    Command="{Binding CreateBallsButtonClick}"
-                    CommandParameter="{Binding BallCounter}"
-                    FontSize="10" 
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="369*"/>
+            <ColumnDefinition Width="31*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Width="{Binding Width}" Height="{Binding Height}" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FF1D3030" Margin="110,94,0,0">
+            <ItemsControl Name="Balls" ItemsSource="{Binding Balls}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Canvas>
+                            <Ellipse Stroke="Black" Fill="Red"  Width="{Binding Radius}" Height="{Binding Radius}" Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}"/>
+                        </Canvas>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Border BorderBrush="Black" BorderThickness="5,5,5,5" Height="{Binding Height}" Width="{Binding Width}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </Canvas>
+        <TextBox HorizontalAlignment="Left" Margin="570,0,0,605" TextWrapping="Wrap" Text="{Binding Quantity}"  VerticalAlignment="Bottom" Width="113" Height="43" TextAlignment="Center" FontSize="24px" BorderBrush="#FF1D3030" BorderThickness="3,3,3,3" Background="Transparent" RenderTransformOrigin="0.5,0.5" >
+        </TextBox>
+        <Button x:Name= "StartButton"
+                Content="Symuluj" 
+                FontSize="10" 
+                FontWeight="Light" 
+                Foreground="White"
+                HorizontalAlignment="Right" 
+                Background="DarkSlateGray" 
+                Width="153"
+                BorderBrush="#FF1E3636"   
+                Command="{Binding RunCommand}" 
+                Margin="0,0,392,604" Height="45" VerticalAlignment="Bottom"/>
+        <Button x:Name= "StopButton"  Content="Zatrzymaj symulacje" 
+                FontSize="10" 
+                FontWeight="Light" 
+                Foreground="White"
+                HorizontalAlignment="Right" 
+                Background="DarkSlateGray" 
+                Width="154"
+                BorderBrush="#FF1E3636"  
+                Command="{Binding StopCommand}" Margin="0,0,575,605" Height="45" VerticalAlignment="Bottom" />
+        <Button x:Name= "AddButton" FontSize="10" 
                     FontWeight="Light" 
                     Foreground="White"
                     HorizontalAlignment="Left" 
-                    Grid.Column="3" 
+                    VerticalAlignment="Bottom" 
                     Background="DarkSlateGray" 
-                    Width="144"
-                    BorderBrush="#FF1E3636"/>
-            <Button Content="Symuluj" 
-                    Command="{Binding Start}"
-                    FontSize="10" 
-                    FontWeight="Light" 
-                    Foreground="White"
-                    HorizontalAlignment="Left" 
-                    Grid.Column="4" 
-                    Background="DarkSlateGray" 
-                    Width="144"
-                    BorderBrush="#FF1E3636"/>
-            <Button Content="Przestan" 
-                    Command="{Binding Stop}"
-                    FontSize="10" 
-                    FontWeight="Light" 
-                    Foreground="White"
-                    HorizontalAlignment="Left" 
-                    Grid.Column="5" 
-                    Background="DarkSlateGray" 
-                    Width="144"
-                    BorderBrush="#FF1E3636"/>
-        </Grid>
+                    Height="42" 
+                    Width="92"
+                    BorderBrush="#FF1E3636"
+                    Command="{Binding AddCommand}"  Content="Dodaj " Margin="698,0,0,605" Grid.ColumnSpan="2"/>
+        <Button x:Name="CleanButton" Content="Wyzeruj" Command="{Binding ClearCommand}"  FontSize="10"  HorizontalAlignment="Right" Margin="0,0,219,605" VerticalAlignment="Bottom" Width="154" Height="45" Background="DarkSlateGray" Foreground="White" BorderBrush="#FF1E3636"/>
     </Grid>
-
 </Window>

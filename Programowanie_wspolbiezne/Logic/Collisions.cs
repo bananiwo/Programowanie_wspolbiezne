@@ -1,86 +1,103 @@
 ﻿using Data;
-using System.Numerics;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Logic
 {
-    public class Collisions
+    internal class Collisions
     {
-        public void WallCollision(BallApi ballApi, Vector2 boardSize)
+        internal static void WallBounce(IBall ball, int width, int height, int error)
         {
-            double diameter = 2 * BallCollectionApi.GetRadius(ballApi);
-            float left = boardSize.X - (float)diameter;
-            float bottom = boardSize.Y - (float)diameter;
 
-            if (ballApi.Position.X < 0)
-            {
-                ballApi.Position = new Vector2(-ballApi.Position.X, ballApi.Position.Y);
-                ballApi.Velocity = new Vector2(-ballApi.Velocity.X, ballApi.Velocity.Y);
+            double diameter = 2* ball.Radius;
+            double right = width - diameter;
+            double down = height - diameter;
 
-            }
-            else if (ballApi.Position.X > left)
+            if (ball.X <= error)
             {
-                ballApi.Position = new Vector2(left - (ballApi.Position.X - left), ballApi.Position.Y);
-                ballApi.Velocity = new Vector2(-ballApi.Velocity.X, ballApi.Velocity.Y);
+                if (ball.Velocity.X <= 0)
+                {
+                    ball.Velocity = new System.Numerics.Vector2(-ball.Velocity.X, ball.Velocity.Y);
+                }
             }
 
-            if (ballApi.Position.Y < 0)
+            else if (ball.X >= right - error)
             {
-                ballApi.Position = new Vector2(ballApi.Position.X, -ballApi.Position.Y);
-                ballApi.Velocity = new Vector2(ballApi.Velocity.X, -ballApi.Velocity.Y);
-
+                if (ball.Velocity.X > 0)
+                {
+                    ball.Velocity = new System.Numerics.Vector2(-ball.Velocity.X, ball.Velocity.Y);
+                }
             }
-            else if (ballApi.Position.Y > bottom)
+            if (ball.Y <= error)
             {
-                ballApi.Position = new Vector2(ballApi.Position.X, bottom - (ballApi.Position.Y - bottom));
-                ballApi.Velocity = new Vector2(ballApi.Velocity.X, -ballApi.Velocity.Y);
+                if (ball.Velocity.Y <= 0)
+                {
+                    ball.Velocity = new System.Numerics.Vector2(ball.Velocity.X, -ball.Velocity.Y);
+                }
+            }
+
+            else if (ball.Y >= down - error)
+            {
+                if (ball.Velocity.Y > 0)
+                {
+                    ball.Velocity = new System.Numerics.Vector2(ball.Velocity.X, -ball.Velocity.Y);
+                }
             }
         }
 
-        public bool DetectCollision(BallApi first, BallApi second)
+        internal static void BallBounce(IBall ball, ObservableCollection<IBall> balls)
         {
-            if (first == null || second == null)
+            for (int i = 0; i < balls.Count; i++)
+            {
+                IBall secondBall = balls[i];
+                if (ball.ID == secondBall.ID)
+                {
+                    continue;
+                }
+
+                if (DetectCollision(ball, secondBall))
+                {
+                    double m1 = ball.Radius;
+                    double m2 = secondBall.Radius;
+                    double v1x = ball.Velocity.X;
+                    double v1y = ball.Velocity.Y;
+                    double v2x = secondBall.Velocity.X;
+                    double v2y = secondBall.Velocity.Y;
+
+
+                    double u1x = (m1 - m2) * v1x / (m1 + m2) + (2 * m2) * v2x / (m1 + m2);
+                    double u1y = (m1 - m2) * v1y / (m1 + m2) + (2 * m2) * v2y / (m1 + m2);
+
+                    double u2x = 2 * m1 * v1x / (m1 + m2) + (m2 - m1) * v2x / (m1 + m2);
+                    double u2y = 2 * m1 * v1y / (m1 + m2) + (m2 - m1) * v2y / (m1 + m2);
+
+                    ball.Velocity = new System.Numerics.Vector2((float)u1x, (float)u1y);
+                    secondBall.Velocity = new System.Numerics.Vector2((float)u2x, (float)u2y);
+                    return;
+
+                }
+            }
+        }
+
+
+        internal static bool DetectCollision(IBall ballI, IBall ballII)
+        {
+            if (ballI == null || ballII == null)
             {
                 return false;
             }
-            double distance = Vector2.Distance(first.Position, second.Position);
-            if (distance <= second.Radius + first.Radius)
-            {
-                return true;
-            }
-            return false;
 
+            return EuclideanDistance(ballI, ballII) <= (ballI.Radius / 2 + ballII.Radius / 2);
         }
 
-
-
-        public void BallCollision(List<BallApi> ballApis, BallApi ballApi)
+        internal static double EuclideanDistance(IBall a, IBall b)
         {
-            foreach (var otherBall in ballApis)
-            {
-                if (otherBall != ballApi)
-                {
-                    if (DetectCollision(ballApi, otherBall))
-                    {
-                        ballApi.Step(-1);
-                        double radiusBallApi = ballApi.Radius;
-                        double radiusOtherBall = otherBall.Radius;
-                        double xVelocityBallApi = ballApi.Velocity.X;
-                        double yVelocityBallApi = ballApi.Velocity.Y;
-                        double xVelocityOtherBall = otherBall.Velocity.X;
-                        double yVelocityOtherBall = otherBall.Velocity.Y;
-
-                        double xVelocityBallApiAfterCollision = (radiusBallApi - radiusOtherBall) * xVelocityBallApi / (radiusBallApi + radiusOtherBall) + (2 * radiusOtherBall) * xVelocityOtherBall / (radiusBallApi + radiusOtherBall);
-                        double yVelocityBallApiAfterCollision = (radiusBallApi - radiusOtherBall) * yVelocityBallApi / (radiusBallApi + radiusOtherBall) + (2 * radiusOtherBall) * yVelocityOtherBall / (radiusBallApi + radiusOtherBall);
-
-                        ballApi.Velocity = new Vector2((float)xVelocityBallApiAfterCollision, (float)yVelocityBallApiAfterCollision);
-
-                        double xVelocityOtherBallAfterCollision = 2 * radiusBallApi * xVelocityBallApi / (radiusBallApi + radiusOtherBall) + (radiusOtherBall - radiusBallApi) * xVelocityOtherBall / (radiusBallApi + radiusOtherBall);
-                        double yVelocityOtherBallAfterCollision = 2 * radiusBallApi * yVelocityBallApi / (radiusBallApi + radiusOtherBall) + (radiusOtherBall - radiusBallApi) * yVelocityOtherBall / (radiusBallApi + radiusOtherBall);
-
-                        otherBall.Velocity = new Vector2((float)xVelocityOtherBallAfterCollision, (float)yVelocityOtherBallAfterCollision);
-                    }
-                }
-            }
+            return Math.Sqrt((Math.Pow(a.X + a.Radius / 2 + a.Velocity.X - b.X + b.Radius / 2 + b.Velocity.X, 2)
+                + Math.Pow(a.Y + a.Radius / 2 + a.Velocity.Y - b.Y + b.Radius / 2 + b.Velocity.Y, 2)));
         }
     }
 }
