@@ -9,15 +9,11 @@ namespace Logic
 {
     public abstract class LogicAbstractApi
     {
-
-        public abstract int GetBallCounter { get; }
         public abstract IList CreateBalls(int count);
         public abstract void StartSimulating();
         public abstract void StopSimulating();
         public abstract int Width { get; set; }
         public abstract int Height { get; set; }
-        public abstract IBall GetBallAt(int index);
-        public abstract void BallPositionChanged(object sender, PropertyChangedEventArgs args);
         public abstract void ClearBalls();
 
 

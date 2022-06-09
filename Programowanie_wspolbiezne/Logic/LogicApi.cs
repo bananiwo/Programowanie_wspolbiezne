@@ -58,12 +58,12 @@ namespace Logic
 
         public override void ClearBalls() => dataLayer.ClearBalls();
 
-        public override IBall GetBallAt(int index) => dataLayer.GetBallAt(index);
+        private IBall GetBallAt(int index) => dataLayer.GetBallAt(index);
 
 
-        public override int GetBallCounter { get => dataLayer.GetBallCounter; }
+        private int GetBallCounter { get => dataLayer.GetBallCounter; }
 
-        public override void BallPositionChanged(object sender, PropertyChangedEventArgs args)
+        private void BallPositionChanged(object sender, PropertyChangedEventArgs args)
         {
             IBall ball = (IBall)sender;
             mutex.WaitOne();

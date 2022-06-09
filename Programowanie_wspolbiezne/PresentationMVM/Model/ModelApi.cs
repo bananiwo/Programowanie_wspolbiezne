@@ -16,14 +16,12 @@ namespace PresentationMVM.Model
 
         public ModelApi(int Width, int Height)
         {
-
             width = Width;
             height = Height;
             LogicLayer = LogicAbstractApi.CreateLogicApi(width, height);
         }
 
         public override void StartSimulating() => LogicLayer.StartSimulating();
-
 
         public override void StopSimulating() => LogicLayer.StopSimulating();
 
