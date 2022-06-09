@@ -22,15 +22,11 @@ namespace Data
             balls = new ObservableCollection<IBall>();
             Width = width;
             Height = height;
-
         }
 
         public override ObservableCollection<IBall> Balls => balls;
 
-        public override void ClearBalls()
-        {
-            balls.Clear();
-        }
+        public override void ClearBalls() => balls.Clear();
 
         public override IList CreateBallsList(int count)
         {
@@ -72,12 +68,7 @@ namespace Data
 
         public override int GetBallCounter { get => balls.Count; }
 
-
-
-        public override IBall GetBallAt(int index)
-        {
-            return balls[index];
-        }
+        public override IBall GetBallAt(int index) =>  balls[index];
 
 
     }
