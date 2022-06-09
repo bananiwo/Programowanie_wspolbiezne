@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class BallLogger
+    public class BallLogger : BallLoggerApi
     {
         private readonly string path;
         private Task logTask;
@@ -41,7 +41,7 @@ namespace Data
         }
 
 
-        public void EnqueueToLoggingQueue(IBall ball)
+        public override void EnqueueToLoggingQueue(IBall ball)
         {
             ballsMutex.WaitOne();
             try
