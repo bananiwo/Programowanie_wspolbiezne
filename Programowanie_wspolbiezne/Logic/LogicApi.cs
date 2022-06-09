@@ -16,7 +16,6 @@ namespace Logic
         private readonly Mutex mutex = new Mutex();
         private readonly Mutex mutexBall = new Mutex();
         private readonly Random random = new Random();
-        private readonly BallLoggerApi ballLogger;
         private readonly int error = 0;
 
         private ObservableCollection<IBall> balls;
@@ -24,7 +23,6 @@ namespace Logic
         public LogicApi(int width, int height)
         {
             dataLayer = DataAbstractApi.CreateDataApi(width, height);
-            ballLogger = DataAbstractApi.CreateLoggerApi();
             balls = new ObservableCollection<IBall>();
             Width = width;
             Height = height;
@@ -113,7 +111,6 @@ namespace Logic
         {
             IBall ball = (IBall)sender;
             mutex.WaitOne();
-            ballLogger.EnqueueToLoggingQueue(ball);
             Collisions.WallBounce(ball, Width, Height, error);
             Collisions.BallBounce(ball, Balls);
             mutex.ReleaseMutex();
