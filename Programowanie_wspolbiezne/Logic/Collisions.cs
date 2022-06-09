@@ -10,7 +10,7 @@ namespace Logic
 {
     internal class Collisions
     {
-        internal void WallBounce(IBall ball, int width, int height, int error)
+        internal static void WallBounce(IBall ball, int width, int height, int error)
         {
 
             double diameter = ball.Radius;
@@ -49,7 +49,7 @@ namespace Logic
             }
         }
 
-        internal void BallBounce(IBall ball, ObservableCollection<IBall> balls)
+        internal static void BallBounce(IBall ball, ObservableCollection<IBall> balls)
         {
             for (int i = 0; i < balls.Count; i++)
             {
@@ -84,7 +84,7 @@ namespace Logic
         }
 
 
-        internal bool DetectCollision(IBall ballI, IBall ballII)
+        internal static bool DetectCollision(IBall ballI, IBall ballII)
         {
             if (ballI == null || ballII == null)
             {
@@ -94,7 +94,7 @@ namespace Logic
             return EuclideanDistance(ballI, ballII) <= (ballI.Radius / 2 + ballII.Radius / 2);
         }
 
-        internal double EuclideanDistance(IBall a, IBall b)
+        internal static double EuclideanDistance(IBall a, IBall b)
         {
             return Math.Sqrt((Math.Pow(a.X + a.Radius / 2 + a.Velocity.X - b.X + b.Radius / 2 + b.Velocity.X, 2)
                 + Math.Pow(a.Y + a.Radius / 2 + a.Velocity.Y - b.Y + b.Radius / 2 + b.Velocity.Y, 2)));

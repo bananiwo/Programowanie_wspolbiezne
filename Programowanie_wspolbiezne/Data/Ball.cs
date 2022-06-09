@@ -62,7 +62,7 @@ namespace Data
             }
         }
 
-        public void Move(double time)
+        private void Move(double time)
         {
             X += Velocity.X * time;
             Y += Velocity.Y * time;

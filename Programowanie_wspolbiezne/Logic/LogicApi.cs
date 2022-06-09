@@ -15,8 +15,6 @@ namespace Logic
         private readonly Mutex mutex = new Mutex();
         private readonly int error = 10;
 
-        private Collisions collisions = new Collisions();
-
         public LogicApi(int width, int height)
         {
             dataLayer = DataAbstractApi.CreateDataApi(width, height);
@@ -74,8 +72,8 @@ namespace Logic
         {
             IBall ball = (IBall)sender;
             mutex.WaitOne();
-            collisions.WallBounce(ball, Width, Height, error);
-            collisions.BallBounce(ball, dataLayer.Balls);
+            Collisions.WallBounce(ball, Width, Height, error);
+            Collisions.BallBounce(ball, dataLayer.Balls);
             mutex.ReleaseMutex();
         }
 
