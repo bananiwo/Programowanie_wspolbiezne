@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -14,13 +15,18 @@ namespace Logic
         private readonly DataAbstractApi dataLayer;
         private readonly Mutex mutex = new Mutex();
         private readonly BallLogger ballLogger = new BallLogger();
+        
         private readonly int error = 10;
+        private readonly Mutex mutexBall = new Mutex();
 
+        private readonly Random random = new Random();
         private Collisions collisions = new Collisions();
+        private ObservableCollection<IBall> balls;
 
         public LogicApi(int width, int height)
         {
             dataLayer = DataAbstractApi.CreateDataApi(width, height);
+            balls = new ObservableCollection<IBall>();
             Width = width;
             Height = height;
 
@@ -31,17 +37,17 @@ namespace Logic
 
         public override void StartSimulating()
         {
-            for (int i = 0; i < dataLayer.GetBallCounter; i++)
+            for (int i = 0; i < GetBallCounter; i++)
             {
-                dataLayer.GetBallAt(i).CreateMovementTask(50);
+                GetBallAt(i).CreateMovementTask(50);
             }
         }
 
         public override void StopSimulating()
         {
-            for (int i = 0; i < dataLayer.GetBallCounter; i++)
+            for (int i = 0; i < GetBallCounter; i++)
             {
-                dataLayer.GetBallAt(i).StopMovement();
+                GetBallAt(i).StopMovement();
 
             }
         }
@@ -49,27 +55,15 @@ namespace Logic
 
         public override IList CreateBalls(int count)
         {
-            int previousCount = dataLayer.GetBallCounter;
-            IList temp = dataLayer.CreateBallsList(count);
-            for (int i = 0; i < dataLayer.GetBallCounter - previousCount; i++)
+            int previousCount = GetBallCounter;
+            IList temp = CreateBallList(count);
+            for (int i = 0; i < GetBallCounter - previousCount; i++)
             {
-                dataLayer.GetBallAt(previousCount + i).PropertyChanged += BallPositionChanged;
+                GetBallAt(previousCount + i).PropertyChanged += BallPositionChanged;
             }
             return temp;
         }
 
-        public override void ClearBalls()
-        {
-            dataLayer.ClearBalls();
-        }
-
-        public override IBall GetBallAt(int index)
-        {
-            return dataLayer.GetBallAt(index);
-        }
-
-
-        public override int GetBallCounter { get => dataLayer.GetBallCounter; }
 
         public override void BallPositionChanged(object sender, PropertyChangedEventArgs args)
         {
@@ -77,8 +71,66 @@ namespace Logic
             mutex.WaitOne();
             ballLogger.EnqueueToLoggingQueue(ball);
             collisions.WallBounce(ball, Width, Height, error);
-            collisions.BallBounce(ball, dataLayer.Balls);
+            collisions.BallBounce(ball, Balls);
             mutex.ReleaseMutex();
+        }
+
+
+
+
+
+        public  ObservableCollection<IBall> Balls => balls;
+
+        public override void ClearBalls()
+        {
+            balls.Clear();
+        }
+
+        private IList CreateBallList(int count)
+        {
+
+            if (count > 0)
+            {
+                int ballsCount = balls.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    mutexBall.WaitOne();
+                    int radius = 20;
+                    IBall ball = DataAbstractApi.CreateBall(i + 1 + ballsCount,
+                        radius,
+                        random.Next(radius, Width - radius),
+                        random.Next(radius, Height - radius),
+                        new System.Numerics.Vector2((float)(random.Next(-10, 10) + random.NextDouble()), (float)(random.Next(-10, 10) + random.NextDouble())));
+
+                    balls.Add(ball);
+                    mutexBall.ReleaseMutex();
+
+                }
+            }
+            if (count < 0)
+            {
+                for (int i = count; i < 0; i++)
+                {
+
+                    if (balls.Count > 0)
+                    {
+                        mutexBall.WaitOne();
+                        balls.Remove(balls[balls.Count - 1]);
+                        mutexBall.ReleaseMutex();
+                    };
+
+                }
+            }
+            return balls;
+        }
+
+        public override int GetBallCounter { get => balls.Count; }
+
+
+
+        public override IBall GetBallAt(int index)
+        {
+            return balls[index];
         }
 
 
