@@ -25,7 +25,7 @@ namespace Data
 
         }
 
-        public ObservableCollection<IBall> Balls => balls;
+        public override ObservableCollection<IBall> Balls => balls;
 
         public override void ClearBalls()
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace Data
 
 
         public abstract IBall GetBallAt(int index);
+        public abstract ObservableCollection<IBall> Balls { get; }
 
         public static DataAbstractApi CreateDataApi(int width, int height)
         {
