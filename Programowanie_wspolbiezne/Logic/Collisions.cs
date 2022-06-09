@@ -13,7 +13,7 @@ namespace Logic
         internal static void WallBounce(IBall ball, int width, int height, int error)
         {
 
-            double diameter = ball.Radius;
+            double diameter = 2* ball.Radius;
             double right = width - diameter;
             double down = height - diameter;
 
