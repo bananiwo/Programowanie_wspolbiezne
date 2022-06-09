@@ -13,11 +13,10 @@ namespace Logic
     internal class LogicApi : LogicAbstractApi
     {
         private readonly DataAbstractApi dataLayer;
-        private readonly BallLogger ballLogger = new BallLogger();
         private readonly Mutex mutex = new Mutex();
         private readonly Mutex mutexBall = new Mutex();
         private readonly Random random = new Random();
-        private readonly int error = 5;
+        private readonly int error = 0;
 
         private ObservableCollection<IBall> balls;
 
@@ -112,11 +111,11 @@ namespace Logic
         {
             IBall ball = (IBall)sender;
             mutex.WaitOne();
-            ballLogger.EnqueueToLoggingQueue(ball);
             Collisions.WallBounce(ball, Width, Height, error);
             Collisions.BallBounce(ball, Balls);
             mutex.ReleaseMutex();
         }
+
 
     }
 }

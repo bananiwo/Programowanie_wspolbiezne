@@ -17,7 +17,7 @@ namespace Logic
             double right = width - diameter;
             double down = height - diameter;
 
-            if (ball.X <= error)
+            if (ball.X < error)
             {
                 if (ball.Velocity.X <= 0)
                 {
@@ -25,14 +25,14 @@ namespace Logic
                 }
             }
 
-            else if (ball.X >= right - error)
+            else if (ball.X > right - error)
             {
                 if (ball.Velocity.X > 0)
                 {
                     ball.Velocity = new System.Numerics.Vector2(-ball.Velocity.X, ball.Velocity.Y);
                 }
             }
-            if (ball.Y <= error)
+            if (ball.Y < error)
             {
                 if (ball.Velocity.Y <= 0)
                 {
@@ -40,7 +40,7 @@ namespace Logic
                 }
             }
 
-            else if (ball.Y >= down - error)
+            else if (ball.Y > down - error)
             {
                 if (ball.Velocity.Y > 0)
                 {

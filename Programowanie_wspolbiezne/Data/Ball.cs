@@ -16,7 +16,8 @@ namespace Data
         private readonly int radius;
         private readonly int id;
         private readonly Stopwatch stopwatch;
-        
+        private readonly BallLogger ballLogger = new BallLogger();
+
         private double x;
         private double y;
         private Vector2 velocity;
@@ -65,6 +66,7 @@ namespace Data
         {
             X += Velocity.X * time;
             Y += Velocity.Y * time;
+            ballLogger.EnqueueToLoggingQueue(this);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
