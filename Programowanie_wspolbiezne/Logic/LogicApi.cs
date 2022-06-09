@@ -13,7 +13,6 @@ namespace Logic
     {
         private readonly DataAbstractApi dataLayer;
         private readonly Mutex mutex = new Mutex();
-        private readonly BallLogger ballLogger = new BallLogger();
         private readonly int error = 10;
 
         private Collisions collisions = new Collisions();
@@ -75,7 +74,6 @@ namespace Logic
         {
             IBall ball = (IBall)sender;
             mutex.WaitOne();
-            ballLogger.EnqueueToLoggingQueue(ball);
             collisions.WallBounce(ball, Width, Height, error);
             collisions.BallBounce(ball, dataLayer.Balls);
             mutex.ReleaseMutex();

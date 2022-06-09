@@ -17,18 +17,20 @@ namespace Data
         private readonly int id;
         private double x;
         private double y;
+        private BallLogger logger;
         private Vector2 velocity;
         private readonly Stopwatch stopwatch;
         private Task task;
         private bool stop = false;
 
-        public Ball(int ballID, int size, double x, double y, Vector2 velocity)
+        public Ball(int ballID, int size, double x, double y, Vector2 velocity, BallLogger ballLogger)
         {
             id = ballID;
             this.radius = size;
             this.x = x;
             this.y = y;
             this.velocity = velocity;
+            this.logger = ballLogger;
             stopwatch = new Stopwatch();
         }
 
@@ -89,6 +91,7 @@ namespace Data
                 if (!stop)
                 {
                     Move((interval - stopwatch.ElapsedMilliseconds) / 16);
+                    logger.EnqueueToLoggingQueue(this);
 
                 }
                 stopwatch.Stop();

@@ -9,8 +9,8 @@ namespace Data
     {
         private ObservableCollection<IBall> balls { get; }
         private readonly Mutex mutex = new Mutex();
-
         private readonly Random random = new Random();
+        private readonly BallLogger ballLogger = new BallLogger();
 
         public override int Width { get; }
         public override int Height { get; }
@@ -46,7 +46,7 @@ namespace Data
                         radius,
                         random.Next(radius, Width - radius),
                         random.Next(radius, Height - radius), 
-                        new System.Numerics.Vector2((float)(random.Next(-10, 10) + random.NextDouble()),(float)(random.Next(-10, 10) + random.NextDouble())));
+                        new System.Numerics.Vector2((float)(random.Next(-10, 10) + random.NextDouble()),(float)(random.Next(-10, 10) + random.NextDouble())), ballLogger);
 
                     balls.Add(ball);
                     mutex.ReleaseMutex();
