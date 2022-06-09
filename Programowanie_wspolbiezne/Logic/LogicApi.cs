@@ -46,18 +46,20 @@ namespace Logic
         }
 
 
-        public override void WallBounce(IBall ball)
+        public override bool WallBounce(IBall ball)
         {
 
             double diameter = ball.Radius;
             double right = Width - diameter;
             double down = Height - diameter;
+            bool isBounce = false;
 
             if (ball.X <= error)
             {
                 if (ball.Velocity.X <= 0)
                 {
                     ball.Velocity = new System.Numerics.Vector2(- ball.Velocity.X, ball.Velocity.Y);
+                    isBounce = true;
                 }
             }
 
@@ -66,6 +68,7 @@ namespace Logic
                 if (ball.Velocity.X > 0)
                 {
                     ball.Velocity = new System.Numerics.Vector2(-ball.Velocity.X, ball.Velocity.Y);
+                    isBounce = true;
                 }
             }
             if (ball.Y <= error)
@@ -73,6 +76,7 @@ namespace Logic
                 if (ball.Velocity.Y <= 0)
                 {
                     ball.Velocity = new System.Numerics.Vector2(ball.Velocity.X, -ball.Velocity.Y);
+                    isBounce = true;
                 }
             }
 
@@ -81,11 +85,13 @@ namespace Logic
                 if (ball.Velocity.Y > 0)
                 {
                     ball.Velocity = new System.Numerics.Vector2(ball.Velocity.X, -ball.Velocity.Y);
+                    isBounce = true;
                 }
             }
+            return isBounce;
         }
 
-        public override void BallBounce(IBall ball)
+        public override bool BallBounce(IBall ball)
         {
             for (int i = 0; i < dataLayer.GetBallCounter; i++)
             {
@@ -113,10 +119,11 @@ namespace Logic
 
                     ball.Velocity = new System.Numerics.Vector2((float)u1x, (float)u1y);
                     secondBall.Velocity = new System.Numerics.Vector2((float)u2x, (float)u2y);
-                    return;
+                    return true;
 
                 }
             }
+            return false;
         }
 
 
@@ -165,9 +172,11 @@ namespace Logic
         {
             IBall ball = (IBall)sender;
             mutex.WaitOne();
-            ballLogger.EnqueueToLoggingQueue(ball);
-            WallBounce(ball);
-            BallBounce(ball);
+
+            if (WallBounce(ball) || BallBounce(ball))
+            {
+                ballLogger.EnqueueToLoggingQueue(ball);
+            }
             mutex.ReleaseMutex();
         }
 
