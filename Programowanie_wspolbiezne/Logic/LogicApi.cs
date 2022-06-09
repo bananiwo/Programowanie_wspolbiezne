@@ -13,14 +13,12 @@ namespace Logic
     internal class LogicApi : LogicAbstractApi
     {
         private readonly DataAbstractApi dataLayer;
-        private readonly Mutex mutex = new Mutex();
         private readonly BallLogger ballLogger = new BallLogger();
-        
-        private readonly int error = 10;
+        private readonly Mutex mutex = new Mutex();
         private readonly Mutex mutexBall = new Mutex();
-
         private readonly Random random = new Random();
-        private Collisions collisions = new Collisions();
+        private readonly int error = 5;
+
         private ObservableCollection<IBall> balls;
 
         public LogicApi(int width, int height)
@@ -35,56 +33,29 @@ namespace Logic
         public override int Width { get; set; }
         public override int Height { get; set; }
 
+        public ObservableCollection<IBall> Balls => balls;
+        public override void ClearBalls() => balls.Clear();
+        public override int GetBallCounter { get => balls.Count; }
+        public override IBall GetBallAt(int index) => balls[index];
+
+
         public override void StartSimulating()
         {
             for (int i = 0; i < GetBallCounter; i++)
             {
-                GetBallAt(i).CreateMovementTask(50);
+                GetBallAt(i).CreateMovementTask(30);
             }
         }
+
 
         public override void StopSimulating()
         {
             for (int i = 0; i < GetBallCounter; i++)
             {
                 GetBallAt(i).StopMovement();
-
             }
         }
 
-
-        public override IList CreateBalls(int count)
-        {
-            int previousCount = GetBallCounter;
-            IList temp = CreateBallList(count);
-            for (int i = 0; i < GetBallCounter - previousCount; i++)
-            {
-                GetBallAt(previousCount + i).PropertyChanged += BallPositionChanged;
-            }
-            return temp;
-        }
-
-
-        public override void BallPositionChanged(object sender, PropertyChangedEventArgs args)
-        {
-            IBall ball = (IBall)sender;
-            mutex.WaitOne();
-            ballLogger.EnqueueToLoggingQueue(ball);
-            collisions.WallBounce(ball, Width, Height, error);
-            collisions.BallBounce(ball, Balls);
-            mutex.ReleaseMutex();
-        }
-
-
-
-
-
-        public  ObservableCollection<IBall> Balls => balls;
-
-        public override void ClearBalls()
-        {
-            balls.Clear();
-        }
 
         private IList CreateBallList(int count)
         {
@@ -124,14 +95,34 @@ namespace Logic
             return balls;
         }
 
-        public override int GetBallCounter { get => balls.Count; }
 
-
-
-        public override IBall GetBallAt(int index)
+        public override IList CreateBalls(int count)
         {
-            return balls[index];
+            int previousCount = GetBallCounter;
+            IList temp = CreateBallList(count);
+            for (int i = 0; i < GetBallCounter - previousCount; i++)
+            {
+                GetBallAt(previousCount + i).PropertyChanged += BallPositionChanged;
+            }
+            return temp;
         }
+
+
+        public override void BallPositionChanged(object sender, PropertyChangedEventArgs args)
+        {
+            IBall ball = (IBall)sender;
+            mutex.WaitOne();
+            ballLogger.EnqueueToLoggingQueue(ball);
+            Collisions.WallBounce(ball, Width, Height, error);
+            Collisions.BallBounce(ball, Balls);
+            mutex.ReleaseMutex();
+        }
+
+
+
+
+
+
 
 
     }
