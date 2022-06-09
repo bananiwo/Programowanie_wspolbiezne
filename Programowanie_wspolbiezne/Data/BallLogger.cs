@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    public class BallLogger
+    internal class BallLogger : BallLoggerApi
     {
         private readonly string path;
-        private Task logTask;
         private readonly ConcurrentQueue<JObject> queue;
         private readonly JArray logArray;
         private readonly Mutex ballsMutex = new Mutex();
         private Mutex fileMutex = new Mutex();
+        private Task logTask;
 
         public BallLogger()
         {
@@ -41,7 +41,7 @@ namespace Data
         }
 
 
-        public void EnqueueToLoggingQueue(IBall ball)
+        public override void EnqueueToLoggingQueue(IBall ball)
         {
             ballsMutex.WaitOne();
             try
@@ -78,7 +78,6 @@ namespace Data
             {
                 fileMutex.ReleaseMutex();
             }
-
         }
     }
 

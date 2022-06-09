@@ -23,5 +23,10 @@ namespace Data
         {
             return new DataApi(width, height);
         }
+
+        public static BallLoggerApi CreateLoggerApi()
+        {
+            return new BallLogger();
+        }
     }
 }
