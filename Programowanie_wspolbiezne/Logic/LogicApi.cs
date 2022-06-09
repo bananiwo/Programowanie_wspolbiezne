@@ -59,9 +59,6 @@ namespace Logic
 
         private IBall GetBallAt(int index) => dataLayer.GetBallAt(index);
 
-
-        private int GetBallCounter { get => dataLayer.GetBallCounter; }
-
         private void BallPositionChanged(object sender, PropertyChangedEventArgs args)
         {
             IBall ball = (IBall)sender;
