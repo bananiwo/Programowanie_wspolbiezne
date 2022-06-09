@@ -17,16 +17,10 @@ namespace Data
         double X { get; }
         double Y { get; }
 
-        void Move(double time);
         void CreateMovementTask(int interval);
-
         void StopMovement();
 
-
-
-
     }
-
     
 }
 

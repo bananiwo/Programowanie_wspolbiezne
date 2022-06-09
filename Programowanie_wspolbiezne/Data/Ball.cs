@@ -15,10 +15,11 @@ namespace Data
     {
         private readonly int radius;
         private readonly int id;
+        private readonly Stopwatch stopwatch;
+        
         private double x;
         private double y;
         private Vector2 velocity;
-        private readonly Stopwatch stopwatch;
         private Task task;
         private bool stop = false;
 
@@ -60,13 +61,11 @@ namespace Data
             }
         }
 
-        public void Move(double time)
+        private void Move(double time)
         {
             X += Velocity.X * time;
             Y += Velocity.Y * time;
         }
-
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 

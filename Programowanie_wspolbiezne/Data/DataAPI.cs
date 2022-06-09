@@ -10,8 +10,6 @@ namespace Data
         public override int Width { get; }
         public override int Height { get; }
 
-
-
         public DataApi(int width, int height)
         {
             Width = width;
