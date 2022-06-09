@@ -56,15 +56,9 @@ namespace Logic
             return temp;
         }
 
-        public override void ClearBalls()
-        {
-            dataLayer.ClearBalls();
-        }
+        public override void ClearBalls() => dataLayer.ClearBalls();
 
-        public override IBall GetBallAt(int index)
-        {
-            return dataLayer.GetBallAt(index);
-        }
+        public override IBall GetBallAt(int index) => dataLayer.GetBallAt(index);
 
 
         public override int GetBallCounter { get => dataLayer.GetBallCounter; }
