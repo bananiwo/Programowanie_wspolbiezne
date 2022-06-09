@@ -19,6 +19,7 @@ namespace Data
         private double y;
         private Vector2 velocity;
         private readonly Stopwatch stopwatch;
+        private readonly BallLogger ballLogger = new BallLogger();
         private Task task;
         private bool stop = false;
 
@@ -64,6 +65,7 @@ namespace Data
         {
             X += Velocity.X * time;
             Y += Velocity.Y * time;
+            ballLogger.EnqueueToLoggingQueue(this);
         }
 
 

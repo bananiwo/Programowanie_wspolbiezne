@@ -17,6 +17,7 @@ namespace Logic
         public abstract int Width { get; set; }
         public abstract int Height { get; set; }
         public abstract IBall GetBallAt(int index);
+        public abstract IList CreateBallsList(int count);
         public abstract void WallBounce(IBall ball);
         public abstract void BallBounce(IBall ball);
         public abstract void BallPositionChanged(object sender, PropertyChangedEventArgs args);
