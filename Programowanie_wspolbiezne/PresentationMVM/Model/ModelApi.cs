@@ -22,22 +22,13 @@ namespace PresentationMVM.Model
             LogicLayer = LogicAbstractApi.CreateLogicApi(width, height);
         }
 
-        public override void StartSimulating()
-        {
-            LogicLayer.StartSimulating();
-        }
+        public override void StartSimulating() => LogicLayer.StartSimulating();
 
 
-        public override void StopSimulating()
-        {
-            LogicLayer.StopSimulating();
-        }
+        public override void StopSimulating() => LogicLayer.StopSimulating();
 
         public override IList Start(int ballVal) => LogicLayer.CreateBalls(ballVal);
 
-        public override void ClearBalls()
-        {
-            LogicLayer.ClearBalls();
-        }
+        public override void ClearBalls() => LogicLayer.ClearBalls();
     }
 }

@@ -35,7 +35,6 @@ namespace PresentationMVM.ViewModel
             get => quantity;
             set
             {
-
                 quantity = value;
                 RaisePropertyChanged();
 
@@ -47,7 +46,6 @@ namespace PresentationMVM.ViewModel
             get => width;
             set
             {
-
                 width = value;
                 RaisePropertyChanged();
             }
@@ -58,17 +56,16 @@ namespace PresentationMVM.ViewModel
             get => height;
             set
             {
-
                 height = value;
                 RaisePropertyChanged();
             }
 
         }
 
-        private void ClearBalls()
-        {
-            ModelLayer.ClearBalls();
-        }
+        private void ClearBalls() => ModelLayer.ClearBalls();
+        private void Stop() => ModelLayer.StopSimulating();
+        private void Start() => ModelLayer.StartSimulating();
+
 
         private void AddBalls()
         {
@@ -76,14 +73,8 @@ namespace PresentationMVM.ViewModel
             Balls = ModelLayer.Start(Quantity);
             Quantity = 1;
         }
-        private void Stop()
-        {
-            ModelLayer.StopSimulating();
-        }
-        private void Start()
-        {
-            ModelLayer.StartSimulating();
-        }
+
+
         public IList Balls
         {
             get => _balls;
