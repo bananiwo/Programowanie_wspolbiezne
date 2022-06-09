@@ -13,8 +13,7 @@ namespace Logic
     {
         private readonly DataAbstractApi dataLayer;
         private readonly Mutex mutex = new Mutex();
-        private readonly int error = 10;
-        private Collisions collisions = new Collisions();
+        private readonly int error = 0;
 
         public LogicApi(int width, int height)
         {
