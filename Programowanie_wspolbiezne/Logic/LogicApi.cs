@@ -35,8 +35,8 @@ namespace Logic
 
         public ObservableCollection<IBall> Balls => balls;
         public override void ClearBalls() => balls.Clear();
-        public override int GetBallCounter { get => balls.Count; }
-        public override IBall GetBallAt(int index) => balls[index];
+        private int GetBallCounter { get => balls.Count; }
+        private IBall GetBallAt(int index) => balls[index];
 
 
         public override void StartSimulating()
