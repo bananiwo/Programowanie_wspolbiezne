@@ -23,21 +23,15 @@ namespace DataTest
         }
 
         [TestMethod]
-        public void TestCreateBallsList()
+        public void TestCreateBall()
         {
             api = DataAbstractApi.CreateDataApi(400, 400);
-            api.CreateBallsList(5);
-            Assert.AreEqual(api.GetBallCounter, 5);
-        }
-
-        [TestMethod]
-        public void TestClearBalls()
-        {
-            api = DataAbstractApi.CreateDataApi(400, 400);
-            api.CreateBallsList(5);
-            Assert.AreEqual(api.GetBallCounter, 5);
-            api.ClearBalls();
-            Assert.AreEqual(api.GetBallCounter, 0);
+            IBall ball = DataAbstractApi.CreateBall(1, 2, 10, 15, new System.Numerics.Vector2(5, 11));
+            Assert.AreEqual(ball.X, 10);
+            Assert.AreEqual(ball.Y, 15);
+            Assert.AreEqual(ball.Velocity, new System.Numerics.Vector2(5, 11));
+            Assert.AreEqual(ball.ID, 1);
+            Assert.AreEqual(ball.Radius, 2);
         }
     }
 }
