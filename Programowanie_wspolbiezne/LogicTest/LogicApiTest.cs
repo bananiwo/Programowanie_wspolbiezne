@@ -18,5 +18,23 @@ namespace LogicTest
             Assert.AreEqual(api.Height, 300);
             Assert.AreEqual(api.Width, 400);
         }
+
+        [TestMethod]
+        public void TestCreateBalls()
+        {
+            api = LogicAbstractApi.CreateLogicApi(400, 300);
+            IList list = api.CreateBalls(4);
+            Assert.AreEqual(list.Count, 4);
+        }
+
+        [TestMethod]
+        public void TestClearBalls()
+        {
+            api = LogicAbstractApi.CreateLogicApi(400, 300);
+            IList list = api.CreateBalls(4);
+            Assert.AreEqual(list.Count, 4);
+            api.ClearBalls();
+            Assert.AreEqual(list.Count, 0);
+        }
     }
 }
